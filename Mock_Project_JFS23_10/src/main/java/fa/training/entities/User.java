@@ -5,4 +5,5 @@ public class User {
 	int locbede1;
 	
 	int tuan;
+	int tuan1;
 }
