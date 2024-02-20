@@ -1,7 +1,6 @@
 package fa.training.entities;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +21,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class UserProduct implements Serializable{
+	/**
+	 * @author 	Nguyen Ngoc Tuan
+	 * @birthDay	01/01/2001
+	 * @file 	UserProduct.java
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_product_id")
@@ -29,7 +35,7 @@ public class UserProduct implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User userId;
+	private Account userId;
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")
@@ -39,5 +45,5 @@ public class UserProduct implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "bill_id")
-	private int billId;
+	private Bill billId;
 }

@@ -21,20 +21,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User {
+public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
 	
-	@NotNull
-	@Column(unique = true)
 	private String username;
 	
-	@NotNull
 	private String password;
 	
-	@NotNull
 	private String email;
 	
 	@Column(name = "full_name")
@@ -47,5 +43,5 @@ public class User {
 	private int role;
 	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-	private  Set<UserProduct> userProducts;
+	private Set<UserProduct> userProducts;
 }
