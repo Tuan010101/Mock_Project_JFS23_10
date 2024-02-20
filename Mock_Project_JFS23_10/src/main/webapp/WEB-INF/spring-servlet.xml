@@ -38,7 +38,7 @@
 		<property name="driverClassName"
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 		<property name="url"
-			value="jdbc:sqlserver://localhost:1433;databaseName=JWD.General" />
+			value="jdbc:sqlserver://localhost:1433;databaseName=Mock23_10" />
 		<property name="username" value="sa" />
 		<property name="password" value="sa" />
 	</bean>
