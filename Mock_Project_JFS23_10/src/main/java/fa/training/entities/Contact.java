@@ -2,14 +2,11 @@ package fa.training.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,31 +18,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User {
+public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
-	private int userId;
-	
-	@NotNull
-	@Column(unique = true)
-	private String username;
-	
-	@NotNull
-	private String password;
-	
-	@NotNull
-	private String email;
+	@Column(name = "contact_id")
+	private int contactId;
 	
 	@Column(name = "full_name")
 	private String fullName;
 	
-	private String address;
+	private String email;
 	
-	private String phoneNumber;
+	private String subject;
 	
-	private int role;
-	
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-	private  Set<UserProduct> userProducts;
+	private String message;
 }

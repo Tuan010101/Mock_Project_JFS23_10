@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,31 +20,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User {
+public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
-	private int userId;
+	@Column(name = "category_id")
+	private int categoryId;
 	
-	@NotNull
-	@Column(unique = true)
-	private String username;
+	@Column(name = "category_name")
+	private String categoryName;
 	
-	@NotNull
-	private String password;
-	
-	@NotNull
-	private String email;
-	
-	@Column(name = "full_name")
-	private String fullName;
-	
-	private String address;
-	
-	private String phoneNumber;
-	
-	private int role;
-	
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-	private  Set<UserProduct> userProducts;
+	@OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL)
+	private Set<Product> products;
 }
