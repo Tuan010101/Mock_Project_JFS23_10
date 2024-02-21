@@ -153,7 +153,7 @@
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-1.jpg" alt="Colorlib Template">
     						<span class="status">30%</span>
     						<div class="overlay"></div>
     					</a>
@@ -182,7 +182,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-2.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -210,7 +210,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-3.jpg" alt="Colorlib Template">
 	    					<div class="overlay"></div>
 	    				</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -238,7 +238,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-4.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -268,7 +268,7 @@
 
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-5.jpg" alt="Colorlib Template">
     						<span class="status">30%</span>
     						<div class="overlay"></div>
     					</a>
@@ -297,7 +297,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-6.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -325,7 +325,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-7.jpg" alt="Colorlib Template">
 	    					<div class="overlay"></div>
 	    				</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -353,7 +353,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-8.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/product-8.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -497,19 +497,19 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-1.png" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="#" class="partner"><img src="${pageContext.request.contextPath}/resources/images/partner-1.png" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="#" class="partner"><img src="${pageContext.request.contextPath}/resources/images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="#" class="partner"><img src="${pageContext.request.contextPath}/resources/images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="#" class="partner"><img src="${pageContext.request.contextPath}/resources/images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="#" class="partner"><img src="${pageContext.request.contextPath}/resources/images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     		</div>
     	</div>
