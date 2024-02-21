@@ -41,7 +41,7 @@
 			value="jdbc:sqlserver://localhost:1433;databaseName=Mock23_10" />
 <!-- 		<property name="username" value="${DB_USERNAME}" /> -->
 		<property name="username" value="sa" />
-		<property name="password" value="sa" />
+		<property name="password" value="123456" />
 	</bean>
 
 	<!-- Step 2: Entity Manager Factory Configuration -->
@@ -58,7 +58,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>

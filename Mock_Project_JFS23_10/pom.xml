@@ -1,10 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>Mock_Project_JFS23_10</groupId>
-  <artifactId>Mock_Project_JFS23_10</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  	<properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Mock_Project_JFS23_10</groupId>
+	<artifactId>Mock_Project_JFS23_10</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<properties>
 		<springframework.version>5.1.5.RELEASE</springframework.version>
 		<hibernate.version>5.4.1.Final</hibernate.version>
 		<mssql.connector.version>9.4.0.jre8</mssql.connector.version>
@@ -13,17 +15,17 @@
 	</properties>
 	<dependencies>
 		<!-- Spring Security -->
-	    <dependency>
-	        <groupId>org.springframework.security</groupId>
-	        <artifactId>spring-security-web</artifactId>
-	        <version>${springframework.version}</version>
-	    </dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		    <version>${springframework.version}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springframework.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -42,7 +44,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-		
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -59,14 +61,14 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-		
+
 		<!-- SQL server -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<version>${mssql.connector.version}</version>
 		</dependency>
-		
+
 		<!-- Servlet JSP JSTL -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -83,7 +85,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- Spring data -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -105,8 +107,15 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>2.1.0.RELEASE</version>
 		</dependency>
+
+		<!-- Mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
