@@ -41,7 +41,7 @@
 			value="jdbc:sqlserver://localhost:1433;databaseName=Mock23_10" />
 <!-- 		<property name="username" value="${DB_USERNAME}" /> -->
 		<property name="username" value="sa" />
-		<property name="password" value="sa" />
+		<property name="password" value="123456aA@$" />
 	</bean>
 
 	<!-- Step 2: Entity Manager Factory Configuration -->

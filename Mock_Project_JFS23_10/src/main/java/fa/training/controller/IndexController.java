@@ -32,4 +32,8 @@ public class IndexController {
 	public String Shop() {
 		return "shop";
 	}
+	@GetMapping("/register")
+	public String Register() {
+		return "register";
+	}
 }
