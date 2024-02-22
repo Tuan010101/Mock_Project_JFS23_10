@@ -32,6 +32,14 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations">
+	        <list>
+	            <value>classpath:application.properties</value> <!-- Đường dẫn đến file cấu hình chứa giá trị của biến môi trường -->
+	        </list>
+	    </property>
+	</bean>
+	
 	<!-- Step 1: Define Database DataSource -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -41,7 +49,7 @@
 			value="jdbc:sqlserver://localhost:1433;databaseName=Mock23_10" />
 <!-- 		<property name="username" value="${DB_USERNAME}" /> -->
 		<property name="username" value="sa" />
-		<property name="password" value="123456" />
+		<property name="password" value="${DB_PASSWORD}" />
 	</bean>
 
 	<!-- Step 2: Entity Manager Factory Configuration -->

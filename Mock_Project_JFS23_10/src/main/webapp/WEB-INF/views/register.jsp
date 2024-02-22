@@ -68,7 +68,7 @@
 	<main class="main-Body">
 		<div class="row p-0 m-0">
 			<div class="col-8 DK-Logo">
-				<a class="text-logo" href="#"> <span class="vegefoods-text">Vegefoods</span>
+				<a class="text-logo" href="${pageContext.request.contextPath}/index"> <span class="vegefoods-text">Vegefoods</span>
 				</a>
 			</div>
 			<div class="col-4 DK-Body ">
@@ -88,9 +88,7 @@
 										<label for="Email">Email</label> <input type="email"
 											class="form-control" id="Email" aria-describedby="emailHelp"
 											placeholder="Enter email"> <small
-											class="form-text text-danger" id="Email-error"></small> <small
-											id="emailHelp" class="form-text text-muted">We'll
-											never share your email with anyone else.</small>
+											class="form-text text-danger" id="Email-error"></small>
 									</div>
 									<div class="form-group">
 										<label for="Password">Password</label> <input type="password"
@@ -107,8 +105,12 @@
 										Up, you agree to our Terms, Privacy Policy and Cookie Policy.
 										You can receive our notifications via email and unsubscribe at
 										any time.</small> <br>
+									<div class="d-flex justify-content-between mb-3">
+										<small>If you have account</small>
+										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
+									</div>
 									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Submit</button>
+										<button id="submit" class="btn btn-success">Register</button>
 									</div>
 								</form>
 							</div>
