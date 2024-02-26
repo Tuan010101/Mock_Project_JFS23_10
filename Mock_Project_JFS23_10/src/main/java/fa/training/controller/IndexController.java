@@ -44,32 +44,6 @@ public class IndexController {
 		return "checkout";
 	}
 
-	@GetMapping("/contact")
-	public String showContact(@ModelAttribute("contact") Contact contact) {
-		return "contact";
-	}
-
-	@PostMapping("/contact")
-	public String addContact(@ModelAttribute("contact") @Valid Contact contact, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("success", "false");
-			return "contact";
-		}
-
-		try {
-			SendMail.sendContact(contact);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-
-		contact.setCreatedDate(LocalDate.now());
-		contactService.save(contact);
-		
-		model.addAttribute("success", "true");
-		model.addAttribute("contact", new Contact());
-		return "contact";
-	}
-
 	@GetMapping("/product-single")
 	public String ProductSingle() {
 		return "product-single";
