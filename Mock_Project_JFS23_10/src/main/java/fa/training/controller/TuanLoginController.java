@@ -71,32 +71,31 @@ public class TuanLoginController {
 		if (result.hasErrors()) {
 			return "register";
 		}
-			AppUser saveAppUser = new AppUser(0, 
-					appUser.getUsername(), 
-					appUser.getPassword(), 
-					passwordEncoder.encode(appUser.getPassword()), 
-					appUser.getEmail(), 
-					null, 
-					null, 
-					null, 
-					0, 
-					null, 
-					null);
-			Role roleUser = new Role(1, "ROLE_USER", null);
-			UserRole userRole = new UserRole(0, roleUser, saveAppUser);
+		
+		AppUser saveAppUser = new AppUser(0, 
+				appUser.getUsername(), 
+				appUser.getPassword(), 
+				passwordEncoder.encode(appUser.getPassword()), 
+				appUser.getEmail(), 
+				null, 
+				null, 
+				null, 
+				0, 
+				null, 
+				null);
+		Role roleUser = new Role(1, "ROLE_USER", null);
+		UserRole userRole = new UserRole(0, roleUser, saveAppUser);
 
-			appUserService.save(saveAppUser);
-			userRoleService.save(userRole);
+		appUserService.save(saveAppUser);
+		userRoleService.save(userRole);
+		
+		// Tạo một đối tượng Authentication cho người dùng mới đăng ký
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword());
+		// Xác thực thông tin đăng nhập của người dùng
+		Authentication authentication = authenticationManager.authenticate(authenticationToken);
+		// Nếu xác thực thành công, đặt Authentication vào SecurityContext
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 			
-			// Tạo một đối tượng Authentication cho người dùng mới đăng ký
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword());
-			// Xác thực thông tin đăng nhập của người dùng
-			Authentication authentication = authenticationManager.authenticate(authenticationToken);
-			// Nếu xác thực thành công, đặt Authentication vào SecurityContext
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			
-		String message = "";
-		model.addAttribute("message", message);
 		return "index";
 	}
 }

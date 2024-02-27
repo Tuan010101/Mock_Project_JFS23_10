@@ -244,12 +244,12 @@
 	        const rePassword = $(this.rePassword).val();
 	        const rePasswordElement = $(this.rePassword);
 	
-	        if(username){
+	        if(username && username.match(/.{6,}/)){
 	            hideError(usernameElement);
 	        } else {
 	        	usernameElement.next(".text-danger").remove();
 	        	usernameElement.parent().append(`
-		          <div class="text-danger">Can not be empty</div>
+		          <div class="text-danger">The account must be at least 6 characters long</div>
 		        `);
 	        }
 	        

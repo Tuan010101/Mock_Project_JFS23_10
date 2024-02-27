@@ -20,6 +20,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class UserRole implements Serializable{
+	/**
+	 * @author 	Nguyen Ngoc Tuan
+	 * @birthDay	01/01/2001
+	 * @file 	UserRole.java
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userRoleId;

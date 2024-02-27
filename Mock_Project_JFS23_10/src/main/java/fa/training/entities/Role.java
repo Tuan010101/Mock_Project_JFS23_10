@@ -1,6 +1,5 @@
 package fa.training.entities;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

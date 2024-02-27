@@ -191,8 +191,8 @@
 											class="form-control" id="Password" placeholder="Password">
 									</div>
 									<div class="form-group form-check">
-										<input name="checkbox" value="checkbox" type="checkbox" class="form-check-input" id="checkbox">
-										<label class="form-check-label" for="checkbox" style="font-size: 14px;">Remember Password</label>
+										<input name="remember-me" type="checkbox" class="form-check-input">
+										<label class="form-check-label" for="checkbox" style="font-size: 14px;">Remember Me</label>
 									</div>
 									<div class="d-flex justify-content-between mb-3">
 										<a class="text-muted" href="${pageContext.request.contextPath}/forgot-password"><small>Forgot password</small></a>

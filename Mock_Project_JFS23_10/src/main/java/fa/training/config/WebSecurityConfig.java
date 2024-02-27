@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		//phân quyền
 		.authorizeRequests()
-		.antMatchers("/", "/index", "/about", "/cart", "/contact", "/login", "/register", "/forgot-password").permitAll()
+		.antMatchers("/", "/index", "/shop", "/about", "/cart", "/contact", "/login", "/register", "/forgot-password").permitAll()
 		//chứng thực
 		.anyRequest().authenticated();
 		
@@ -49,7 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.passwordParameter("password")
 		// Config for Logout Page
 		.and().logout().logoutUrl("/logout")
-		.logoutSuccessUrl("/login");;
+		.logoutSuccessUrl("/login")
+		.and()
+        .rememberMe().rememberMeParameter("remember-me").tokenValiditySeconds(10)
+        ;
 	}
 	
 	@Override
