@@ -31,11 +31,11 @@ public class UserProduct implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_product_id")
-	int userProductId;
+	private int userProductId;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private Account userId;
+	private AppUser userId;
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")

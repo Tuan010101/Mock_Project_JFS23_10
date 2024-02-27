@@ -1,5 +1,6 @@
 package fa.training.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 @Controller
@@ -16,6 +17,7 @@ public class IndexController {
 	public String Cart() {
 		return "cart";
 	}
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/checkout")
 	public String Checkout() {
 		return "checkout";
@@ -32,8 +34,5 @@ public class IndexController {
 	public String Shop() {
 		return "shop";
 	}
-	@GetMapping("/register")
-	public String Register() {
-		return "register";
-	}
+	
 }

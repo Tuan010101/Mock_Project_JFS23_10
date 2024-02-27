@@ -22,111 +22,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 
-<!-- <link rel="stylesheet" href="../Common/boostrap/bootstrap.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/all.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/brands.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/regular.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/solid.min.css">
-<link rel="stylesheet" href="../CSS/style.css"> -->
-</head>
-
-<body>
-	<header class = "sticky-header">
-		<div class="header-background">
-			<div class="py-1 d-flex justify-content-between">
-				<div class="container">
-					<div
-						class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-						<div class="col-lg-12 d-block">
-							<div class="row d-flex ju">
-								<div class="col-md pr-4 d-flex topper align-items-center">
-									<div class="icon mr-2">
-										<i class="fa-solid fa-phone"></i>
-									</div>
-									<span class="text">+ 1235 2355 98</span>
-								</div>
-								<div
-									class="col-md pr-4 d-flex topper justify-content-center align-items-center">
-									<div
-										class="icon mr-2 d-flex justify-content-center align-items-center">
-										<i class="fa-solid fa-paper-plane"></i>
-									</div>
-									<span class="text">youremail@email.com</span>
-								</div>
-								<div
-									class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
-									<span class="text">3-5 Business days delivery & Free
-										Returns</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-	<main class="main-Body">
-		<div class="row p-0 m-0">
-			<div class="col-8 DK-Logo">
-				<a class="text-logo" href="${pageContext.request.contextPath}/index"> <span class="vegefoods-text">Vegefoods</span>
-				</a>
-			</div>
-			<div class="col-4 DK-Body ">
-				<div>
-					<div class="DK-Content">
-						<div class="card">
-							<div class="card-body" style="width: 100%;">
-								<form action="">
-									<h3 class="text-center">Login</h3>
-									<div class="form-group">
-										<label for="UserName">UserName</label> 
-										<input type="text"
-											class="form-control" id="UserName"
-											aria-describedby="UserNameHelp" placeholder="Enter userName">
-										<small class="form-text text-danger" id="UserName-error"></small>
-									</div>
-									<div class="form-group">
-										<label for="Password">Password</label> 
-										<input type="password"
-											class="form-control" id="Password" placeholder="Password">
-										<small class="form-text text-danger" id="Password-error"></small>
-									</div>
-									<div class="form-group form-check">
-										<input type="checkbox" class="form-check-input" id="exampleCheck1">
-										<label class="form-check-label" for="exampleCheck1">Check me out</label>
-									</div>
-									<div class="d-flex justify-content-between mb-3">
-										<a class="text-muted" href="${pageContext.request.contextPath}/forgot-password"><small>Forgot password</small></a>
-										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
-									</div>
-									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Login</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
-
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-	<!-- <script src="../Common/fontAwesome/all.min.js"></script>
-	<script src="../Common/fontAwesome/brands.min.js"></script>
-	<script src="../Common/fontAwesome/regular.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.min.js"></script>
-	<script src="../Common/boostrap/jquery-3.5.1.slim.min.js"></script>
-	<script src="../Common/boostrap/popper.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.bundle.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.min.js"></script>
-	<script src="../Common/jquery/jquery.min.js"></script>
-	<script src="../JS/validation.js"></script>
-	<script src="../JS/scr.js"></script> -->
-	<style>
+<style>
 		:root {
 			--primary-color: #82ae46;
 			--text-color: #f8f9fa;
@@ -234,5 +130,135 @@
 			color: var(--text-color);
 		}
 	</style>
+</head>
+
+<body>
+	<header class = "sticky-header">
+		<div class="header-background">
+			<div class="py-1 d-flex justify-content-between">
+				<div class="container">
+					<div
+						class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+						<div class="col-lg-12 d-block">
+							<div class="row d-flex ju">
+								<div class="col-md pr-4 d-flex topper align-items-center">
+									<div class="icon mr-2">
+										<i class="fa-solid fa-phone"></i>
+									</div>
+									<span class="text">+ 1235 2355 98</span>
+								</div>
+								<div
+									class="col-md pr-4 d-flex topper justify-content-center align-items-center">
+									<div
+										class="icon mr-2 d-flex justify-content-center align-items-center">
+										<i class="fa-solid fa-paper-plane"></i>
+									</div>
+									<span class="text">youremail@email.com</span>
+								</div>
+								<div
+									class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
+									<span class="text">3-5 Business days delivery & Free
+										Returns</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main class="main-Body">
+		<div class="row p-0 m-0">
+			<div class="col-8 DK-Logo">
+				<a class="text-logo" href="${pageContext.request.contextPath}/index"> <span class="vegefoods-text">Vegefoods</span>
+				</a>
+			</div>
+			<div class="col-4 DK-Body ">
+				<div>
+					<div class="DK-Content">
+						<div class="card">
+							<div class="card-body" style="width: 100%;">
+								<form id="inforForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+									<h3 class="text-center">Login</h3>
+									<div class="form-group">
+										<label for="UserName">UserName</label> 
+										<input name="username" type="text"
+											class="form-control" id="UserName" placeholder="UserName">
+									</div>
+									<div class="form-group">
+										<label for="Password">Password</label> 
+										<input name="password" type="password"
+											class="form-control" id="Password" placeholder="Password">
+									</div>
+									<div class="form-group form-check">
+										<input name="checkbox" value="checkbox" type="checkbox" class="form-check-input" id="checkbox">
+										<label class="form-check-label" for="checkbox" style="font-size: 14px;">Remember Password</label>
+									</div>
+									<div class="d-flex justify-content-between mb-3">
+										<a class="text-muted" href="${pageContext.request.contextPath}/forgot-password"><small>Forgot password</small></a>
+										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
+									</div>
+									<div class="d-flex justify-content-center">
+										<button type="submit" id="submit" class="btn btn-success">Login</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+	<script>
+		function hideError(element) {
+	        element.next(".text-danger").remove();
+	    }
+	
+	    function submit(e) {
+	        e.preventDefault();
+	        
+	        const username = $(this.username).val();
+	        const usernameElement = $(this.username);
+	        
+	        const password = $(this.password).val();
+	        const passwordElement = $(this.password);
+	        
+	        const checkbox = $(".type:checked").val();
+	        const checkboxElement = $(".type:checked");
+	
+	        if(username){
+	            hideError(usernameElement);
+	        } else {
+	        	usernameElement.next(".text-danger").remove();
+	        	usernameElement.parent().append(`
+		          <div class="text-danger">Can not be empty</div>
+		        `);
+	        }
+	        
+	        if(password){
+	            hideError(passwordElement);
+	        } else {
+	        	passwordElement.next(".text-danger").remove();
+	        	passwordElement.parent().append(`
+		          <div class="text-danger">Can not be empty</div>
+		        `);
+	        }
+	
+	        const isInvalid = !!$(".text-danger").length;
+	      
+	        if (isInvalid) {
+	          return;
+	        }
+	        $(this).unbind('submit').submit();
+	    }
+	    $(document).ready(function(){
+	        $("#inforForm").on("submit", submit);
+	    })
+	</script>	
 </body>
 </html>

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
@@ -65,11 +68,20 @@
 	          <li class="nav-item"><a href="${pageContext.request.contextPath}/about" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a></li>
 	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-				<li class="nav-item d-flex">
+			  <c:if test="${pageContext.request.userPrincipal.name == null}">
+				  <li class="nav-item d-flex">
 					<a href="${pageContext.request.contextPath}/login" class="nav-link pr-0">Login</a>
 					<div class="nav-link pr-1 pl-1">|</div>
 					<a href="${pageContext.request.contextPath}/register" class="nav-link pl-0">Register</a>
-				</li>
+				  </li>
+			  </c:if>
+			  <c:if test="${pageContext.request.userPrincipal.name != null}">
+			     <li class="nav-item d-flex">
+					<span href="${pageContext.request.contextPath}/login" class="nav-link pr-0">${pageContext.request.userPrincipal.name }</span>
+					<div class="nav-link pr-1 pl-1">|</div>
+					<a href="${pageContext.request.contextPath}/logout" class="nav-link pl-0">Logout</a>
+				  </li>
+			  </c:if>
 	        </ul>
 	      </div>
 	    </div>
