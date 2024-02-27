@@ -114,3 +114,4 @@ buildNumber.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,eclipse
 1
+Mock_Project_JFS23_10/src/main/resources/application.properties
