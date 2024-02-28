@@ -83,8 +83,7 @@
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
 
-	<jpa:repositories
-		base-package="fa.training.repository"></jpa:repositories>
+	<jpa:repositories base-package="fa.training.repository"></jpa:repositories>
 
 	<!-- Add support for reading web resources: css, images, js, etc ... -->
 	<!-- /resource/css/list.css -> /assets/css/list.css -->

@@ -1,5 +1,5 @@
 package fa.training.service;
 
-public interface UserService {
+public interface RoleService {
 
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import fa.training.common.SendMail;
 import fa.training.entities.Contact;
 import fa.training.service.ContactService;
-import javassist.expr.NewArray;
 
 @Controller
 public class IndexController {
@@ -52,10 +51,5 @@ public class IndexController {
 	@GetMapping("/shop")
 	public String Shop() {
 		return "shop";
-	}
-
-	@GetMapping("/register")
-	public String Register() {
-		return "register";
 	}
 }

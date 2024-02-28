@@ -22,12 +22,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 
-<!-- <link rel="stylesheet" href="../Common/boostrap/bootstrap.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/all.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/brands.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/regular.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/solid.min.css">
-<link rel="stylesheet" href="../CSS/style.css"> -->
 <style>
 		:root {
 			--primary-color: #82ae46;
@@ -242,16 +236,16 @@
 										<button id="submit" class="btn btn-success">Submit</button>
 									</div>
 								</form>
-								<form action="">
+								<form id="inforForm" action="">
 									<h3 class="text-center">Forgot Password 4</h3>
 									<div class="form-group">
 										<label for="Password">Password</label> 
-										<input type="password"
+										<input name="password" type="password"
 											class="form-control" id="Password" placeholder="Password">
 									</div>
 									<div class="form-group">
 										<label for="Re-Password">Re-Password</label> 
-										<input type="password"
+										<input name="repassword" type="password"
 											class="form-control" id="Re-Password" placeholder="Re-Password">
 									</div>
 									<div class="d-flex justify-content-between mb-3">
@@ -259,7 +253,7 @@
 										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Submit</button>
+										<button type="submit" id="submit" class="btn btn-success">Submit</button>
 									</div>
 								</form>
 							</div>
@@ -274,17 +268,6 @@
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-	<!-- <script src="../Common/fontAwesome/all.min.js"></script>
-	<script src="../Common/fontAwesome/brands.min.js"></script>
-	<script src="../Common/fontAwesome/regular.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.min.js"></script>
-	<script src="../Common/boostrap/jquery-3.5.1.slim.min.js"></script>
-	<script src="../Common/boostrap/popper.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.bundle.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.min.js"></script>
-	<script src="../Common/jquery/jquery.min.js"></script>
-	<script src="../JS/validation.js"></script>
-	<script src="../JS/scr.js"></script> -->
 	<script>
 	    function countdown() {
 	      var count = 60;
@@ -304,6 +287,65 @@
 	        }
 	      }, 1000);
 	    }
+	    
+	    function hideError(element) {
+	        element.next(".text-danger").remove();
+	    }
+	
+	    function submit(e) {
+	        e.preventDefault();
+	        
+	        const username = $(this.username).val();
+	        const usernameElement = $(this.username);
+	        
+	        const email = $(this.email).val();
+	        const emailElement = $(this.email);
+	        
+	        const password = $(this.password).val();
+	        const passwordElement = $(this.password);
+	        
+	        const repassword = $(this.repassword).val();
+	        const repasswordElement = $(this.repassword);
+	        
+	        const checkbox = $(".type:checked").val();
+	        const checkboxElement = $(".type:checked");
+	
+	        if(username){
+	            hideError(usernameElement);
+	        } else {
+	        	usernameElement.next(".text-danger").remove();
+	        	usernameElement.parent().append(`
+		          <div class="text-danger">Không được để trống</div>
+		        `);
+	        }
+	        
+	        if(password){
+	            hideError(passwordElement);
+	        } else {
+	        	passwordElement.next(".text-danger").remove();
+	        	passwordElement.parent().append(`
+		          <div class="text-danger">Không được để trống</div>
+		        `);
+	        }
+		
+	        if(repassword){
+	            hideError(repasswordElement);
+	        } else {
+	        	repasswordElement.next(".text-danger").remove();
+	        	repasswordElement.parent().append(`
+		          <div class="text-danger">Không được để trống</div>
+		        `);
+	        }
+	        const isInvalid = !!$(".text-danger").length;
+	      
+	        if (isInvalid) {
+	          return;
+	        }
+			this.submit();
+	    }
+	    $(document).ready(function(){
+	        $("#inforForm").on("submit", submit);
+	    })
   	</script>
 </body>
 </html>
