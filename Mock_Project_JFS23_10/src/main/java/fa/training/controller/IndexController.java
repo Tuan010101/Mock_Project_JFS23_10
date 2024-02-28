@@ -12,10 +12,10 @@ public class IndexController {
 	public String About() {
 		return "about";
 	}
-	@GetMapping("/cart")
-	public String Cart() {
-		return "cart";
-	}
+//	@GetMapping("/cart")
+//	public String Cart() {
+//		return "cart";
+//	}
 	@GetMapping("/checkout")
 	public String Checkout() {
 		return "checkout";

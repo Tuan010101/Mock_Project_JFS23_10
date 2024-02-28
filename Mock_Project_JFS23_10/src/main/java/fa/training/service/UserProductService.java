@@ -1,5 +1,12 @@
 package fa.training.service;
 
-public interface UserProductService {
 
+import java.util.List;
+
+import fa.training.entities.UserProduct;
+
+
+public interface UserProductService {
+	
+	public List<UserProduct> findAll();
 }

@@ -20,8 +20,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    
   </head>
 <body class="goto-here">
+<i class="ionicons ion-android-done"></i>
 	<div class="py-1 bg-primary">
     	<div class="container">
     		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
