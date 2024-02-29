@@ -49,6 +49,9 @@ public class AppUser {
 	
 	private int status;
 	
+	@Column(name = "verify_code")
+	private String verifyCode;
+	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
 	private Set<UserProduct> userProducts;
 	

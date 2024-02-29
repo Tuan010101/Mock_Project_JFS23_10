@@ -8,4 +8,10 @@ public interface AppUserService {
 	boolean existsByEmail(String email);
 
 	void save(AppUser saveAppUser);
+
+	boolean existsByEmailAndStatus(String email, int i);
+
+	AppUser findByUsername(String name);
+
+	AppUser findByEmail(String email);
 }

@@ -1,5 +1,8 @@
 package fa.training.controller;
 
+import java.security.Principal;
+import java.util.Random;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import fa.training.entities.AppUser;
 import fa.training.entities.Role;
 import fa.training.entities.UserRole;
+import fa.training.form.ForgotPasswordForm;
 import fa.training.service.AppUserService;
 import fa.training.service.RoleService;
 import fa.training.service.UserRoleService;
@@ -45,7 +49,67 @@ public class TuanLoginController {
 		return "login";
 	}
 	@GetMapping("/forgot-password")
-	public String ForgotPassword() {
+	public String ForgotPassword(@ModelAttribute("forgotPasswordForm") ForgotPasswordForm forgotPasswordForm, Model model) {
+		String sendCode = "notyet";
+		model.addAttribute("sendCode", sendCode);
+		return "forgot-password";
+	}
+	
+	@PostMapping("/forgot-password")
+	public String ExistUserEmail(@ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm, BindingResult result, Model model) {
+		if (!appUserService.existsByEmailAndStatus(forgotPasswordForm.getEmail(), 1)) {
+			result.rejectValue("email", null, "Email has not been activated or not exists");
+		}
+		if (result.hasErrors()) {
+			String sendCode = "notyet";
+			model.addAttribute("sendCode", sendCode);
+			return "forgot-password";
+		}
+		
+		//Create verifyCode
+        Random random = new Random();
+        int randomNumber = random.nextInt(900000) + 100000;
+        String verifyCode = Integer.toString(randomNumber);
+        AppUser appUser = appUserService.findByEmail(forgotPasswordForm.getEmail());
+        appUser.setVerifyCode(verifyCode);
+        appUserService.save(appUser);
+        
+        String message = "We have sent the verification code to your email. Please check your email";
+		String sendCode = "done";
+		model.addAttribute("sendCode", sendCode);
+		model.addAttribute("message", message);
+		return "forgot-password";
+	}
+	
+	@PostMapping("/forgot-password/check-verifycode")
+	public String CheckVerifyCodeFromEmail(@ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm, BindingResult result, Model model) {
+		if (!appUserService.existsByEmailAndStatus(forgotPasswordForm.getEmail(), 1)) {
+			result.rejectValue("email", null, "Email has not been activated or not exists");
+		}
+		if (result.hasErrors()) {
+			String sendCode = "notyet";
+			model.addAttribute("sendCode", sendCode);
+			return "forgot-password";
+		}
+		
+		//Check verifyCode
+		AppUser appUser = appUserService.findByEmail(forgotPasswordForm.getEmail());
+		if (appUser.getVerifyCode().equals(forgotPasswordForm.getVerifyCode()) && appUser.getVerifyCode() != null && !appUser.getVerifyCode().isEmpty()) {
+			Random random = new Random();
+	        int randomNumber = random.nextInt(900000) + 100000;
+	        String password = Integer.toString(randomNumber);
+	        appUser.setPassword(password);
+	        appUser.setEncryptedPassword(passwordEncoder.encode(password));
+	        appUserService.save(appUser);
+	        String message = "Verify success. We have sent username and password to your email. Please check your email";
+	        model.addAttribute("message", message);
+		} else {
+			String message = "Verification code is incorrect. Please check the verification code carefully";
+			model.addAttribute("message", message);
+		}
+		
+		String sendCode = "done";
+		model.addAttribute("sendCode", sendCode);
 		return "forgot-password";
 	}
 	
@@ -82,6 +146,7 @@ public class TuanLoginController {
 				null, 
 				0, 
 				null, 
+				null,
 				null);
 		Role roleUser = new Role(1, "ROLE_USER", null);
 		UserRole userRole = new UserRole(0, roleUser, saveAppUser);
@@ -98,4 +163,6 @@ public class TuanLoginController {
 			
 		return "index";
 	}
+	
+	
 }
