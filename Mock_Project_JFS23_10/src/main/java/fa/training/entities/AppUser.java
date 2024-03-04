@@ -50,11 +50,11 @@ public class AppUser {
 	private String phoneNumber;
 
 	private int status;
-	
+
 	@Column(name = "verify_code")
 	private String verifyCode;
-	
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserProduct> userProducts;
 
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
