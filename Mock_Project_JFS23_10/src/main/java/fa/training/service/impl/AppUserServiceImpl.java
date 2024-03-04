@@ -33,4 +33,14 @@ public class AppUserServiceImpl implements AppUserService {
 		return appUserRepository.existsByEmail(email);
 	}
 
+	@Override
+	public boolean existsByEmailAndStatus(String email, int i) {
+		return appUserRepository.existsByEmailAndStatus(email, i);
+	}
+
+	@Override
+	public AppUser findByEmail(String email) {
+		return appUserRepository.findByEmail(email);
+	}
+
 }
