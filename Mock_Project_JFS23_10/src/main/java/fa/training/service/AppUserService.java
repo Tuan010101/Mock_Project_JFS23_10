@@ -12,4 +12,7 @@ public interface AppUserService {
 
 	void save(AppUser saveAppUser);
 
+	boolean existsByEmailAndStatus(String email, int i);
+
+	AppUser findByEmail(String email);
 }
