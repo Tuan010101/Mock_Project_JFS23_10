@@ -38,11 +38,6 @@ public class IndexController {
 		return "cart";
 	}
 
-	@GetMapping("/checkout")
-	public String Checkout() {
-		return "checkout";
-	}
-
 	@GetMapping("/product-single")
 	public String ProductSingle() {
 		return "product-single";
