@@ -21,6 +21,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
+
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customeMOCK.css">
 </head>
 

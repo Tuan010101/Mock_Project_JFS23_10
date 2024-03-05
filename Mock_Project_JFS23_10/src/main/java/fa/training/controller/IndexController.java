@@ -75,10 +75,10 @@ public class IndexController {
 		return "product-single";
 	}
 
-	@GetMapping("/shop")
-	public String Shop() {
-		return "shop";
-	}
+//	@GetMapping("/shop")
+//	public String Shop() {
+//		return "shop";
+//	}
 
 	@GetMapping("/register")
 	public String Register() {

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,15 @@ public class Product {
 	@Column(name = "product_name")
 	private String productName;
 	
+	private String image;
+	
+	@Transient
+	public String getImagePath() {
+		if(image == null) return null;
+		
+		return "/product-image/" + productId + "/" +image;
+	}
+	
 	private String description;
 	
 	private float price;
@@ -39,7 +49,7 @@ public class Product {
 	private int quantity;
 	
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id",referencedColumnName = "category_id")
 	private Category categoryId;
 	
 	private int discount;
