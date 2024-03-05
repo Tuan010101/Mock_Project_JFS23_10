@@ -2,7 +2,6 @@ package fa.training.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,30 +19,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class UserProduct implements Serializable{
+public class UserRole implements Serializable{
 	/**
 	 * @author 	Nguyen Ngoc Tuan
 	 * @birthDay	01/01/2001
-	 * @file 	UserProduct.java
+	 * @file 	UserRole.java
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_product_id")
-	private int userProductId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userRoleId;
+	
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role roleId;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private AppUser userId;
-	
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product productId;
-	
-	private int quantity;
-	
-	@ManyToOne
-	@JoinColumn(name = "bill_id")
-	private Bill billId;
 }

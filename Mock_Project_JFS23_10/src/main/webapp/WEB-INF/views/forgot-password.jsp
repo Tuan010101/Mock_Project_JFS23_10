@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +24,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 
-<!-- <link rel="stylesheet" href="../Common/boostrap/bootstrap.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/all.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/brands.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/regular.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/solid.min.css">
-<link rel="stylesheet" href="../CSS/style.css"> -->
 <style>
 		:root {
 			--primary-color: #82ae46;
@@ -184,84 +180,59 @@
 					<div class="DK-Content">
 						<div class="card">
 							<div class="card-body" style="width: 100%;">
-								<form action="">
-									<h3 class="text-center">Forgot Password 1</h3>
-									<div class="form-group">
-										<label for="UserName">UserName</label>
-										<input type="text"
-											class="form-control" id="UserName"
-											aria-describedby="UserNameHelp" placeholder="Enter userName">
-										<small class="form-text text-danger" id="UserName-error"></small>
-									</div>
-									<div class="d-flex justify-content-between mb-3">
-										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
-										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
-									</div>
-									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Submit</button>
-									</div>
-								</form>
-								<form action="">
-									<h3 class="text-center">Forgot Password 2</h3>
-									<div class="form-group">
-										<label for="Email">Email</label> 
-										<div class="input-group mb-2">
-											<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
-											<div class="input-group-prepend">
-												<button type="submit" class="btn btn-secondary input-group-text">Send</button>
+								<c:if test="${sendCode == 'notyet' }">
+									<form:form id="inforForm" action="${pageContext.request.contextPath}/forgot-password" method="post" modelAttribute="forgotPasswordForm">
+										<h3 class="text-center">Forgot Password 2</h3>
+										<div class="form-group">
+											<label for="Email">Please enter email to go to the next step</label> 
+											<div class="input-group mb-2">
+												<form:input path="email" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Email"/>
+												<div class="input-group-prepend">
+													<button type="submit" class="btn btn-secondary input-group-text">Send</button>
+												</div>
 											</div>
+											<form:errors path="email" class="text-danger"></form:errors>
 										</div>
-									</div>
-									<div class="d-flex justify-content-between mb-3">
-										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
-										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
-									</div>
-								</form>
-								<form action="">
-									<h3 class="text-center">Forgot Password 3</h3>
-									<div class="form-group">
-										<label for="Email">Email</label> 
-										<div class="input-group mb-2">
-											<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
-											<div class="input-group-prepend">
-												<button id="resend" type="submit" class="btn btn-secondary input-group-text">Resend <div class="countdown pl-1" id="countdown">60</div></button>
+										<div class="d-flex justify-content-between mb-3">
+											<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
+											<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
+										</div>
+									</form:form>
+								</c:if>
+								<c:if test="${sendCode == 'done' }">
+									<div>
+										<h3 class="text-center">Forgot Password 3</h3>
+										<c:if test="${message != null }">
+											<div class="alert alert-secondary" role="alert">
+												${message}
 											</div>
+										</c:if>
+										<div class="form-group">
+											<label for="Email">Email</label> 
+											<form:form id="inforForm" action="${pageContext.request.contextPath}/forgot-password" method="post" modelAttribute="forgotPasswordForm" class="input-group mb-2">
+												<form:input path="email" readonly="true" type="text" class="form-control" placeholder="Email"/>
+												<div class="input-group-prepend">
+													<button type="submit" id="resend" class="btn btn-secondary input-group-text rounded-right">Resend <div class="countdown pl-1" id="countdown">60</div></button>
+												</div>
+											</form:form>
 										</div>
+										<form:form id="forgotPasswordForm" action="${pageContext.request.contextPath}/forgot-password/check-verifycode" method="post" modelAttribute="forgotPasswordForm">
+											<form:input path="email" type="hidden" class="form-control"/>
+											<div class="form-group">
+												<label for="verifyCode">Code</label> 
+												<form:input path="verifyCode" type="text" class="form-control"/>
+												<form:errors path="verifyCode" class="text-danger"></form:errors>
+											</div>
+											<div class="d-flex justify-content-between mb-3">
+												<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
+												<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
+											</div>
+											<div class="d-flex justify-content-center">
+												<button type="submit" id="submit" class="btn btn-success">Submit</button>
+											</div>
+										</form:form>
 									</div>
-									<div class="form-group">
-										<label for="Email">Code</label> 
-										<div class="input-group mb-2">
-											<input type="text" class="form-control" id="inlineFormInputGroup">
-										</div>
-									</div>
-									<div class="d-flex justify-content-between mb-3">
-										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
-										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
-									</div>
-									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Submit</button>
-									</div>
-								</form>
-								<form action="">
-									<h3 class="text-center">Forgot Password 4</h3>
-									<div class="form-group">
-										<label for="Password">Password</label> 
-										<input type="password"
-											class="form-control" id="Password" placeholder="Password">
-									</div>
-									<div class="form-group">
-										<label for="Re-Password">Re-Password</label> 
-										<input type="password"
-											class="form-control" id="Re-Password" placeholder="Re-Password">
-									</div>
-									<div class="d-flex justify-content-between mb-3">
-										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
-										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
-									</div>
-									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Submit</button>
-									</div>
-								</form>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -274,17 +245,6 @@
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-	<!-- <script src="../Common/fontAwesome/all.min.js"></script>
-	<script src="../Common/fontAwesome/brands.min.js"></script>
-	<script src="../Common/fontAwesome/regular.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.min.js"></script>
-	<script src="../Common/boostrap/jquery-3.5.1.slim.min.js"></script>
-	<script src="../Common/boostrap/popper.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.bundle.min.js"></script>
-	<script src="../Common/boostrap/bootstrap.min.js"></script>
-	<script src="../Common/jquery/jquery.min.js"></script>
-	<script src="../JS/validation.js"></script>
-	<script src="../JS/scr.js"></script> -->
 	<script>
 	    function countdown() {
 	      var count = 60;
@@ -304,6 +264,79 @@
 	        }
 	      }, 1000);
 	    }
+	    
+	    function hideError(element) {
+	        element.parent().next(".text-danger").remove();
+	    }
+	    
+	    function hideErrorForm(element) {
+	        element.next(".text-danger").remove();
+	    }
+	
+	    function submit(e) {
+	        e.preventDefault();
+
+	        const email = $(this.email).val();
+	        const emailElement = $(this.email);
+
+	        if(email && email.match(/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+	            hideError(emailElement);
+	        } else {
+	        	emailElement.parent().next(".text-danger").remove();
+	        	emailElement.parent().parent().append(`
+		          <div class="text-danger">Incorrect email format</div>
+		        `);
+	        }
+	        
+	        const isInvalid = !!$(".text-danger").length;
+	      
+	        if (isInvalid) {
+	          return;
+	        }
+	        console.log(this);
+			this.submit();
+	    }
+	    
+	    function submitForm(e) {
+	        e.preventDefault();
+
+	        const email = $(this.email).val();
+	        const emailElement = $(this.email);
+	        
+	        const verifyCode = $(this.verifyCode).val();
+	        const verifyCodeElement = $(this.verifyCode);
+
+	        if(verifyCode) {
+	            hideErrorForm(verifyCodeElement);
+	        } else {
+	        	verifyCodeElement.next(".text-danger").remove();
+	        	verifyCodeElement.parent().append(`
+		          <div class="text-danger">Can not be emply</div>
+		        `);
+	        }
+	        
+	        if(email && email.match(/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+	            hideError(emailElement);
+	        } else {
+	        	emailElement.parent().next(".text-danger").remove();
+	        	emailElement.parent().parent().append(`
+		          <div class="text-danger">Incorrect email format</div>
+		        `);
+	        }
+	        
+	        const isInvalid = !!$(".text-danger").length;
+	      
+	        if (isInvalid) {
+	          return;
+	        }
+	        console.log(this);
+	        $(this).unbind('submit').submit();
+	    }
+	    
+	    $(document).ready(function(){
+	        $("#inforForm").on("submit", submit);
+	        $("#forgotPasswordForm").on("submit", submitForm);
+	    })
   	</script>
 </body>
 </html>

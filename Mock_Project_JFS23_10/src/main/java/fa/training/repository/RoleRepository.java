@@ -3,9 +3,8 @@ package fa.training.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fa.training.entities.UserProduct;
+import fa.training.entities.Role;
 
 @Repository
-public interface UserProductRepository extends JpaRepository<UserProduct, Integer> {
-
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 }

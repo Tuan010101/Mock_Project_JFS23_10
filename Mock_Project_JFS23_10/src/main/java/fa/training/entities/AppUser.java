@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,27 +22,41 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Account {
+public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
-	
+
+	@NotNull(message = "Can not be empty")
+	@Column(unique = true)
 	private String username;
-	
+
 	private String password;
-	
+
+	@Column(name = "encrypted_password")
+	private String encryptedPassword;
+
+	@NotNull(message = "Can not be empty")
+	@Column(unique = true)
 	private String email;
-	
+
 	@Column(name = "full_name")
 	private String fullName;
-	
+
 	private String address;
-	
+
+	@Column(name = "phone_number")
 	private String phoneNumber;
-	
-	private int role;
-	
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+
+	private int status;
+
+	@Column(name = "verify_code")
+	private String verifyCode;
+
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserProduct> userProducts;
+
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+	private Set<UserRole> userRoles;
 }
