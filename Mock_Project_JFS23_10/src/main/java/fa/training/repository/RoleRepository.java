@@ -1,11 +1,10 @@
 package fa.training.repository;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fa.training.entities.Bill;
+import fa.training.entities.Role;
 
 @Repository
-public interface BillRepository extends JpaRepository<Bill, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 }

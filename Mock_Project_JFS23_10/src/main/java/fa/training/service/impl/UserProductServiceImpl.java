@@ -18,5 +18,10 @@ public class UserProductServiceImpl implements UserProductService {
 		return userProductRepository.findAll();
 	}
 
+	@Override
+	public List<UserProduct> findAllByBillId(int billId) {
+		return userProductRepository.findAllByBillId(billId);
+	}
+
 	
 }

@@ -21,16 +21,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Account {
+public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
 	
+	@NotNull(message = "Can not be empty")
+	@Column(unique = true)
 	private String username;
 	
 	private String password;
 	
+	@Column(name = "encrypted_password")
+	private String encryptedPassword;
+	
+	@NotNull(message = "Can not be empty")
+	@Column(unique = true)
 	private String email;
 	
 	@Column(name = "full_name")
@@ -40,8 +47,11 @@ public class Account {
 	
 	private String phoneNumber;
 	
-	private int role;
+	private int status;
 	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
 	private Set<UserProduct> userProducts;
+	
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private Set<UserRole> userRoles;
 }

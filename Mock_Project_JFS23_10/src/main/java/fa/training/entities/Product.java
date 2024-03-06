@@ -32,6 +32,8 @@ public class Product {
 	@Column(name = "product_name")
 	private String productName;
 	
+	private String image;
+	
 	private String description;
 	
 	private float price;

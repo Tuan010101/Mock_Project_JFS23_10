@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,13 +23,114 @@
 	href="${pageContext.request.contextPath}/resources/css/animate.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-
-<!-- <link rel="stylesheet" href="../Common/boostrap/bootstrap.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/all.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/brands.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/regular.min.css">
-<link rel="stylesheet" href="../Common/fontAwesome/solid.min.css">
-<link rel="stylesheet" href="../CSS/style.css"> -->
+<style>
+	:root {
+		--primary-color: #82ae46;
+		--text-color: #f8f9fa;
+	}
+	
+	body {
+		background-color: #f2f2f2;
+		font-family: "Poppins", Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		background-image:
+			url("${pageContext.request.contextPath}/resources/images/imge_background_DK.jpg");
+		/* Added single quotes around image URL */
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+		height: 100vh;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.sticky-header {
+	    position: sticky;
+	    top: 0;
+	    z-index: 1000; /* Đảm bảo thanh header hiển thị trên các phần khác của trang */
+	}
+	
+	.header {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+	}
+	
+	.header-background {
+		background-color: var(--primary-color);
+		color: var(--text-color);
+	}
+	
+	.main-Body {
+		/* height: calc(100vh - 32px); */
+		position: relative;
+		width: 100%;
+		/* background: url(../IMG/food-4k-jx0j7rqea6yv9phh.webp) top center/ cover no-repeat; */
+	}
+	
+	.DK-Logo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.text-logo {
+		text-transform: uppercase;
+		color: var(--text-color);
+		font-weight: 800;
+		font-size: 70px;
+		line-height: inherit;
+		white-space: nowrap;
+		letter-spacing: -3px;
+		text-decoration: none;
+		border: 1px solid;
+		padding: 5px 19px;
+		line-height: normal;
+	}
+	
+	.text-logo:hover {
+		text-decoration: none;
+		color: gray;
+	}
+	
+	.DK-Body {
+		padding-right: 2%;
+	}
+	
+	.DK-Content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		/* overflow: hidden; */
+	}
+	
+	.text-muted {
+		color: red;
+	}
+	
+	.card {
+		align-items: center;
+		margin: 5%;
+		width: 100%;
+		padding: 20px;
+		background-color: #fff;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		height: auto;
+		margin: 25% 20px;
+	}
+	
+	.btn-success {
+		background-color: var(--primary-color);
+		border: none;
+		color: var(--text-color);
+	}
+</style>
 </head>
 
 <body>
@@ -76,30 +179,26 @@
 					<div class="DK-Content">
 						<div class="card">
 							<div class="card-body">
-								<form action="">
-									<h3 class="text-center">Sign Up</h3>
+								<form:form id="inforForm" action="${pageContext.request.contextPath}/register" method="post" modelAttribute="appUser">
+									<h3 class="text-center">Register</h3>
 									<div class="form-group">
-										<label for="UserName">UserName</label> <input type="text"
-											class="form-control" id="UserName"
-											aria-describedby="UserNameHelp" placeholder="Enter userName">
-										<small class="form-text text-danger" id="UserName-error"></small>
+										<label for="username">UserName</label> 
+										<form:input path="username" type="text" class="form-control" placeholder="Enter userName"/>
+										<form:errors path="username" class="text-danger"></form:errors>
 									</div>
 									<div class="form-group">
-										<label for="Email">Email</label> <input type="email"
-											class="form-control" id="Email" aria-describedby="emailHelp"
-											placeholder="Enter email"> <small
-											class="form-text text-danger" id="Email-error"></small>
+										<label for="email">Email</label> 
+										<form:input path="email" type="text" class="form-control" placeholder="abc@gmail.com"/>
+										<form:errors path="email" class="text-danger"></form:errors>
 									</div>
 									<div class="form-group">
-										<label for="Password">Password</label> <input type="password"
-											class="form-control" id="Password" placeholder="Password">
-										<small class="form-text text-danger" id="Password-error"></small>
+										<label for="password">Password</label> 
+										<form:input path="password" type="password" class="form-control" placeholder="Password"/>
+										<form:errors path="password" class="text-danger"></form:errors>
 									</div>
 									<div class="form-group">
-										<label for="Confirm-password">Confirm password</label> <input
-											type="password" class="form-control" id="Confirm-password"
-											placeholder="Password"> <small
-											class="form-text text-danger" id="Confirm-password-error"></small>
+										<label for="rePassword">Confirm Password</label> 
+										<input name="rePassword" id="rePassword" type="password" class="form-control" placeholder="Confirm Password"/>
 									</div>
 									<small class="form-text text-muted">By clicking Sign
 										Up, you agree to our Terms, Privacy Policy and Cookie Policy.
@@ -110,9 +209,9 @@
 										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button id="submit" class="btn btn-success">Register</button>
+										<button type="submit" id="submit" class="btn btn-success">Register</button>
 									</div>
-								</form>
+								</form:form>
 							</div>
 						</div>
 					</div>
@@ -125,207 +224,72 @@
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-	<!-- <script src="../Common/fontAwesome/all.min.js"></script>
-<script src="../Common/fontAwesome/brands.min.js"></script>
-<script src="../Common/fontAwesome/regular.min.js"></script>
-<script src="../Common/boostrap/bootstrap.min.js"></script>
-<script src="../Common/boostrap/jquery-3.5.1.slim.min.js"></script>
-<script src="../Common/boostrap/popper.min.js"></script>
-<script src="../Common/boostrap/bootstrap.bundle.min.js"></script>
-<script src="../Common/boostrap/bootstrap.min.js"></script>
-<script src="../Common/jquery/jquery.min.js"></script>
-<script src="../JS/validation.js"></script>
-<script src="../JS/scr.js"></script> -->
-
-	----------------------------------------------------------------------------------------------------------------------------
-	--css:
-	<style>
-:root {
-	--primary-color: #82ae46;
-	--text-color: #f8f9fa;
-}
-
-body {
-	background-color: #f2f2f2;
-	font-family: "Poppins", Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	background-image:
-		url("${pageContext.request.contextPath}/resources/images/imge_background_DK.jpg");
-	/* Added single quotes around image URL */
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-	height: 100vh;
-	margin: 0;
-	padding: 0;
-}
-
-.sticky-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Đảm bảo thanh header hiển thị trên các phần khác của trang */
-}
-
-.header {
-	position: sticky;
-	top: 0;
-	z-index: 1;
-}
-
-.header-background {
-	background-color: var(--primary-color);
-	color: var(--text-color);
-}
-
-.main-Body {
-	/* height: calc(100vh - 32px); */
-	position: relative;
-	width: 100%;
-	/* background: url(../IMG/food-4k-jx0j7rqea6yv9phh.webp) top center/ cover no-repeat; */
-}
-
-.DK-Logo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.text-logo {
-	text-transform: uppercase;
-	color: var(--text-color);
-	font-weight: 800;
-	font-size: 70px;
-	line-height: inherit;
-	white-space: nowrap;
-	letter-spacing: -3px;
-	text-decoration: none;
-	border: 1px solid;
-	padding: 5px 19px;
-	line-height: normal;
-}
-
-.text-logo:hover {
-	text-decoration: none;
-	color: gray;
-}
-
-.DK-Body {
-	padding-right: 2%;
-}
-
-.DK-Content {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	/* overflow: hidden; */
-}
-
-.text-muted {
-	color: red;
-}
-
-.card {
-	align-items: center;
-	margin: 5%;
-	width: 100%;
-	padding: 20px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	height: auto;
-	margin: 25% 20px;
-}
-
-.btn-success {
-	background-color: var(--primary-color);
-	border: none;
-	color: var(--text-color);
-}
-</style>
-
-
-	----------------------------------------------------------------------------------------------------------------------------
-	--Jquery:
 	<script>
-		$(function() {
-			$("#submit").click(function(event) {
-				event.preventDefault(); // Prevent page reload
-				let user = {
-					UserName : $("#UserName").val(),
-					Email : $("#Email").val(),
-					Password : $("#Password").val(),
-					ConfirmPassword : $("#Confirm-password").val(),
-				};
-				if (!validateForm()) {
-					return;
-				}
-				console.log(user);
-			});
-
-			function validateEmail(email) {
-				var regex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
-				return (email.trim().length !== 0) && regex.test(email);
-			}
-
-			function validatePassword(password) {
-				var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-				return (password.trim().length !== 0) && regex.test(password);
-			}
-
-			function validateUsername(username) {
-				var regex = /^[a-zA-Z0-9]{6,}$/;
-				return (username.trim().length !== 0) && regex.test(username);
-			}
-
-			function validateConfirmPassword(password, confirmPassword) {
-				return password === confirmPassword;
-			}
-
-			function validateForm() {
-				var username = $("#UserName").val();
-				var email = $("#Email").val();
-				var password = $("#Password").val();
-				var confirmPassword = $("#Confirm-password").val();
-				if (!validateUsername(username)) {
-					$("#UserName").css("border", "1px solid red");
-					$("#UserName-error").text("Invalid username !!!").show();
-				} else {
-					$("#UserName").removeAttr("style");
-					$("#UserName-error").hide();
-				}
-				if (!validateEmail(email)) {
-					$("#Email").css("border", "1px solid red");
-					$("#Email-error").text("Invalid email !!!").show();
-				} else {
-					$("#Email").removeAttr("style");
-					$("#Email-error").hide();
-				}
-				if (!validatePassword(password)) {
-					$("#Password").css("border", "1px solid red");
-					$("#Password-error")
-							.text(
-									"Password must have at least 8 characters including letters and numbers !!!")
-							.show();
-				} else {
-					$("#Password").removeAttr("style");
-					$("#Password-error").hide();
-				}
-				if (!validateConfirmPassword(password, confirmPassword)) {
-					$("#Confirm-password").css("border", "1px solid red");
-					$("#Confirm-password-error").text(
-							"Passwords do not match !!!").show();
-				} else {
-					$("#Confirm-password").removeAttr("style");
-					$("#Confirm-password-error").hide();
-				}
-			}
-			return true;
-		});
+		function hideError(element) {
+	        element.next(".text-danger").remove();
+	    }
+	
+	    function submit(e) {
+	        e.preventDefault();
+	        
+	        const username = $(this.username).val();
+	        const usernameElement = $(this.username);
+	        
+	        const password = $(this.password).val();
+	        const passwordElement = $(this.password);
+	        
+	        const email = $(this.email).val();
+	        const emailElement = $(this.email);
+	        
+	        const rePassword = $(this.rePassword).val();
+	        const rePasswordElement = $(this.rePassword);
+	
+	        if(username && username.match(/.{6,}/)){
+	            hideError(usernameElement);
+	        } else {
+	        	usernameElement.next(".text-danger").remove();
+	        	usernameElement.parent().append(`
+		          <div class="text-danger">The account must be at least 6 characters long</div>
+		        `);
+	        }
+	        
+	        if(password){
+	            hideError(passwordElement);
+	        } else {
+	        	passwordElement.next(".text-danger").remove();
+	        	passwordElement.parent().append(`
+		          <div class="text-danger">Can not be empty</div>
+		        `);
+	        }
+	        
+	        if(rePassword && password == rePassword){
+	            hideError(rePasswordElement);
+	        } else {
+	        	rePasswordElement.next(".text-danger").remove();
+	        	rePasswordElement.parent().append(`
+		          <div class="text-danger">Passwords are not the same</div>
+		        `);
+	        }
+	        
+	        if(email && email.match(/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+	            hideError(emailElement);
+	        } else {
+	        	emailElement.next(".text-danger").remove();
+	        	emailElement.parent().append(`
+		          <div class="text-danger">Incorrect email format</div>
+		        `);
+	        }
+	
+	        const isInvalid = !!$(".text-danger").length;
+	      
+	        if (isInvalid) {
+	          return;
+	        }
+	        $(this).unbind('submit').submit();
+	    }
+	    $(document).ready(function(){
+	        $("#inforForm").on("submit", submit);
+	    })
 	</script>
 </body>
 </html>
