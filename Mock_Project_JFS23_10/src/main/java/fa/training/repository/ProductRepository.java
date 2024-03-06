@@ -1,5 +1,7 @@
 package fa.training.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			Pageable pageable);
 
 	Page<Product> findAllByProductNameContainingOrderByProductId(String productName, Pageable pageable);
+	
+	List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId );
+
 }

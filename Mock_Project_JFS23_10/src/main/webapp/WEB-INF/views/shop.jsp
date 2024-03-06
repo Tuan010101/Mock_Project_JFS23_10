@@ -51,13 +51,13 @@
 
 			<div class="col-md-6 mb-5 text-center">
 				<ul class="product-category d-flex justify-content-center p-0">
-					<li><a class="${empty param.category ? 'active' : ''}"
+					<li><a class="${empty param.category || param.category eq '-1' ? 'active' : ''}"
 						href="${pageContext.request.contextPath}/shop?category=-1">All</a>
 					</li>
 					<c:forEach var="category" items="${categories}">
 						<li><a
 							class="${param.category eq category.categoryId ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/shop?category=${category.categoryId}">
+							href="${pageContext.request.contextPath}/products?category=${category.categoryId}">
 								${category.categoryName} </a></li>
 					</c:forEach>
 				</ul>
@@ -71,7 +71,7 @@
 				<div class="col-md-6 col-lg-3 ftco-animate abc">
 					<div class="product">
 						<a
-							href="${pageContext.request.contextPath}/product-single/${product.productId}"
+							href="${pageContext.request.contextPath}/products/${product.productId}"
 							class="img-prod"> <img class="img-fluid"
 							src="<c:out value="${product.image}" />" alt="Product Image">
 							<c:if test="${product.discount gt 0}">

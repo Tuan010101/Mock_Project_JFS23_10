@@ -60,12 +60,12 @@
 				</div>
 				<p class="price-dc">
 				<span>Giá gốc:</span>
-					<span>${product.price} VND</span>
+					<span>$${product.price}</span>
 				</p>
 				<span>sale ${product.discount }%</span>
 
 				<p class="price">
-					<span>${product.price * (100 - product.discount) / 100} VND</span>
+					<span>$${product.price * (100 - product.discount) / 100}</span>
 
 				</p>
 				<p>${product.description }</p>
@@ -106,147 +106,77 @@
 			<div class="col-md-12 heading-section text-center ftco-animate">
 				<span class="subheading">Products</span>
 				<h2 class="mb-4">Related Products</h2>
-				<p>Far far away, behind the word mountains, far from the
+				<p>Far far away, behind the world mountains, far from the
 					countries Vokalia and Consonantia</p>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-1.jpg" alt="Colorlib Template"> <span
-						class="status">30%</span>
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Bell Pepper</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span class="mr-2 price-dc">$120.00</span><span
-										class="price-sale">$80.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-2.jpg" alt="Colorlib Template">
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Strawberry</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span>$120.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-3.jpg" alt="Colorlib Template">
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Green Beans</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span>$120.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-4.jpg" alt="Colorlib Template">
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Purple Cabbage</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span>$120.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		
+		
+		
+	<c:forEach var="relatedProducts" items="${relatedProducts}" varStatus="loopStatus">
+    <c:if test="${loopStatus.index < 4}">
+        <!-- Display only the first 4 items -->
+
+        <!-- The following code is executed for each related product -->
+        <div class="col-md-6 col-lg-3 ftco-animate">
+            <div class="product">
+                <!-- Product image and details -->
+                <a href="${pageContext.request.contextPath}/products/${relatedProducts.productId}" class="img-prod">
+                    <img class="img-fluid" src="<c:out value="${relatedProducts.image}" />" alt="Product Image">
+                    
+                    <c:if test="${relatedProducts.discount gt 0}">
+								<span class="status"><c:out value="${relatedProducts.discount}" />%</span>
+							</c:if>
+                    <div class="overlay"></div>
+                </a>
+
+                <div class="text py-3 pb-4 px-3 text-center">
+                    <!-- Product name -->
+                    <h3><a href="#"><c:out value="${relatedProducts.productName}" /></a></h3>
+
+                    <!-- Pricing details -->
+                    <div class="d-flex">
+                        <div class="pricing">
+                            <p class="price">
+                                <c:choose>
+											<c:when test="${relatedProducts.discount gt 0}">
+												<span class="mr-2 price-dc">$<c:out
+														value="${relatedProducts.price}" /></span>
+												<span class="price">$${relatedProducts.price - (relatedProducts.price
+													* relatedProducts.discount / 100)}</span>
+											</c:when>
+											<c:otherwise>
+												<span class="price">$${relatedProducts.price}</span>
+											</c:otherwise>
+										</c:choose>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Buttons for actions like adding to cart and favorites -->
+                    <div class="bottom-area d-flex px-3">
+                        <div class="m-auto d-flex">
+                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <span><i class="ion-ios-cart"></i></span>
+                            </a>
+                            <a href="#" class="heart d-flex justify-content-center align-items-center">
+                                <span><i class="ion-ios-heart"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of product display -->
+    </c:if>
+</c:forEach>
+
+			
+			
+			
 		</div>
 	</div>
 </section>
