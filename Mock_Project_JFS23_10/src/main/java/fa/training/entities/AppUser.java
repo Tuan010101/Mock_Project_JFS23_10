@@ -40,6 +40,8 @@ public class AppUser {
 	@Column(unique = true)
 	private String email;
 	
+	private String image;
+	
 	@Column(name = "full_name")
 	private String fullName;
 	
@@ -51,6 +53,8 @@ public class AppUser {
 	
 	@Column(name = "verify_code")
 	private String verifyCode;
+	
+	
 	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
 	private Set<UserProduct> userProducts;
