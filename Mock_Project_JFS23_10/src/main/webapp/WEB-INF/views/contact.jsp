@@ -5,7 +5,7 @@
     <html lang="en">
 
     <head>
-      <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+      <title>Vegefoods - Contact</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -34,7 +34,7 @@
         <div class="container">
           <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-              <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Contact us</span></p>
+              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}/">Home</a></span> <span>Contact us</span></p>
               <h1 class="mb-0 bread">Contact us</h1>
             </div>
           </div>

@@ -6,11 +6,17 @@ import org.springframework.stereotype.Service;
 import fa.training.entities.AppUser;
 import fa.training.repository.AppUserRepository;
 import fa.training.service.AppUserService;
+
 @Service
 public class AppUserServiceImpl implements AppUserService {
-	
+
 	@Autowired
 	AppUserRepository appUserRepository;
+
+	@Override
+	public AppUser findByUsername(String username) {
+		return appUserRepository.findByUsername(username);
+	}
 
 	@Override
 	public boolean existsByUsername(String username) {
@@ -30,11 +36,6 @@ public class AppUserServiceImpl implements AppUserService {
 	@Override
 	public boolean existsByEmailAndStatus(String email, int i) {
 		return appUserRepository.existsByEmailAndStatus(email, i);
-	}
-
-	@Override
-	public AppUser findByUsername(String name) {
-		return appUserRepository.findByUsername(name);
 	}
 
 	@Override
