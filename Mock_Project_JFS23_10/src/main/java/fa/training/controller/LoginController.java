@@ -1,8 +1,9 @@
 package fa.training.controller;
 
-import java.security.Principal;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import fa.training.common.SendMail;
 import fa.training.entities.AppUser;
 import fa.training.entities.Role;
 import fa.training.entities.UserRole;
@@ -27,7 +29,7 @@ import fa.training.service.RoleService;
 import fa.training.service.UserRoleService;
 
 @Controller
-public class TuanLoginController {
+public class LoginController {
 	
 	@Autowired
 	AppUserService appUserService;
@@ -48,6 +50,7 @@ public class TuanLoginController {
 	public String Login() {
 		return "login";
 	}
+	
 	@GetMapping("/forgot-password")
 	public String ForgotPassword(@ModelAttribute("forgotPasswordForm") ForgotPasswordForm forgotPasswordForm, Model model) {
 		String sendCode = "notyet";
@@ -56,7 +59,7 @@ public class TuanLoginController {
 	}
 	
 	@PostMapping("/forgot-password")
-	public String ExistUserEmail(@ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm, BindingResult result, Model model) {
+	public String ExistUserEmail(@ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm, BindingResult result, Model model) throws AddressException, MessagingException {
 		if (!appUserService.existsByEmailAndStatus(forgotPasswordForm.getEmail(), 1)) {
 			result.rejectValue("email", null, "Email has not been activated or not exists");
 		}
@@ -74,15 +77,19 @@ public class TuanLoginController {
         appUser.setVerifyCode(verifyCode);
         appUserService.save(appUser);
         
+        SendMail.sendCodeActiveEmail(appUser.getEmail(), verifyCode);
+        
         String message = "We have sent the verification code to your email. Please check your email";
+        String messageColor = "secondary";
 		String sendCode = "done";
 		model.addAttribute("sendCode", sendCode);
 		model.addAttribute("message", message);
+		model.addAttribute("messageColor", messageColor);
 		return "forgot-password";
 	}
 	
 	@PostMapping("/forgot-password/check-verifycode")
-	public String CheckVerifyCodeFromEmail(@ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm, BindingResult result, Model model) {
+	public String CheckVerifyCodeFromEmail(@ModelAttribute("forgotPasswordForm") @Valid ForgotPasswordForm forgotPasswordForm, BindingResult result, Model model) throws AddressException, MessagingException {
 		if (!appUserService.existsByEmailAndStatus(forgotPasswordForm.getEmail(), 1)) {
 			result.rejectValue("email", null, "Email has not been activated or not exists");
 		}
@@ -94,17 +101,25 @@ public class TuanLoginController {
 		
 		//Check verifyCode
 		AppUser appUser = appUserService.findByEmail(forgotPasswordForm.getEmail());
-		if (appUser.getVerifyCode().equals(forgotPasswordForm.getVerifyCode()) && appUser.getVerifyCode() != null && !appUser.getVerifyCode().isEmpty()) {
+		if (appUser.getVerifyCode() != null && appUser.getVerifyCode().equals(forgotPasswordForm.getVerifyCode()) && !appUser.getVerifyCode().isEmpty()) {
 			Random random = new Random();
 	        int randomNumber = random.nextInt(900000) + 100000;
 	        String password = Integer.toString(randomNumber);
 	        appUser.setPassword(password);
 	        appUser.setEncryptedPassword(passwordEncoder.encode(password));
+	        appUser.setVerifyCode(null);
 	        appUserService.save(appUser);
+	        
+	        SendMail.sendAccount(appUser.getEmail(), appUser.getUsername(), appUser.getPassword());
+	        
 	        String message = "Verify success. We have sent username and password to your email. Please check your email";
+	        String messageColor = "success";
+	        model.addAttribute("messageColor", messageColor);
 	        model.addAttribute("message", message);
 		} else {
 			String message = "Verification code is incorrect. Please check the verification code carefully";
+			String messageColor = "danger";
+	        model.addAttribute("messageColor", messageColor);
 			model.addAttribute("message", message);
 		}
 		
@@ -143,7 +158,8 @@ public class TuanLoginController {
 				appUser.getEmail(), 
 				null, 
 				null, 
-				null, 
+				null,
+				null,
 				0, 
 				null, 
 				null,

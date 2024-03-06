@@ -180,6 +180,8 @@
 							<div class="card-body" style="width: 100%;">
 								<form id="inforForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
 									<h3 class="text-center">Login</h3>
+									<div id="response">
+									</div>
 									<div class="form-group">
 										<label for="UserName">UserName</label> 
 										<input name="username" type="text"
@@ -191,7 +193,7 @@
 											class="form-control" id="Password" placeholder="Password">
 									</div>
 									<div class="form-group form-check">
-										<input name="remember-me" type="checkbox" class="form-check-input">
+										<input name="remember-me" id="checkbox" type="checkbox" class="form-check-input">
 										<label class="form-check-label" for="checkbox" style="font-size: 14px;">Remember Me</label>
 									</div>
 									<div class="d-flex justify-content-between mb-3">
@@ -199,7 +201,7 @@
 										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button type="submit" id="submit" class="btn btn-success">Login</button>
+										<button type="submit" class="btn btn-success">Login</button>
 									</div>
 								</form>
 							</div>
@@ -219,7 +221,7 @@
 	        element.next(".text-danger").remove();
 	    }
 	
-	    function submit(e) {
+	    function submitForm(e) {
 	        e.preventDefault();
 	        
 	        const username = $(this.username).val();
@@ -254,10 +256,25 @@
 	        if (isInvalid) {
 	          return;
 	        }
-	        $(this).unbind('submit').submit();
+	        this.submit();
 	    }
 	    $(document).ready(function(){
-	        $("#inforForm").on("submit", submit);
+	        $("#inforForm").on("submit", submitForm);
+	        var x;
+	        var sPageURL = window.location.search.substring(1);
+	        var sURLVariables = sPageURL.split('?');
+	        for (var i = 0; i < sURLVariables.length; i++) {
+	            var sParameterName = sURLVariables[i].split('=');
+	            if (sParameterName[0] === "error") {
+	                x = sParameterName[1];
+	                console.log(x)
+	                break;
+	            }
+	        }
+	        if (x === "true") {
+	            $("#response").html("<div class='alert alert-danger' role='alert'>Incorrect username or password!</div>").fadeIn(200).fadeOut(5000)
+	            return;
+	        }
 	    })
 	</script>	
 </body>

@@ -85,7 +85,7 @@
 							${pageContext.request.userPrincipal.name}
 						</span>
 						<div class="text-dark dropdown-menu" aria-labelledby="dropdownMenu">
-							<a href="#" class="dropdown-item" style="font-size: 11px;">Setting</a>
+							<a href="${pageContext.request.contextPath}/user/profile" class="dropdown-item" style="font-size: 11px;">Setting</a>
 							<a href="#" class="dropdown-item" style="font-size: 11px;">History purchase</a>
 						</div>
 					</div>

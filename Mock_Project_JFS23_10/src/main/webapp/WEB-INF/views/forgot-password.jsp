@@ -203,7 +203,7 @@
 									<div>
 										<h3 class="text-center">Forgot Password 3</h3>
 										<c:if test="${message != null }">
-											<div class="alert alert-secondary" role="alert">
+											<div class="alert alert-${messageColor }" role="alert">
 												${message}
 											</div>
 										</c:if>
@@ -228,7 +228,7 @@
 												<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
 											</div>
 											<div class="d-flex justify-content-center">
-												<button type="submit" id="submit" class="btn btn-success">Submit</button>
+												<button type="submit" class="btn btn-success">Submit</button>
 											</div>
 										</form:form>
 									</div>
@@ -330,7 +330,7 @@
 	          return;
 	        }
 	        console.log(this);
-	        $(this).unbind('submit').submit();
+	        this.submit();
 	    }
 	    
 	    $(document).ready(function(){
