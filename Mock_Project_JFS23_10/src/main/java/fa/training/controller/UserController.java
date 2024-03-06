@@ -3,6 +3,9 @@ package fa.training.controller;
 import java.security.Principal;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fa.training.common.SendMail;
 import fa.training.entities.AppUser;
 import fa.training.form.ChangePasswordForm;
 import fa.training.service.AppUserService;
@@ -78,7 +82,7 @@ public class UserController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@GetMapping("/active/email")
-	public String ActiveEmail(Principal principal) {
+	public String ActiveEmail(Principal principal) throws AddressException, MessagingException {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
 		
 		Random random = new Random();
@@ -86,7 +90,9 @@ public class UserController {
         String verifyCode = Integer.toString(randomNumber);
 		appUser.setVerifyCode(verifyCode);
 		appUserService.save(appUser);
-        
+		
+		String linkVerify = "http://localhost:8080/Mock_Project_JFS23_10/user/active/email/check?verifyCode="+verifyCode+"&username="+appUser.getUsername();
+        SendMail.sendLinkActiveEmail(appUser.getEmail(), linkVerify);
 		return "redirect:/user/profile?status=send_active_code";
 	}
 	
@@ -98,6 +104,7 @@ public class UserController {
 		}
 		
 		appUser.setStatus(1);
+		appUser.setVerifyCode(null);
 		appUserService.save(appUser);
 		return "index";
 	}
