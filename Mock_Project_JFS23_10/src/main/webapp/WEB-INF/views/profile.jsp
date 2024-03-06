@@ -324,14 +324,20 @@
 	            }
 	        }
 	        if (x === "change_profile_success") {
-	            $("#response").html("<div class='alert alert-success' role='alert'>Information changed successfully!</div>").fadeIn(200).fadeOut(5000)
+	            $("#response").html("<div class='alert alert-success' role='alert'>Information changed successfully!</div>").fadeIn(200).fadeOut(7000)
 	            return;
 	        } else if (x === "send_active_code") {
 	        	$("#response").html("<div class='alert alert-success' role='alert'>The verification code has been sent to your email. Please check your email!</div>").fadeIn(200).fadeOut(10000)
 	        	return;
+	        } else if (x === "change_email_success") {
+	        	$("#response").html("<div class='alert alert-success' role='alert'>Email changed successfully!</div>").fadeIn(200).fadeOut(7000)
+	        	return;
 	        } else if (x === "change_email_fail") {
 	        	$('#modalEmail').modal('show');
 	        	$('#groupEmail').append("<div class='text-danger'>Email already exists</div>");
+	        	return;
+	        } else if (x === "change_password_success") {
+	        	$("#response").html("<div class='alert alert-success' role='alert'>Password changed successfully!</div>").fadeIn(200).fadeOut(7000)
 	        	return;
 	        } else if (x === "incorrect_password") {
 	        	$('#modalPass').modal('show');
