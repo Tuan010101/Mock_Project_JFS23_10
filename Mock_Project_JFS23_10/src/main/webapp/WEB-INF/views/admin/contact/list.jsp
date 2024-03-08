@@ -21,7 +21,7 @@
 				<!-- Top -->
 				<div class="d-flex justify-content-between align-items-center mb-4">
 					<h2>Contact List</h2>
-					<form class="form-inline mb-3 ">
+					<form class="form-inline m-0">
 						<div class="input-group">
 							<input type="text" class="form-control"
 								placeholder="Search by Full Name, Email, or Subject"
@@ -77,7 +77,7 @@
 						</li>
 						<c:forEach var="i"
 							begin="${(contacts.number - 1) ge 0 ? contacts.number - 1 : 0}"
-							end="${(contacts.number + 1) le contacts.totalPages - 2 ? (contacts.number + 1) : contacts.totalPages - 1}"
+							end="${(contacts.number + 1) le contacts.totalPages - 2 ? (contacts.number + 1) : Math.max(0, contacts.totalPages - 1)}"
 							varStatus="loop">
 							<li class="page-item ${i == contacts.number ? 'active' : ''}">
 								<a class="page-link" href="?pageNo=${i + 1}&keyword=${keyword}">
@@ -85,7 +85,7 @@
 							</li>
 						</c:forEach>
 						<li
-							class="page-item ${contacts.number == contacts.totalPages - 1 ? 'disabled' : ''}">
+							class="page-item ${contacts.number == Math.max(0, contacts.totalPages - 1 ) ? 'disabled' : ''}">
 							<a class="page-link"
 							href="?pageNo=${contacts.totalPages}&keyword=${keyword}">Last</a>
 						</li>
