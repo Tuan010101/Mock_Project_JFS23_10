@@ -14,7 +14,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
 	@Query("SELECT DISTINCT ur.roleId.roleName FROM AppUser u JOIN u.userRoles ur WHERE u.userId = ?1")
 	List<String> findByRoleName(int userId);
-	
+
 	boolean existsByUsername(String username);
 
 	boolean existsByEmail(String email);

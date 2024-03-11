@@ -209,7 +209,7 @@
 										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button type="submit" id="submit" class="btn btn-success">Register</button>
+										<button type="submit" class="btn btn-success">Register</button>
 									</div>
 								</form:form>
 							</div>
@@ -285,7 +285,7 @@
 	        if (isInvalid) {
 	          return;
 	        }
-	        $(this).unbind('submit').submit();
+	        this.submit();
 	    }
 	    $(document).ready(function(){
 	        $("#inforForm").on("submit", submit);

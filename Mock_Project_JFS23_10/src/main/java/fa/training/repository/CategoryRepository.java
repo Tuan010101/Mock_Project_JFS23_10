@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 import fa.training.entities.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
 	Page<Category> findAllByCategoryNameContains(String keyword, Pageable pageable);
+	
 }

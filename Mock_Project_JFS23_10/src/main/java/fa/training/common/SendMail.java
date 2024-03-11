@@ -14,18 +14,40 @@ import fa.training.entities.Contact;
 
 public class SendMail {
 
-	public static void sendActiveEmail(String email, String code, String codeLink) throws AddressException, MessagingException {
+	public static void sendCodeActiveEmail(String email, String code) throws AddressException, MessagingException {
 		
-		String linkConfirm = "http://localhost:8080/Mock_Project_JFS23_10/active_email?email=" + email + "&codeLink=" + codeLink;
-
 		String bodyEmail = "<h3>Chào bạn</h3>"
-				+ "Xác nhận Email:" 
+				+ "Bạn vừa gửi yêu cầu lấy lại mật khẩu:" 
 				+ "<blockquote>"
-						+ "<b> Code active: </b>" + code + "<br>"
-						+ "<b> Link active: </b>" + "<a href='" + linkConfirm + "'>" + linkConfirm + "</a>" + "<br>"
+						+ "<b> Code: " + code + "</b>"
 				+ "</blockquote>"
 				+ "<h3>Trân trọng!</h3>";
  
+		sendHTML(email, "Password reset code from WEB VEGEFOODS", bodyEmail);
+	}
+	
+	public static void sendLinkActiveEmail(String email, String codeLink) throws AddressException, MessagingException {
+		
+		String bodyEmail = "<h3>Chào bạn</h3>"
+				+ "Xác nhận Email:" 
+				+ "<blockquote>"
+				+ "<b> Link active: </b>" + "<a href='" + codeLink + "'>Click here to activate account</a>" + "<br>"
+				+ "</blockquote>"
+				+ "<h3>Trân trọng!</h3>";
+		
+		sendHTML(email, "Active Email from WEB VEGEFOODS", bodyEmail);
+	}
+	
+	public static void sendAccount(String email, String username, String password) throws AddressException, MessagingException {
+		
+		String bodyEmail = "<h3>Chào bạn</h3>"
+				+ "Vui lòng không cung cấp tài khoản mật khẩu trong bất cứ trường hợp nào:" 
+				+ "<blockquote>"
+				+ "<b> Tài khoản: "+username+" </b> <br>"
+				+ "<b> Mật khẩu: "+password+" </b>"
+				+ "</blockquote>"
+				+ "<h3>Trân trọng!</h3>";
+		
 		sendHTML(email, "Active Email from WEB VEGEFOODS", bodyEmail);
 	}
 

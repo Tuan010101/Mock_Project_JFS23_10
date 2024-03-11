@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
+
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customeMOCK.css">
 </head>
 
@@ -62,7 +67,7 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="${pageContext.request.contextPath}/index" class="nav-link">Home</a></li>
-              <li class="nav-item"><a href="${pageContext.request.contextPath}/shop" class="nav-link">Shop</a></li>
+              <li class="nav-item"><a href="${pageContext.request.contextPath}/products" class="nav-link">Shop</a></li>
 	          <li class="nav-item"><a href="${pageContext.request.contextPath}/about" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a></li>
 	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
@@ -80,7 +85,7 @@
 							${pageContext.request.userPrincipal.name}
 						</span>
 						<div class="text-dark dropdown-menu" aria-labelledby="dropdownMenu">
-							<a href="#" class="dropdown-item" style="font-size: 11px;">Setting</a>
+							<a href="${pageContext.request.contextPath}/user/profile" class="dropdown-item" style="font-size: 11px;">Setting</a>
 							<a href="#" class="dropdown-item" style="font-size: 11px;">History purchase</a>
 						</div>
 					</div>

@@ -1,21 +1,16 @@
 package fa.training.controller;
 
-import java.time.LocalDate;
-
-import javax.mail.MessagingException;
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import fa.training.common.SendMail;
-import fa.training.entities.Contact;
+import fa.training.entities.Product;
+import fa.training.service.CategoryService;
 import fa.training.service.ContactService;
+import fa.training.service.ProductService;
 
 @Controller
 public class IndexController {
@@ -23,8 +18,16 @@ public class IndexController {
 	@Autowired
 	ContactService contactService;
 
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private CategoryService categoryService;
+
 	@GetMapping(value = { "/", "/index" })
-	public String Home() {
+	public String Home(Model model) {
+
+		List<Product> mixedProducts = productService.getMixedProducts();
+		model.addAttribute("mixedProducts", mixedProducts);
 		return "index";
 	}
 
@@ -43,8 +46,4 @@ public class IndexController {
 		return "product-single";
 	}
 
-	@GetMapping("/shop")
-	public String Shop() {
-		return "shop";
-	}
 }
