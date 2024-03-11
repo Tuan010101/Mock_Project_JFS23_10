@@ -3,7 +3,6 @@
  */
 package fa.training.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,25 +34,22 @@ public class ShopController {
 	@GetMapping("/products/{productId}")
 	public String getProductDetail(@PathVariable int productId, Model model) {
 		// Retrieve the current product
-        Product product = productService.findById(productId);
+		Product product = productService.findById(productId);
 
-        // Get the category of the current product
-        Category category = product.getCategoryId();
+		// Get the category of the current product
+		Category category = product.getCategoryId();
 
-        // Retrieve related products based on the category (excluding the current product)
-        List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNot(category, productId);
+		// Retrieve related products based on the category (excluding the current
+		// product)
+		List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNot(category, productId);
 
-        // Add the current product, category, and related products to the model
-        model.addAttribute("product", product);
-        model.addAttribute("category", category);
-        model.addAttribute("relatedProducts", relatedProducts);
+		// Add the current product, category, and related products to the model
+		model.addAttribute("product", product);
+		model.addAttribute("category", category);
+		model.addAttribute("relatedProducts", relatedProducts);
 
-        return "product-single";
-    }
-
-
-
-
+		return "product-single";
+	}
 
 	@GetMapping("/products")
 	public String findPaniganated(@RequestParam(value = "keyword", defaultValue = "") String keyword,
@@ -64,7 +60,7 @@ public class ShopController {
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 		Category category = categoryService.findById(Integer.valueOf(categoryId));
 
-		model.addAttribute("categories", categoryService.getAllCategory());
+		model.addAttribute("categories", categoryService.findAll());
 
 		List<Product> products;
 		Page<Product> productPage;
