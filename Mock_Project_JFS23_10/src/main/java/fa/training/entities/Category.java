@@ -31,6 +31,8 @@ public class Category {
 	@NotBlank(message = "Must not be blank")
 	private String categoryName;
 
+	private boolean deleted;
+
 	@OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL)
 	private Set<Product> products;
 }

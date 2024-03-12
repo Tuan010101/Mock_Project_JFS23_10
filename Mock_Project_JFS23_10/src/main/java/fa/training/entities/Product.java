@@ -1,6 +1,5 @@
 package fa.training.entities;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,37 +27,27 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
 	private int productId;
-	
+
 	@Column(name = "product_name")
 	private String productName;
-	
+
 	private String image;
-	
-	@Transient
-	public String getImagePath() {
-		if(image == null) return null;
-		
-		return "/product-image/" + productId + "/" +image;
-	}
-	
+
 	private String description;
-	
+
 	private float price;
-	
+
 	private int quantity;
-	
+
+	private boolean deleted;
+
 	@ManyToOne
-	@JoinColumn(name = "category_id",referencedColumnName = "category_id")
+	@JoinColumn(name = "category_id", referencedColumnName = "category_id")
 	private Category categoryId;
-	
-	private int discount;
-	
-	@Column(name = "start_discount_date")
-	private LocalDate startDiscountDate;
-	
-	@Column(name = "end_discount_date")
-	private LocalDate endDiscountDate;
-	
+
 	@OneToMany(mappedBy = "productId", cascade = CascadeType.ALL)
 	private Set<UserProduct> userProducts;
+
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private Set<ProductDiscount> productDiscounts;
 }

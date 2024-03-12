@@ -41,18 +41,6 @@ public class AddProductForm {
 	@NotNull(message = "Quantity must not be null")
 	private int categoryId;
 
-	@NotNull(message = "Quantity must not be null")
-	@Min(value = 0, message = "Must be greater than or equal to 0")
-	private int discount;
-
-	@NotNull(message = "Start discount date must not be null")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate startDiscountDate;
-
-	@NotNull(message = "End discount date must not be null")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate endDiscountDate;
-
 	public AddProductForm(Product product) {
 		this.productName = product.getProductName();
 		this.image = product.getImage();
@@ -60,9 +48,6 @@ public class AddProductForm {
 		this.price = product.getPrice();
 		this.quantity = product.getQuantity();
 		this.categoryId = product.getCategoryId().getCategoryId();
-		this.discount = product.getDiscount();
-		this.startDiscountDate = product.getStartDiscountDate();
-		this.endDiscountDate = product.getEndDiscountDate();
 	}
 
 }

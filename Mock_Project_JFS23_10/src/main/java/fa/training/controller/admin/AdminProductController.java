@@ -67,10 +67,6 @@ public class AdminProductController {
 	public String doCreateCategories(@ModelAttribute("addProductForm") @Valid AddProductForm addProductForm,
 			BindingResult bindingResult, Model model) {
 
-		if (addProductForm.getStartDiscountDate().isAfter(addProductForm.getEndDiscountDate())) {
-			bindingResult.rejectValue("endDiscountDate", null, "Date end must be after date start");
-		}
-
 		if (bindingResult.hasErrors()) {
 			Map<Integer, String> categories = categoryService.findAll().stream()
 					.collect(Collectors.toMap(Category::getCategoryId, Category::getCategoryName));
@@ -87,9 +83,6 @@ public class AdminProductController {
 		product.setPrice(addProductForm.getPrice());
 		product.setQuantity(addProductForm.getQuantity());
 		product.setCategoryId(categoryService.findById(addProductForm.getCategoryId()));
-		product.setDiscount(addProductForm.getDiscount());
-		product.setStartDiscountDate(addProductForm.getStartDiscountDate());
-		product.setEndDiscountDate(addProductForm.getEndDiscountDate());
 
 		productService.save(product);
 
@@ -116,10 +109,6 @@ public class AdminProductController {
 			@ModelAttribute("addProductForm") @Valid AddProductForm addProductForm, BindingResult bindingResult,
 			Model model) {
 
-		if (addProductForm.getStartDiscountDate().isAfter(addProductForm.getEndDiscountDate())) {
-			bindingResult.rejectValue("endDiscountDate", null, "Date end must be after date start");
-		}
-
 		if (bindingResult.hasErrors()) {
 			Map<Integer, String> categories = categoryService.findAll().stream()
 					.collect(Collectors.toMap(Category::getCategoryId, Category::getCategoryName));
@@ -136,9 +125,6 @@ public class AdminProductController {
 		existingProduct.setPrice(addProductForm.getPrice());
 		existingProduct.setQuantity(addProductForm.getQuantity());
 		existingProduct.setCategoryId(categoryService.findById(addProductForm.getCategoryId()));
-		existingProduct.setDiscount(addProductForm.getDiscount());
-		existingProduct.setStartDiscountDate(addProductForm.getStartDiscountDate());
-		existingProduct.setEndDiscountDate(addProductForm.getEndDiscountDate());
 
 		productService.save(existingProduct);
 
