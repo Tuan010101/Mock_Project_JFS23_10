@@ -1,13 +1,9 @@
 package fa.training.form;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import fa.training.entities.Product;
 import lombok.AllArgsConstructor;
