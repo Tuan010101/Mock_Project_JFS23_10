@@ -58,7 +58,6 @@ public class ShopController {
 
 		int pageSize = 4;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Category category = categoryService.findById(Integer.valueOf(categoryId));
 
 		model.addAttribute("categories", categoryService.findAll());
 
@@ -68,6 +67,7 @@ public class ShopController {
 			productPage = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable);
 			products = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable).getContent();
 		} else {
+			Category category = categoryService.findById(Integer.valueOf(categoryId));
 			productPage = productService.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword,
 					pageable);
 			products = productService
