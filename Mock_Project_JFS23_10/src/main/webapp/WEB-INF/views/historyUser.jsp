@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,14 +33,14 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									
-									<th>Place of Receipt</th>
+									<th>Address</th>
 									<th>Order time</th>
 									<th>Order date</th>
 									<th>Products</th>
 									<th>Cost</th>
 									<th>Status</th>
 									<th>Action</th>
+									
 
 								</tr>
 							</thead>
@@ -64,16 +65,27 @@
 													
 													<td>
 														<p>${bill.buyDate}</p>
-													</td>
+													</td>		
 													
+												
 													<td>
-														<p></p>
+														<c:forEach items="${mapUserProducts.get(bill.billId)}" var="userProduct">
+															<c:if test="${userProduct.quantity > 1}">
+																<p>${userProduct.productId.productName} x${userProduct.quantity}</p>
+															</c:if>												
+															<c:if test="${userProduct.quantity == 1}">
+																<p>${userProduct.productId.productName}</p>
+															</c:if>																																																																										
+														</c:forEach>						
 													</td>
-													
 													<td>
-														<p></p>
-													</td>
-													
+														<c:set var="total1" value="0" />
+														<c:forEach items="${mapUserProducts.get(bill.billId)}" var="userProduct">	
+															<c:set var="subtotal" value="${userProduct.quantity * userProduct.productId.price}" />
+    														<c:set var="total1" value="${total1 + subtotal}" />																																																														
+														</c:forEach>
+														<p><fmt:formatNumber value="${total1}" pattern="#,##0.00" />$</p>
+													</td>																			
 													<td>
 														<c:if test="${bill.status == 1}">
 														   <i>Chờ lấy hàng</i>
@@ -90,7 +102,7 @@
 														<c:if test="${bill.status == 5}">
 														   <i>Hủy đơn</i>
 														</c:if>
-													</td>
+													</td>							
 													<td>
 														<c:if test="${bill.status == 0}">
 														    <button type="button" class="btn btn-danger">Hủy đơn</button>
@@ -112,16 +124,22 @@
 				
 						
 						 
-						  <ul class="pagination">
-							  <li><a href="#">1</a></li>
-							  <li class="active"><a href="#">2</a></li>
-							  <li><a href="#">3</a></li>
-							  <li><a href="#">4</a></li>
-							  <li><a href="#">5</a></li>
-							</ul>
 						
 					</div>
+					
 				</div>
+				<ul class="pagination mx-auto mt-4">
+					<c:if test="${billpage.number > 1}">
+						<li class="page-item"><a class="page-link" href="?page=${billpage.number - 1}">Previous</a></li>
+			        </c:if>
+		        	<li class="page-item"><a class="page-link" href="?page=${billpage.number}">${billpage.number + 1}</a></li>
+		        	<c:if test="${currentPage < totalPages}">
+			            <li class="page-item"><a class="page-link" href="?page=${billpage.number + 1}">Next</a></li>
+			        </c:if>
+		        </ul>
+				
+				
+						 
 			</div>
 		
 			

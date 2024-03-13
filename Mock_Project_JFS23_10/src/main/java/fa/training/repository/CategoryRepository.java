@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 import fa.training.entities.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-
+	Category findByCategoryId(int id);
+	
+	Category findById(int categoryId);
 }

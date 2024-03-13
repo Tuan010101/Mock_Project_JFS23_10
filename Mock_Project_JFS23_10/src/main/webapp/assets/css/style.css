@@ -8919,9 +8919,7 @@ h1, h2, h3, h4, h5,
 
 .cart-list {
   overflow-x: scroll; }
-  
 
-   
 .table {
   min-width: 1000px !important;
   width: 100%;
@@ -8940,23 +8938,15 @@ h1, h2, h3, h4, h5,
     padding: 40px 10px;
     border: 1px solid transparent !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important; }
-    .table tbody tr td.tick-remove button {
+    .table tbody tr td.product-remove a {
       bordeR: 1px solid rgba(0, 0, 0, 0.1);
       padding: 4px 10px;
-      color: #000000; 
-      width: 54px; 
-	  border-radius: 5px;}
-      .table tbody tr td.tick-remove button.cross-box i {
-        color: var(--red); 
-        } 
-      .table tbody tr td.tick-remove button.cross-box:hover {
-        border: 1px solid var(--danger) !important;
-        background: #bb2124; }
-      .table tbody tr td.tick-remove button.tick-box:hover {
+      color: #000000; }
+      .table tbody tr td.product-remove a:hover {
         border: 1px solid #82ae46;
         background: #82ae46; }
-       .table tbody tr td.tick-remove button:hover i {
-          color: #fff !important; }
+        .table tbody tr td.product-remove a:hover span {
+          color: #fff; }
     .table tbody tr td.quantity {
       width: 20%; }
     .table tbody tr td.image-prod .img {
@@ -8970,18 +8960,6 @@ h1, h2, h3, h4, h5,
         font-size: 16px; }
     .table tbody tr td.total, .table tbody tr td.price {
       color: #000000; }
-      
-.cross-box-actived {
-    border: 1px solid var(--danger) !important;
-    background: #bb2124; }
-  .cross-box-actived i {
-    color: #fff !important; }
-
-.tick-box-actived {
-   border: 1px solid #82ae46;
-   background: #82ae46; }
-  .tick-box-actived i {
-    color: white !important; }
 
 .cart-wrap .btn-primary {
   display: inline-block; }

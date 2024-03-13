@@ -1,5 +1,7 @@
 package fa.training.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class UserRoleServiceImpl implements UserRoleService{
 	@Override
 	public void save(UserRole userRole) {
 		userRoleRepository.save(userRole);
+	}
+
+	@Override
+	public List<UserRole> findAllByUserIdUsername(String userName) {
+		return userRoleRepository.findAllByUserIdUsername(userName) ;
 	}
 
 }

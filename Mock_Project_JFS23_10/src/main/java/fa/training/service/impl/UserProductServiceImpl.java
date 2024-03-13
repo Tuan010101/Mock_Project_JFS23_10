@@ -3,6 +3,8 @@ package fa.training.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fa.training.entities.UserProduct;
@@ -19,9 +21,25 @@ public class UserProductServiceImpl implements UserProductService {
 	}
 
 	@Override
-	public List<UserProduct> findAllByBillId(int billId) {
-		return userProductRepository.findAllByBillId(billId);
+	public List<UserProduct> findAllByBillIdBillId(int billId) {
+		return userProductRepository.findAllByBillIdBillId(billId);
 	}
+
+	
+	@Override
+	public List<UserProduct> findAllByUserIdUsernameAndBillIdBillId(String userName, int billId) {
+		// TODO Auto-generated method stub
+		return userProductRepository.findAllByUserIdUsernameAndBillIdBillId(userName, billId);
+	}
+
+
+	@Override
+	public Page<UserProduct> findAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return userProductRepository.findAll(pageable);
+	}
+
+	
 
 	
 }
