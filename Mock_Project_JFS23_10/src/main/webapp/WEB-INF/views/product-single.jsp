@@ -134,7 +134,15 @@
 				varStatus="loopStatus">
 				<c:if test="${loopStatus.index < 4}">
 					<!-- Display only the first 4 items -->
-
+<c:set var="maxDiscountPercent" value="0" />
+											<c:forEach var="productDiscount"
+												items="${relatedProducts.productDiscounts}">
+												<c:if
+													test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+													<c:set var="maxDiscountPercent"
+														value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+												</c:if>
+											</c:forEach>
 					<!-- The following code is executed for each related product -->
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
@@ -161,15 +169,7 @@
 								<div class="d-flex">
 									<div class="pricing">
 										<p class="price">
-											<c:set var="maxDiscountPercent" value="0" />
-											<c:forEach var="productDiscount"
-												items="${relatedProducts.productDiscounts}">
-												<c:if
-													test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
-													<c:set var="maxDiscountPercent"
-														value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
-												</c:if>
-											</c:forEach>
+											
 
 											<c:choose>
 												<c:when test="${maxDiscountPercent gt 0}">
