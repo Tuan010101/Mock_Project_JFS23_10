@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		//phân quyền
 		.authorizeRequests()
-		.antMatchers("/", "/index", "/shop", "/about", "/cart", "/contact", "/product-single", "/login", "/register", "/forgot-password/**").permitAll()
+		.antMatchers("/", "/index", "/about", "/cart", "/contact", "/products/**", "/login", "/register", "/forgot-password/**").permitAll()
 		//chứng thực
 		.anyRequest().authenticated();
 		
