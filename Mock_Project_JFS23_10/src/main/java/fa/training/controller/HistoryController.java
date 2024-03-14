@@ -39,6 +39,7 @@ public class HistoryController {
 	@GetMapping("/history")
 	public String ShowHistory(Model model, @RequestParam(value = "page", defaultValue = "0") int page, Principal principal) {
 		String userName = principal.getName();
+		int test;
 		List<UserRole> userRoles = userRoleService.findAllByUserIdUsername(userName);
 		String userRole = "";
 		if (userRoles.size() == 1) {
@@ -88,15 +89,7 @@ public class HistoryController {
 			model.addAttribute("bills",  bills);
 			model.addAttribute("billpage",  billpage);
 			result = "historyUser";
-			
-//			org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: fa.training.entities.Bill.userProducts, could not initialize proxy - no Session
-//			Page<Bill> billpage =  billService.findAllByUserProductsUserIdUsername(userName, pageable);
-//			List<Bill> bills = billpage.getContent();
-//			int totalBillPage = billpage.getTotalPages();
-//			model.addAttribute("totalBillPage", totalBillPage);
-//			model.addAttribute("bills",  bills);
-//			model.addAttribute("billpage",  billpage);
-//			result = "historyUser";
+
 		}
 		return result;
 	}
