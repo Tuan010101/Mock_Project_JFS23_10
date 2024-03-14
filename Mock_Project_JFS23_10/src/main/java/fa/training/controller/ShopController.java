@@ -59,21 +59,19 @@ public class ShopController {
 		int pageSize = 4;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
-		model.addAttribute("categories", categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAllByDeletedFalse());
 
 		List<Product> products;
 		Page<Product> productPage;
 		if (categoryId.equals("-1")) {
-			productPage = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable);
-			products = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable).getContent();
+			productPage = productService.findAllByProductNameContainingAndDeletedOrderByProductId(keyword, false,
+					pageable);
 		} else {
 			Category category = categoryService.findById(Integer.valueOf(categoryId));
-			productPage = productService.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword,
-					pageable);
-			products = productService
-					.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword, pageable)
-					.getContent();
+			productPage = productService.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(
+					category, keyword, pageable);
 		}
+		products = productPage.getContent();
 		model.addAttribute("products", products);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("productPage", productPage);
