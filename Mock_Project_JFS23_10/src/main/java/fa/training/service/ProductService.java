@@ -16,12 +16,12 @@ public interface ProductService {
 
 	Product findById(int id);
 
-	List<Product> findAll();
+	List<Product> findAllByDeletedFalse();
 
-	Page<Product> findAllByCategoryIdAndProductNameContainingOrderByProductId(Category category, String keyword,
+	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String keyword,
 			Pageable pageable);
 
-	Page<Product> findAllByProductNameContainingOrderByProductId(String keyword, Pageable pageable);
+	Page<Product> findAllByProductNameContainingAndDeletedOrderByProductId(String productName,boolean deleted, Pageable pageable);
 
 	List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId);
 
@@ -31,5 +31,11 @@ public interface ProductService {
 
 
 	void delete(Product product);
+
+	/**
+	 * @author: NamLV
+	 * @DoB: 1998/08/29
+	 */
+	List<Product> findAll();
 
 }

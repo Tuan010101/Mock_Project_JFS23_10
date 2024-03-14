@@ -14,11 +14,16 @@ import fa.training.entities.Product;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Page<Product> findAllByProductNameContains(String productName, Pageable pageable);
 
-	Page<Product> findAllByCategoryIdAndProductNameContainingOrderByProductId(Category category, String productName,
+	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String productName,
 			Pageable pageable);
 
-	Page<Product> findAllByProductNameContainingOrderByProductId(String productName, Pageable pageable);
+	Page<Product> findAllByProductNameContainingAndDeletedOrderByProductId(String productName,boolean deleted, Pageable pageable);
 
 	List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId);
+
+	
+	List<Product> findAllByDeletedFalse();
+	
+	
 
 }

@@ -55,7 +55,7 @@
 				<ul class="product-category d-flex justify-content-center p-0">
 					<li><a
 						class="${empty param.category || param.category eq '-1' ? 'active' : ''}"
-						href="${pageContext.request.contextPath}/shop?category=-1">All</a>
+						href="${pageContext.request.contextPath}/products?category=-1">All</a>
 					</li>
 					<c:forEach var="category" items="${categories}">
 						<li><a
