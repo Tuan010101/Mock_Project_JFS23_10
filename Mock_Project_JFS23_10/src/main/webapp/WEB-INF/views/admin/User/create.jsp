@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>admin-product</title>
+<title>admin-User</title>
 <%@ include file="../common/head.jsp"%>
 
 </head>
@@ -27,7 +27,7 @@
 								<div class="app-title">
 									<ul class="app-breadcrumb breadcrumb side">
 										<li class="breadcrumb-item active"><a href="#"><b>Create
-													Product</b></a></li>
+													User</b></a></li>
 									</ul>
 								</div>
 								<div class="tile-body">
@@ -35,49 +35,53 @@
 										modelAttribute="addProductForm">
 
 										<div class="form-group col-3">
-											<label for="productName" class="form-label font-weight-bold">Name</label>
+											<label for="productName" class="form-label font-weight-bold">User
+												Name</label>
 											<form:input type="text" class="form-control"
 												path="productName" />
 											<form:errors path="productName" class="text-danger"></form:errors>
 										</div>
 										<div class="form-group col-3">
-											<label for="image" class="form-label font-weight-bold">Image</label>
+											<label for="image" class="form-label font-weight-bold">Password</label>
 											<form:input type="text" class="form-control" path="image" />
 											<form:errors path="image" class="text-danger"></form:errors>
 										</div>
 
 										<div class="form-group col-3">
-											<label for="price" class="form-label font-weight-bold">Price</label>
+											<label for="price" class="form-label font-weight-bold">Email</label>
 											<form:input type="number" class="form-control" path="price"
 												min="0" step="0.01" />
 											<form:errors path="price" class="text-danger"></form:errors>
 										</div>
 										<div class="form-group col-3">
-											<label for="quantity" class="form-label font-weight-bold">Quantity</label>
+											<label for="quantity" class="form-label font-weight-bold">Full
+												Name</label>
 											<form:input type="number" class="form-control"
 												path="quantity" />
 											<form:errors path="quantity" class="text-danger"></form:errors>
 										</div>
 										<div class="form-group col-3">
-											<label for="categoryId" class="form-label font-weight-bold">Category</label>
-											<form:select class="form-control" path="categoryId">
-												<form:options items="${categories}"></form:options>
-											</form:select>
-											<form:errors path="categoryId" class="text-danger"></form:errors>
+											<label for="quantity" class="form-label font-weight-bold">Address</label>
+											<form:input type="number" class="form-control" path="address" />
+											<form:errors path="quantity" class="text-danger"></form:errors>
+										</div>
+										<div class="form-group col-3">
+											<label for="quantity" class="form-label font-weight-bold">Phone Number</label>
+											<form:input type="number" class="form-control" path="address" />
+											<form:errors path="quantity" class="text-danger"></form:errors>
+										</div>
+										<div class="form-group col-3">
+											<label for="quantity" class="form-label font-weight-bold">Verify Code</label>
+											<form:input type="number" class="form-control" path="address" />
+											<form:errors path="quantity" class="text-danger"></form:errors>
 										</div>
 
-										<div class="form-group col-12">
-											<label for="description" class="form-label font-weight-bold">Description</label>
-											<form:textarea type="text" class="form-control"
-												path="description"></form:textarea>
-											<form:errors path="description" class="text-danger"></form:errors>
-										</div>
 
 
 										<button type="submit" class="btn btn-success mr-3">Create</button>
 										<!-- Back -->
 										<a href="${pageContext.request.contextPath}/admin/products"
-											type="button" class="btn btn-primary">Back to Products</a>
+											type="button" class="btn btn-primary">Back to User List</a>
 									</form:form>
 								</div>
 
