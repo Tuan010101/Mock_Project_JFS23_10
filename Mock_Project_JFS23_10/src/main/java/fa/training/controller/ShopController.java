@@ -41,7 +41,7 @@ public class ShopController {
 
 		// Retrieve related products based on the category (excluding the current
 		// product)
-		List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNot(category, productId);
+		List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNotAndDeletedFalse(category, productId);
 
 		// Add the current product, category, and related products to the model
 		model.addAttribute("product", product);
@@ -58,22 +58,20 @@ public class ShopController {
 
 		int pageSize = 4;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Category category = categoryService.findById(Integer.valueOf(categoryId));
 
-		model.addAttribute("categories", categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAllByDeletedFalse());
 
 		List<Product> products;
 		Page<Product> productPage;
 		if (categoryId.equals("-1")) {
-			productPage = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable);
-			products = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable).getContent();
-		} else {
-			productPage = productService.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword,
+			productPage = productService.findAllByProductNameContainingAndDeletedFalseOrderByProductId(keyword,
 					pageable);
-			products = productService
-					.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword, pageable)
-					.getContent();
+		} else {
+			Category category = categoryService.findById(Integer.valueOf(categoryId));
+			productPage = productService.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(
+					category, keyword, pageable);
 		}
+		products = productPage.getContent();
 		model.addAttribute("products", products);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("productPage", productPage);

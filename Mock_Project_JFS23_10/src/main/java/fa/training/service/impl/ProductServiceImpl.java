@@ -38,30 +38,30 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findAllByCategoryIdAndProductNameContainingOrderByProductId(Category category, String keyword,
+	public Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String keyword,
 			Pageable pageable) {
-		return productRepository.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword,
+		return productRepository.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(category, keyword,
 				pageable);
 	}
 
 	@Override
-	public Page<Product> findAllByProductNameContainingOrderByProductId(String keyword, Pageable pageable) {
-		return productRepository.findAllByProductNameContainingOrderByProductId(keyword, pageable);
+	public Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String keyword, Pageable pageable) {
+		return productRepository.findAllByProductNameContainingAndDeletedFalseOrderByProductId(keyword, pageable);
 	}
 
 	@Override
-	public List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId) {
+	public List<Product> findAllByCategoryIdAndProductIdNotAndDeletedFalse(Category category, int productId) {
 		Product product = findById(productId);
 		Category categoryid = product.getCategoryId();
 		// Retrieve related products excluding the current product
-		return productRepository.findAllByCategoryIdAndProductIdNot(categoryid, productId);
+		return productRepository.findAllByCategoryIdAndProductIdNotAndDeletedFalse(categoryid, productId);
 	}
 
 	// Hiển thị mix product ở trang index, indexController
 	@Override
 	public List<Product> getMixedProducts() {
 		// Fetch all products from the database
-		List<Product> allProducts = productRepository.findAll();
+		List<Product> allProducts = productRepository.findAllByDeletedFalse();
 
 		// Group products by category
 		Map<Category, List<Product>> productsByCategory = allProducts.stream()
@@ -86,6 +86,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void delete(Product product) {
 		productRepository.delete(product);
+	}
+
+	@Override
+	public List<Product> findAllByDeletedFalse() {
+		// TODO Auto-generated method stub
+		return productRepository.findAllByDeletedFalse();
 	}
 
 }

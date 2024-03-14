@@ -20,8 +20,7 @@ public class IndexController {
 
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private CategoryService categoryService;
+
 
 	@GetMapping(value = { "/", "/index" })
 	public String Home(Model model) {

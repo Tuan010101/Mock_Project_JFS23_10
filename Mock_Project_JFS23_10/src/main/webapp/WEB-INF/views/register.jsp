@@ -244,23 +244,43 @@
 	        const rePassword = $(this.rePassword).val();
 	        const rePasswordElement = $(this.rePassword);
 	
-	        if(username && username.match(/.{6,}/)){
+	        if(username && username.match(/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)){
 	            hideError(usernameElement);
+	            if(username.match(/^.{1,50}$/)){
+		            hideError(usernameElement);
+		        } else {
+		        	usernameElement.next(".text-danger").remove();
+		        	usernameElement.parent().append(`
+			          <div class="text-danger">Maximum account length is 50 characters</div>
+			        `);
+		        }
 	        } else {
 	        	usernameElement.next(".text-danger").remove();
 	        	usernameElement.parent().append(`
-		          <div class="text-danger">The account must be at least 6 characters long</div>
+		          <div class="text-danger">The account must be alphanumeric and at least 6 alphanumeric characters</div>
 		        `);
 	        }
 	        
+	        
+	        
 	        if(password){
 	            hideError(passwordElement);
+	            if(password.match(/^.{1,50}$/)){
+		            hideError(passwordElement);
+		        } else {
+		        	passwordElement.next(".text-danger").remove();
+		        	passwordElement.parent().append(`
+			          <div class="text-danger">Maximum password length is 50 characters</div>
+			        `);
+		        }
 	        } else {
 	        	passwordElement.next(".text-danger").remove();
 	        	passwordElement.parent().append(`
 		          <div class="text-danger">Can not be empty</div>
 		        `);
 	        }
+	        
+	        
 	        
 	        if(rePassword && password == rePassword){
 	            hideError(rePasswordElement);
@@ -273,6 +293,14 @@
 	        
 	        if(email && email.match(/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
 	            hideError(emailElement);
+	            if(email.match(/^.{1,320}$/)) {
+		            hideError(emailElement);
+		        } else {
+		        	emailElement.next(".text-danger").remove();
+		        	emailElement.parent().append(`
+			          <div class="text-danger">Maximum account length is 320 characters</div>
+			        `);
+		        }
 	        } else {
 	        	emailElement.next(".text-danger").remove();
 	        	emailElement.parent().append(`

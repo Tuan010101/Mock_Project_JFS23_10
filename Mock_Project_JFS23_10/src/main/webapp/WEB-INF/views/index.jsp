@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.lang.Math"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,6 +203,16 @@
 
 
 			<c:forEach var="mixedProducts" items="${mixedProducts}" varStatus="loopStatus">
+			<c:set var="maxDiscountPercent" value="0" />
+				<c:forEach var="productDiscount" items="${mixedProducts.productDiscounts}">
+					<c:if
+						test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+						<c:set var="maxDiscountPercent"
+							value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+					</c:if>
+				</c:forEach>
+			
+			
 			<c:if test="${loopStatus.index < 8}">
 				<div class="col-md-6 col-lg-3 ftco-animate abc">
 					<div class="product">
@@ -207,8 +220,8 @@
 							href="${pageContext.request.contextPath}/products/${mixedProducts.productId}"
 							class="img-prod"> <img class="img-fluid"
 							src="<c:out value="${mixedProducts.image}" />" alt="Product Image">
-							<c:if test="${mixedProducts.discount gt 0}">
-								<span class="status"><c:out value="${mixedProducts.discount}" />%</span>
+							<c:if test="${maxDiscountPercent gt 0}">
+								<span class="status">${maxDiscountPercent}%</span>
 							</c:if>
 							<div class="overlay"></div>
 						</a>
@@ -220,14 +233,17 @@
 								<div class="pricing">
 									<p class="price">
 										<c:choose>
-											<c:when test="${mixedProducts.discount gt 0}">
+											<c:when test="${maxDiscountPercent gt 0}">
 												<span class="mr-2 price-dc">$<c:out
 														value="${mixedProducts.price}" /></span>
-												<span class="price">$${mixedProducts.price - (mixedProducts.price
-													* mixedProducts.discount / 100)}</span>
+												<span class="price"> $<fmt:formatNumber
+														value="${mixedProducts.price - (mixedProducts.price * maxDiscountPercent / 100)}"
+														pattern="0.00" />
+												</span>
 											</c:when>
 											<c:otherwise>
-												<span class="price">$${mixedProducts.price}</span>
+												<span class="price">$<fmt:formatNumber
+														value="${mixedProducts.price}" pattern="0.00" /></span>
 											</c:otherwise>
 										</c:choose>
 									</p>
