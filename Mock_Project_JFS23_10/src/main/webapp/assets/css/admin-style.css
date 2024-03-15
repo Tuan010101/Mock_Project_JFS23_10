@@ -1,0 +1,178 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+:root {
+	--main-color: #FFFFFF;
+	--main-color-dark: #BDBDBD;
+	--main-color-orange: #FD9A13;
+	--main-color-orange-hover: #e48a0c;
+}
+
+.mybutton {
+	text-transform: capitalize;
+	padding: .5em 1em;
+	border-radius: 3px;
+	border: 1px solid var(--main-color-dark);
+}
+
+.mybutton:hover {
+	background-color: var(--main-color-dark);
+}
+
+.bgr-orange {
+	color: var(--main-color);
+	background-color: var(--main-color-orange);
+	border-color: var(--main-color-orange) !important;
+}
+
+.bgr-orange:hover {
+	background-color: var(--main-color-orange-hover) !important;
+}
+
+body {
+	font-size: 14px;
+	font-family: sans-serif;
+	background-color: #8d8d8d;
+	user-select: none;
+}
+
+#header {
+	width: 100%;
+	height: 70px;
+	border-bottom: 1px solid gray;
+	background-color: var(--main-color);
+}
+
+#header>div {
+	width: 140px;
+	padding-left: 2em;
+	height: 100%;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+}
+
+#content {
+	margin: .5em;
+	width: calc(100% - 1em);
+	height: calc(100vh - 70px);
+	height: auto;
+	display: grid;
+	gap: 10px;
+	grid-template-columns: 250px 1fr;
+	justify-content: space-between;
+}
+
+#content>div {
+	background-color: var(--main-color);
+	border-radius: 3px;
+	padding: 1em;
+	width: 100%;
+	height: 100%;
+}
+
+#sidebar {
+	overflow: hidden;
+}
+
+#sidebar ul a {
+	text-decoration: none;
+}
+
+#sidebar ul a li {
+	border-radius: 3px;
+	background-color: var(--main-color);
+	color: black;
+	border: none;
+	transition: cubic-bezier(0.075, 0.82, 0.165, 1) .3s;
+}
+
+#sidebar ul a li:hover {
+	font-weight: 600;
+	background-color: var(--main-color-dark);
+}
+
+#mainContent__Header a {
+	text-decoration: underline;
+}
+
+#mainContent__Config {
+	height: 100px;
+}
+
+#sidebar ul a li::first-letter, label::first-letter {
+	text-transform: capitalize;
+}
+
+#contentInfo .content-item input {
+	background: none;
+}
+
+#contentInfo .content-item input:focus, #contentInfo .content-item input:active,
+	#contentInfo .content-item input:visited, #contentInfo .content-item input:focus-within
+	{
+	background: none;
+	box-shadow: none;
+}
+
+.modal-dialog {
+	max-width: 55vw;
+}
+
+.group-drag {
+	width: 100%;
+	display: grid;
+	gap: 10px;
+	grid-template-columns: 1fr 1fr;
+	padding: .5em;
+	background-color: var(--main-color);
+	border: 5px solid var(--main-color-dark);
+}
+
+.group-drag>div {
+	width: 100%;
+	height: 100%;
+}
+
+.fromSelected label {
+	font-size: .8em;
+}
+
+.group-drag>div p {
+	margin-bottom: 5px;
+	text-transform: capitalize;
+}
+
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #82ae46;
+    border-color: #82ae46;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #82ae46;
+    background-color: #fff;
+    border: 1px solid #82ae46;
+}
+
+
+.btn.btn-primary:hover {
+    border: 1px solid #82ae46;
+	background-color: gray;
+    color: #82ae46;
+}
+
+
+.page-link:hover {
+    color: #fff ;
+   
+}

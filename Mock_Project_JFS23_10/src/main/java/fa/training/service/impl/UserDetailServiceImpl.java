@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.AppUser;
 import fa.training.repository.AppUserRepository;
+import fa.training.repository.RoleRepository;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService{

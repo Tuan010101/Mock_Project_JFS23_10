@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>Admin - Contact List</title>
+<title>Admin - User List</title>
 <%@ include file="../common/head.jsp"%>
 </head>
 <body>
@@ -24,7 +24,7 @@
 						<div class="app-content">
 							<div class="app-title">
 								<ul class="app-breadcrumb breadcrumb side">
-									<li class="breadcrumb-item active"><a href="#"><b>Contact
+									<li class="breadcrumb-item active"><a href="#"><b>User
 												list</b></a></li>
 								</ul>
 							</div>
@@ -37,7 +37,7 @@
 													<a class="btn btn-add btn-sm p-2"
 														href="${pageContext.request.contextPath}/admin/products/create"
 														title="Thêm"><i class="fas fa-plus"></i> Create new
-														Product</a>
+														User</a>
 												</div>
 												<form class="mb-2 d-flex seach align-items-center">
 													<input type="text" class="form-control"
@@ -54,31 +54,77 @@
 												<thead>
 													<tr>
 														<th>#</th>
-														<th>Full Name</th>
+														<th>User Name</th>
+														<th>Password</th>
 														<th>Email</th>
-														<th>Subject</th>
-														<th>Message</th>
-														<th>Created Date</th>
-														<th>Replied</th>
+														<th>Full Name</th>
+														<th>Address</th>
+														<th>Phone Number</th>
+														<th>Verify Code</th>
+														<th>Roles</th>
+
 														<th>Action</th>
+
+
 													</tr>
 												<tbody>
-													<c:forEach var="contact" items="${contacts.content}"
+													<c:forEach var="appUser" items="${appUser.content}"
 														varStatus="status">
 														<tr>
-															<td>${contacts.number * contacts.size + status.index + 1}</td>
-															<td>${contact.fullName}</td>
-															<td>${contact.email}</td>
-															<td>${contact.subject}</td>
-															<td>${contact.message}</td>
-															<td>${contact.createdDate}</td>
-															<td class="text-center" style="font-size: 20px">${contact.replied == true ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-thumbs-down text-danger"></i>'}</td>
-															<td>
+															<td>${status.index + 1}</td>
+															<td>${appUser.username}</td>
+															<td>${appUser.email}</td>
+															<td>${appUser.fullName}</td>
+															<td>${appUser.address}</td>
+															<td>${appUser.phoneNumber}</td>
+															<td>${appUser.verifyCode}</td>
+															<td><c:forEach var="userRole"
+																	items="${appUser.userRoles}">
+    ${userRole.roleId.roleName}<br />
+																</c:forEach></td>
+															<td class="table-td-center">
 																<!-- Edit button --> <a
-																href="${pageContext.request.contextPath}/admin/contacts/${contact.contactId}"
-																class="btn btn-primary btn-sm trash ">View</a> <!-- Reply button --> <a
-																href="${pageContext.request.contextPath}/admin/contacts/reply/${contact.contactId}"
-																class="btn btn-primary btn-sm edit">Reply</a>
+																href="${pageContext.request.contextPath}/admin/products/edit/${product.productId}"
+																class="btn btn-primary btn-sm trash ">Edit</a> <!-- Delete button -->
+																<%-- <a
+																href="${pageContext.request.contextPath}/admin/products/delete/${product.productId}"
+																class="btn btn-primary btn-sm edit">Delete</a> --%> <a
+																class="btn btn-primary btn-sm">
+																	<p class="m-0" data-toggle="modal"
+																		data-target="#deleteModal${status.count}"
+																		title="Delete">Delete</p>
+																	<div id="deleteModal${status.count}" class="modal fade">
+																		<div class="modal-dialog">
+																			<div class="modal-content">
+																				<form action="/products/delete/${appUser.userId}"
+																					method="post">
+																					<div class="modal-header">
+																						<h4 class="modal-title"
+																							style="color: #0b0b0b !important;">Xóa sản
+																							phẩm</h4>
+																						<button type="button" class="close"
+																							data-dismiss="modal" aria-hidden="true">&times;
+																						</button>
+																					</div>
+																					<div class="modal-body">
+																						<p class="text-dark">Bạn có chắc là xóa sản
+																							phẩm có tên ${appUser.username} và id là
+																							${appUser.userId} ?</p>
+																						<p class="text-danger">
+																							<small>Sản phẩm này sẽ không thể phục hồi
+																								lại</small>
+																						</p>
+																					</div>
+																					<div class="modal-footer">
+																						<input type="button" class="btn btn-default"
+																							data-dismiss="modal" value="Trở về"> <input
+																							type="submit" class="btn btn-danger" value="Xóa">
+																					</div>
+																				</form>
+																			</div>
+																		</div>
+																	</div>
+															</a>
 															</td>
 														</tr>
 													</c:forEach>
