@@ -21,7 +21,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	List<Product> findAllByCategoryIdAndProductIdNotAndDeletedFalse(Category category, int productId);
 
-	
 	List<Product> findAllByDeletedFalse();
 	
 	
