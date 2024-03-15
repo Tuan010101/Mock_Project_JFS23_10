@@ -36,61 +36,75 @@
 										</div>
 										<div class="tile-body">
 											<form:form action="" method="post" class="form-row"
-												modelAttribute="addProductForm">
+												modelAttribute="addUserForm">
 
 												<div class="form-group col-3">
-													<label for="productName"
-														class="form-label font-weight-bold">User Name</label>
-													<form:input type="text" class="form-control"
-														path="productName" />
-													<form:errors path="productName" class="text-danger"></form:errors>
-												</div>
-												<div class="form-group col-3">
-													<label for="image" class="form-label font-weight-bold">Password</label>
-													<form:input type="text" class="form-control" path="image" />
-													<form:errors path="image" class="text-danger"></form:errors>
-												</div>
-
-												<div class="form-group col-3">
-													<label for="price" class="form-label font-weight-bold">Email</label>
-													<form:input type="number" class="form-control" path="price"
-														min="0" step="0.01" />
-													<form:errors path="price" class="text-danger"></form:errors>
-												</div>
-												<div class="form-group col-3">
-													<label for="quantity" class="form-label font-weight-bold">Full
+													<label for="userName" class="form-label font-weight-bold">User
 														Name</label>
-													<form:input type="number" class="form-control"
-														path="quantity" />
-													<form:errors path="quantity" class="text-danger"></form:errors>
+													<form:input type="text" class="form-control"
+														path="userName" />
+													<form:errors path="userName" class="text-danger"></form:errors>
 												</div>
 												<div class="form-group col-3">
-													<label for="quantity" class="form-label font-weight-bold">Address</label>
-													<form:input type="number" class="form-control"
-														path="address" />
-													<form:errors path="quantity" class="text-danger"></form:errors>
+													<label for="password" class="form-label font-weight-bold">Password</label>
+													<form:input type="text" class="form-control"
+														path="password" />
+													<form:errors path="password" class="text-danger"></form:errors>
+												</div>
+
+												<div class="form-group col-3">
+													<label for="email" class="form-label font-weight-bold">Email</label>
+													<form:input type="text" class="form-control" path="email" />
+
+													<form:errors path="email" class="text-danger"></form:errors>
 												</div>
 												<div class="form-group col-3">
-													<label for="quantity" class="form-label font-weight-bold">Phone
-														Number</label>
-													<form:input type="number" class="form-control"
-														path="address" />
-													<form:errors path="quantity" class="text-danger"></form:errors>
+													<label for="fullName" class="form-label font-weight-bold">Full
+														Name</label>
+													<form:input type="text" class="form-control"
+														path="fullName" />
+													<form:errors path="fullName" class="text-danger"></form:errors>
 												</div>
 												<div class="form-group col-3">
-													<label for="quantity" class="form-label font-weight-bold">Verify
+													<label for="address" class="form-label font-weight-bold">Address</label>
+													<form:input type="text" class="form-control" path="address" />
+													<form:errors path="address" class="text-danger"></form:errors>
+												</div>
+												<div class="form-group col-3">
+													<label for="phoneNumber"
+														class="form-label font-weight-bold">Phone Number</label>
+													<form:input type="number" class="form-control"
+														path="phoneNumber" />
+													<form:errors path="phoneNumber" class="text-danger"></form:errors>
+												</div>
+												<div class="form-group col-3">
+													<label for="verifyCode" class="form-label font-weight-bold">Verify
 														Code</label>
 													<form:input type="number" class="form-control"
-														path="address" />
-													<form:errors path="quantity" class="text-danger"></form:errors>
+														path="verifyCode" />
+													<form:errors path="verifyCode" class="text-danger"></form:errors>
+												</div>
+
+												<div class="form-group col-3">
+													<label for="roleId" class="form-label font-weight-bold">Role</label>
+													<form:select class="form-control" path="roleId">
+														<form:options items="${rolesMap}" />
+													</form:select>
+
+
+													<form:errors path="roleId" class="text-danger"></form:errors>
+												</div>
+												<div class="col-12">
+
+													<button type="submit" class="btn btn-success mr-3">Create</button>
+													<!-- Back -->
+													<a href="${pageContext.request.contextPath}/admin/User"
+														type="button" class="btn btn-primary">Back to User
+														List</a>
 												</div>
 
 
 
-												<button type="submit" class="btn btn-success mr-3">Create</button>
-												<!-- Back -->
-												<a href="${pageContext.request.contextPath}/admin/products"
-													type="button" class="btn btn-primary">Back to User List</a>
 											</form:form>
 										</div>
 									</div>

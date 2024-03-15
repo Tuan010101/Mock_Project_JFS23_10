@@ -1,6 +1,7 @@
 package fa.training.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import fa.training.entities.AppUser;
 import fa.training.entities.UserRole;
@@ -36,7 +37,7 @@ public class AddUserForm {
 	@NotBlank(message = "Must not be blank")
 	private String verifyCode;
 
-	@NotBlank(message = "Must not be blank")
+	@NotNull(message = "Must not be null")
 	private int roleId;
 
 	public AddUserForm(AppUser appUser) {

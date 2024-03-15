@@ -10,7 +10,6 @@ import fa.training.entities.AppUser;
 
 public interface AppUserService {
 
-	@Query
 	AppUser findById(int id);
 
 	AppUser findByUsername(String username);

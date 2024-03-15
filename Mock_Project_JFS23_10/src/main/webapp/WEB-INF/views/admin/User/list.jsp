@@ -35,7 +35,7 @@
 											<div class="row element-button justify-content-between p-3">
 												<div class="col-sm-2 d-flex align-items-center p-0">
 													<a class="btn btn-add btn-sm p-2"
-														href="${pageContext.request.contextPath}/admin/products/create"
+														href="${pageContext.request.contextPath}/admin/User/create"
 														title="Thêm"><i class="fas fa-plus"></i> Create new
 														User</a>
 												</div>
@@ -55,12 +55,10 @@
 													<tr>
 														<th>#</th>
 														<th>User Name</th>
-														<th>Password</th>
 														<th>Email</th>
 														<th>Full Name</th>
 														<th>Address</th>
 														<th>Phone Number</th>
-														<th>Verify Code</th>
 														<th>Roles</th>
 
 														<th>Action</th>
@@ -68,23 +66,22 @@
 
 													</tr>
 												<tbody>
-													<c:forEach var="appUser" items="${appUser.content}"
+													<c:forEach var="appUserPage" items="${appUserPage.content}"
 														varStatus="status">
 														<tr>
 															<td>${status.index + 1}</td>
-															<td>${appUser.username}</td>
-															<td>${appUser.email}</td>
-															<td>${appUser.fullName}</td>
-															<td>${appUser.address}</td>
-															<td>${appUser.phoneNumber}</td>
-															<td>${appUser.verifyCode}</td>
+															<td>${appUserPage.username}</td>
+															<td>${appUserPage.email}</td>
+															<td>${appUserPage.fullName}</td>
+															<td>${appUserPage.address}</td>
+															<td>${appUserPage.phoneNumber}</td>
 															<td><c:forEach var="userRole"
-																	items="${appUser.userRoles}">
+																	items="${appUserPage.userRoles}">
     ${userRole.roleId.roleName}<br />
 																</c:forEach></td>
 															<td class="table-td-center">
 																<!-- Edit button --> <a
-																href="${pageContext.request.contextPath}/admin/products/edit/${product.productId}"
+																href="${pageContext.request.contextPath}/admin/User/edit/${appUserPage.userId}"
 																class="btn btn-primary btn-sm trash ">Edit</a> <!-- Delete button -->
 																<%-- <a
 																href="${pageContext.request.contextPath}/admin/products/delete/${product.productId}"
@@ -96,7 +93,8 @@
 																	<div id="deleteModal${status.count}" class="modal fade">
 																		<div class="modal-dialog">
 																			<div class="modal-content">
-																				<form action="/products/delete/${appUser.userId}"
+																				<form
+																					action="/products/delete/${appUserPage.userId}"
 																					method="post">
 																					<div class="modal-header">
 																						<h4 class="modal-title"
@@ -108,8 +106,8 @@
 																					</div>
 																					<div class="modal-body">
 																						<p class="text-dark">Bạn có chắc là xóa sản
-																							phẩm có tên ${appUser.username} và id là
-																							${appUser.userId} ?</p>
+																							phẩm có tên ${appUserPage.username} và id là
+																							${appUserPage.userId} ?</p>
 																						<p class="text-danger">
 																							<small>Sản phẩm này sẽ không thể phục hồi
 																								lại</small>

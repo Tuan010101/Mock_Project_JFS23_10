@@ -31,8 +31,8 @@ import fa.training.service.UserRoleService;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
-public class AdminUserController {
+@PreAuthorize("hasDiscount('DISCOUNT_ADMIN')")
+public class AdminDiscountController {
 
 	@Autowired
 	AppUserService appUserService;
@@ -41,8 +41,8 @@ public class AdminUserController {
 	@Autowired
 	RoleRepository roleRepository;
 
-	@GetMapping("/User")
-	public String showAllUsers(@RequestParam(value = "keyword", defaultValue = "") String keyword,
+	@GetMapping("/Discount")
+	public String showAllDiscount(@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo, Model model) {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
@@ -59,7 +59,7 @@ public class AdminUserController {
 	}
 
 	@GetMapping("/User/create")
-	public String showCreateUserForm(Model model) {
+	public String showCreateDiscountForm(Model model) {
 		AddUserForm addUserForm = new AddUserForm();
 		Map<Integer, String> rolesMap = roleRepository.findAll().stream()
 				.collect(Collectors.toMap(Role::getRoleId, Role::getRoleName));
@@ -69,8 +69,8 @@ public class AdminUserController {
 	}
 
 	@PostMapping("/User/create")
-	public String createUser(@ModelAttribute("addUserForm") @Valid AddUserForm addUserForm,
-			BindingResult bindingResult, Model model) {
+	public String createDiscount(@ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult,
+			Model model) {
 
 		if (bindingResult.hasErrors()) {
 			Map<Integer, String> rolesMap = roleRepository.findAll().stream()
@@ -104,7 +104,7 @@ public class AdminUserController {
 	}
 
 	@GetMapping("/User/edit/{id}")
-	public String showEditUserForm(@PathVariable int id, Model model) {
+	public String showEditDiscountForm(@PathVariable int id, Model model) {
 
 		AppUser appUser = appUserService.findById(id);
 
