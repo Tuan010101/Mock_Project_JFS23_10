@@ -141,10 +141,15 @@ public class LoginController {
 	@PostMapping("/register")
 	public String PostRegister(@ModelAttribute("appUser") @Valid AppUser appUser, BindingResult result, Model model) {
 		
+		appUser.setUsername(appUser.getUsername() != null ? appUser.getUsername().trim() : null);
+		if (result.hasErrors()) {
+			return "register";
+		}
+		
 		if (appUserService.existsByUsername(appUser.getUsername())) {
-			result.rejectValue("username", null, "Tên tài khoản đã tồn tại");
+			result.rejectValue("username", null, "Username already exists");
 		} else if (appUserService.existsByEmail(appUser.getEmail())) {
-			result.rejectValue("email", null, "Email đã tồn tại");
+			result.rejectValue("email", null, "Email already exists");
 		} 
 		
 		if (result.hasErrors()) {

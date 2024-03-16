@@ -316,7 +316,7 @@
 	        this.submit();
 	    }
 	    $(document).ready(function(){
-	        $("#inforForm").on("submit", submit);
+// 	        $("#inforForm").on("submit", submit);
 	    })
 	</script>
 </body>
