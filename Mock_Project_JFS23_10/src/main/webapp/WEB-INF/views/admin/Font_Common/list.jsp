@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
+
 <head>
-<title>Admin - Contact List</title>
+<meta charset="UTF-8">
+<title>admin-product</title>
 <%@ include file="../common/head.jsp"%>
+
+
 </head>
+
 <body>
 	<div id="main">
 		<!-- Header -->
@@ -24,7 +29,7 @@
 						<div class="app-content">
 							<div class="app-title">
 								<ul class="app-breadcrumb breadcrumb side">
-									<li class="breadcrumb-item active"><a href="#"><b>Contact
+									<li class="breadcrumb-item active"><a href="#"><b>Product
 												list</b></a></li>
 								</ul>
 							</div>
@@ -53,32 +58,39 @@
 												cellpadding="0" cellspacing="0" border="0" id="sampleTable">
 												<thead>
 													<tr>
-														<th>#</th>
-														<th>Full Name</th>
-														<th>Email</th>
-														<th>Subject</th>
-														<th>Message</th>
-														<th>Created Date</th>
-														<th>Replied</th>
-														<th>Action</th>
+														<th width="100">ID Product</th>
+														<th width="150">Product Name</th>
+														<th width="100">Image</th>
+														<th width="100">Description</th>
+														<th width="100">Price</th>
+														<th width="100">Quantity</th>
+														<th width="100">Category</th>
+														<th width="100">Status</th>
+														<th width="200">Action</th>
+
+
 													</tr>
+												</thead>
 												<tbody>
-													<c:forEach var="contact" items="${contacts.content}"
+													<c:forEach var="product" items="${products.content}"
 														varStatus="status">
 														<tr>
-															<td>${contacts.number * contacts.size + status.index + 1}</td>
-															<td>${contact.fullName}</td>
-															<td>${contact.email}</td>
-															<td>${contact.subject}</td>
-															<td>${contact.message}</td>
-															<td>${contact.createdDate}</td>
-															<td class="text-center" style="font-size: 20px">${contact.replied == true ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-thumbs-down text-danger"></i>'}</td>
-															<td>
+															<td>${products.number * products.size + status.index + 1}</td>
+															<td>${product.productName}</td>
+															<td><img src="${product.image}" width="100"></td>
+															<td>${product.description}</td>
+															<td>${product.price}</td>
+															<td>${product.quantity}</td>
+															<td>${product.categoryId.categoryName}</td>
+															<td class="text-center" style="font-size: 20px">${contact.replied == true ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-close text-danger"></i>'}</td>
+
+															<td class="table-td-center">
 																<!-- Edit button --> <a
-																href="${pageContext.request.contextPath}/admin/contacts/${contact.contactId}"
-																class="btn btn-primary btn-sm trash ">View</a> <!-- Reply button --> <a
-																href="${pageContext.request.contextPath}/admin/contacts/reply/${contact.contactId}"
-																class="btn btn-primary btn-sm edit">Reply</a>
+																href="${pageContext.request.contextPath}/admin/products/edit/${product.productId}"
+																class="btn btn-primary btn-sm trash ">Edit</a> <!-- Delete button -->
+																<a
+																href="${pageContext.request.contextPath}/admin/products/delete/${product.productId}"
+																class="btn btn-primary btn-sm edit">Delete</a>
 															</td>
 														</tr>
 													</c:forEach>

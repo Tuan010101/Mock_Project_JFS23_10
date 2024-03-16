@@ -66,6 +66,6 @@ public class AppUser {
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserProduct> userProducts;
 
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles;
 }

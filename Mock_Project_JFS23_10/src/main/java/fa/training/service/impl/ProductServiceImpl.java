@@ -45,16 +45,16 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findAllByProductNameContainingAndDeletedOrderByProductId(String keyword, boolean deleted, Pageable pageable) {
-		return productRepository.findAllByProductNameContainingAndDeletedOrderByProductId(keyword,deleted, pageable);
+	public Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String keyword, Pageable pageable) {
+		return productRepository.findAllByProductNameContainingAndDeletedFalseOrderByProductId(keyword, pageable);
 	}
 
 	@Override
-	public List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId) {
+	public List<Product> findAllByCategoryIdAndProductIdNotAndDeletedFalse(Category category, int productId) {
 		Product product = findById(productId);
 		Category categoryid = product.getCategoryId();
 		// Retrieve related products excluding the current product
-		return productRepository.findAllByCategoryIdAndProductIdNot(categoryid, productId);
+		return productRepository.findAllByCategoryIdAndProductIdNotAndDeletedFalse(categoryid, productId);
 	}
 
 	// Hiển thị mix product ở trang index, indexController

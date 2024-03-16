@@ -37,11 +37,14 @@
 
 
 		<div class="row justify-content-center">
-			<form action="" method="get" class="col-md-8 text-center">
+			<form action="${pageContext.request.contextPath}/products?" method="get" class="col-md-8 text-center">
 				<div class="input-group mb-3  ">
 					<input type="search" name="keyword" value="${keyword }"
 						class="form-control  rounded-left" placeholder="Bạn muốn tìm ..."
 						aria-label="Recipient's username" aria-describedby="basic-addon2">
+						
+						<input type="hidden" name="category" value="${param.category}">
+						
 					<div class="input-group-append">
 						<button class="btn btn-outline-secondary rounded-right"
 							style="background: #82ae46; color: white" type="submit">
