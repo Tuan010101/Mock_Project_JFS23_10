@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.lang.Math"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,13 +53,14 @@
 
 			<div class="col-md-6 mb-5 text-center">
 				<ul class="product-category d-flex justify-content-center p-0">
-					<li><a class="${empty param.category ? 'active' : ''}"
-						href="${pageContext.request.contextPath}/shop?category=-1">All</a>
+					<li><a
+						class="${empty param.category || param.category eq '-1' ? 'active' : ''}"
+						href="${pageContext.request.contextPath}/products?category=-1">All</a>
 					</li>
 					<c:forEach var="category" items="${categories}">
 						<li><a
 							class="${param.category eq category.categoryId ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/shop?category=${category.categoryId}">
+							href="${pageContext.request.contextPath}/products?category=${category.categoryId}">
 								${category.categoryName} </a></li>
 					</c:forEach>
 				</ul>
@@ -67,15 +70,29 @@
 
 
 		<div class="row">
+
+
+
+
+
 			<c:forEach var="product" items="${products}">
+				<c:set var="maxDiscountPercent" value="0" />
+				<c:forEach var="productDiscount" items="${product.productDiscounts}">
+					<c:if
+						test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+						<c:set var="maxDiscountPercent"
+							value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+					</c:if>
+				</c:forEach>
+
 				<div class="col-md-6 col-lg-3 ftco-animate abc">
 					<div class="product">
 						<a
-							href="${pageContext.request.contextPath}/product-single/${product.productId}"
+							href="${pageContext.request.contextPath}/products/${product.productId}"
 							class="img-prod"> <img class="img-fluid"
 							src="<c:out value="${product.image}" />" alt="Product Image">
-							<c:if test="${product.discount gt 0}">
-								<span class="status"><c:out value="${product.discount}" />%</span>
+							<c:if test="${maxDiscountPercent gt 0}">
+								<span class="status">${maxDiscountPercent}%</span>
 							</c:if>
 							<div class="overlay"></div>
 						</a>
@@ -87,16 +104,20 @@
 								<div class="pricing">
 									<p class="price">
 										<c:choose>
-											<c:when test="${product.discount gt 0}">
+											<c:when test="${maxDiscountPercent gt 0}">
 												<span class="mr-2 price-dc">$<c:out
 														value="${product.price}" /></span>
-												<span class="price">$${product.price - (product.price
-													* product.discount / 100)}</span>
+												<span class="price"> $<fmt:formatNumber
+														value="${product.price - (product.price * maxDiscountPercent / 100)}"
+														pattern="0.00" />
+												</span>
 											</c:when>
 											<c:otherwise>
-												<span class="price">$${product.price}</span>
+												<span class="price">$<fmt:formatNumber
+														value="${product.price}" pattern="0.00" /></span>
 											</c:otherwise>
 										</c:choose>
+
 									</p>
 								</div>
 							</div>
@@ -115,6 +136,11 @@
 					</div>
 				</div>
 			</c:forEach>
+
+
+
+
+
 		</div>
 
 

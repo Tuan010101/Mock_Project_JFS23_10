@@ -14,4 +14,5 @@ public interface BillService {
 	Page<Bill> findAll(Pageable pageable);
 	Bill findAllByBillId(int billId);
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
+	void save(Bill bill);
 }

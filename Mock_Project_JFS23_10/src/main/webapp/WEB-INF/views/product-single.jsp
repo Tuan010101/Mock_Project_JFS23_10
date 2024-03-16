@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.lang.Math"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,13 +62,24 @@
 					</p>
 				</div>
 				<p class="price-dc">
-				<span>Giá gốc:</span>
-					<span>${product.price} VND</span>
+					<c:set var="maxDiscountPercent" value="0" />
+					<c:forEach var="productDiscount"
+						items="${product.productDiscounts}">
+						<c:if
+							test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+							<c:set var="maxDiscountPercent"
+								value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+						</c:if>
+					</c:forEach>
+					<span>Giá gốc:</span> <span>$${product.price}</span>
 				</p>
-				<span>sale ${product.discount }%</span>
+				<span>sale ${maxDiscountPercent }%</span>
 
 				<p class="price">
-					<span>${product.price * (100 - product.discount) / 100} VND</span>
+					<span class="price">$<fmt:formatNumber
+							value="${product.price * (100 - maxDiscountPercent) / 100}"
+							pattern="0.00" /></span>
+
 
 				</p>
 				<p>${product.description }</p>
@@ -106,147 +120,97 @@
 			<div class="col-md-12 heading-section text-center ftco-animate">
 				<span class="subheading">Products</span>
 				<h2 class="mb-4">Related Products</h2>
-				<p>Far far away, behind the word mountains, far from the
+				<p>Far far away, behind the world mountains, far from the
 					countries Vokalia and Consonantia</p>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-1.jpg" alt="Colorlib Template"> <span
-						class="status">30%</span>
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Bell Pepper</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span class="mr-2 price-dc">$120.00</span><span
-										class="price-sale">$80.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-2.jpg" alt="Colorlib Template">
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Strawberry</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span>$120.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-3.jpg" alt="Colorlib Template">
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Green Beans</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span>$120.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
+
+
+
+			<c:forEach var="relatedProducts" items="${relatedProducts}"
+				varStatus="loopStatus">
+				<c:if test="${loopStatus.index < 4}">
+					<!-- Display only the first 4 items -->
+<c:set var="maxDiscountPercent" value="0" />
+											<c:forEach var="productDiscount"
+												items="${relatedProducts.productDiscounts}">
+												<c:if
+													test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+													<c:set var="maxDiscountPercent"
+														value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+												</c:if>
+											</c:forEach>
+					<!-- The following code is executed for each related product -->
+					<div class="col-md-6 col-lg-3 ftco-animate">
+						<div class="product">
+							<!-- Product image and details -->
+							<a
+								href="${pageContext.request.contextPath}/products/${relatedProducts.productId}"
+								class="img-prod"> <img class="img-fluid"
+								src="<c:out value="${relatedProducts.image}" />"
+								alt="Product Image"> <c:if
+									test="${maxDiscountPercent gt 0}">
+									<span class="status"><c:out
+											value="${maxDiscountPercent}" />%</span>
+								</c:if>
+								<div class="overlay"></div>
+							</a>
+
+							<div class="text py-3 pb-4 px-3 text-center">
+								<!-- Product name -->
+								<h3>
+									<a href="#"><c:out value="${relatedProducts.productName}" /></a>
+								</h3>
+
+								<!-- Pricing details -->
+								<div class="d-flex">
+									<div class="pricing">
+										<p class="price">
+											
+
+											<c:choose>
+												<c:when test="${maxDiscountPercent gt 0}">
+													<span class="mr-2 price-dc">$<c:out
+															value="${product.price}" /></span>
+													<span class="price"> $<fmt:formatNumber
+															value="${product.price - (product.price * maxDiscountPercent / 100)}"
+															pattern="0.00" />
+													</span>
+												</c:when>
+												<c:otherwise>
+													<span class="price">$<fmt:formatNumber
+															value="${relatedProducts.price}" pattern="0.00" /></span>
+												</c:otherwise>
+											</c:choose>
+										</p>
+									</div>
+								</div>
+
+								<!-- Buttons for actions like adding to cart and favorites -->
+								<div class="bottom-area d-flex px-3">
+									<div class="m-auto d-flex">
+										<a href="#"
+											class="buy-now d-flex justify-content-center align-items-center mx-1">
+											<span><i class="ion-ios-cart"></i></span>
+										</a> <a href="#"
+											class="heart d-flex justify-content-center align-items-center">
+											<span><i class="ion-ios-heart"></i></span>
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3 ftco-animate">
-				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid"
-						src="images/product-4.jpg" alt="Colorlib Template">
-						<div class="overlay"></div> </a>
-					<div class="text py-3 pb-4 px-3 text-center">
-						<h3>
-							<a href="#">Purple Cabbage</a>
-						</h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price">
-									<span>$120.00</span>
-								</p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="#"
-									class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a> <a href="#"
-									class="buy-now d-flex justify-content-center align-items-center mx-1">
-									<span><i class="ion-ios-cart"></i></span>
-								</a> <a href="#"
-									class="heart d-flex justify-content-center align-items-center ">
-									<span><i class="ion-ios-heart"></i></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+					<!-- End of product display -->
+				</c:if>
+			</c:forEach>
+
+
+
+
 		</div>
 	</div>
 </section>

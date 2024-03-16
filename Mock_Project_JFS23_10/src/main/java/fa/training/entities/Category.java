@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,10 +26,13 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id")
 	private int categoryId;
-	
+
 	@Column(name = "category_name")
+	@NotBlank(message = "Must not be blank")
 	private String categoryName;
-	
+
+	private boolean deleted;
+
 	@OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL)
 	private Set<Product> products;
 }

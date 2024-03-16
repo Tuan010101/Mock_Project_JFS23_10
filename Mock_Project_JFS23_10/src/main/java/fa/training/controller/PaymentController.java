@@ -55,30 +55,38 @@ public class PaymentController {
 		return !currentDate.isBefore(startDate) && !currentDate.isAfter(endDate);
 	}
 
+	private double getTotalPrice(AppUser appUser) {
+		LocalDate today = LocalDate.now();
+		double totalPrice = appUser.getUserProducts().stream().filter(userProduct -> userProduct.getBillId() == null)
+				.mapToDouble(userProduct -> {
+
+					Product product = userProduct.getProductId();
+
+					double maxDiscountPercent = product.getProductDiscounts().stream().filter(productDiscount -> {
+						LocalDate startDate = productDiscount.getDiscount().getStartDiscountDate();
+						LocalDate endDate = productDiscount.getDiscount().getEndDiscountDate();
+						return isInDiscountPeriod(today, startDate, endDate);
+					}).mapToDouble(productDiscount -> productDiscount.getDiscount().getDiscountPercent()).max().orElse(0.0);
+
+					return product.getPrice() * (1 - maxDiscountPercent / 100.0) * userProduct.getQuantity();
+				}).sum();
+
+		DecimalFormat decimalFormat = new DecimalFormat("#.##");
+		totalPrice = Double.parseDouble(decimalFormat.format(totalPrice));
+		return totalPrice;
+	}
+
 	@GetMapping("/checkout")
 	public String showCheckout(@ModelAttribute("bill") Bill bill, Principal principal, Model model) {
 		String username = principal.getName();
 		AppUser appUser = appUserService.findByUsername(username);
-		LocalDate today = LocalDate.now();
 
 		bill.setFullName(appUser.getFullName());
 		bill.setAddress(appUser.getAddress());
 		bill.setPhoneNumber(appUser.getPhoneNumber());
 		bill.setEmail(appUser.getEmail());
 
-		double totalPrice = appUser.getUserProducts().stream().filter(userProduct -> userProduct.getBillId() == null)
-				.mapToDouble(userProduct -> {
-					Product product = userProduct.getProductId();
-					if (isInDiscountPeriod(today, product.getStartDiscountDate(), product.getEndDiscountDate())) {
-						return product.getPrice() * (1 - product.getDiscount() / 100.0) * userProduct.getQuantity();
-					} else {
-						return product.getPrice() * userProduct.getQuantity();
-					}
-				}).sum();
-		DecimalFormat decimalFormat = new DecimalFormat("#.##");
-		totalPrice = Double.parseDouble(decimalFormat.format(totalPrice));
-
-		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("totalPrice", getTotalPrice(appUser));
 		return "checkout";
 
 	}
@@ -88,22 +96,9 @@ public class PaymentController {
 			Model model, HttpSession session) {
 		String username = principal.getName();
 		AppUser appUser = appUserService.findByUsername(username);
-		LocalDate today = LocalDate.now();
-
-		double totalPrice = appUser.getUserProducts().stream().filter(userProduct -> userProduct.getBillId() == null)
-				.mapToDouble(userProduct -> {
-					Product product = userProduct.getProductId();
-					if (isInDiscountPeriod(today, product.getStartDiscountDate(), product.getEndDiscountDate())) {
-						return product.getPrice() * (1 - product.getDiscount() / 100.0) * userProduct.getQuantity();
-					} else {
-						return product.getPrice() * userProduct.getQuantity();
-					}
-				}).sum();
-		DecimalFormat decimalFormat = new DecimalFormat("#.##");
-		totalPrice = Double.parseDouble(decimalFormat.format(totalPrice));
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("totalPrice", totalPrice);
+			model.addAttribute("totalPrice", getTotalPrice(appUser));
 			return "checkout";
 		}
 		// status :
@@ -151,21 +146,8 @@ public class PaymentController {
 
 		String username = principal.getName();
 		AppUser appUser = appUserService.findByUsername(username);
-		LocalDate today = LocalDate.now();
 
-		double totalPrice = appUser.getUserProducts().stream().filter(userProduct -> userProduct.getBillId() == null)
-				.mapToDouble(userProduct -> {
-					Product product = userProduct.getProductId();
-					if (isInDiscountPeriod(today, product.getStartDiscountDate(), product.getEndDiscountDate())) {
-						return product.getPrice() * (1 - product.getDiscount() / 100.0) * userProduct.getQuantity();
-					} else {
-						return product.getPrice() * userProduct.getQuantity();
-					}
-				}).sum();
-		DecimalFormat decimalFormat = new DecimalFormat("#.##");
-		totalPrice = Double.parseDouble(decimalFormat.format(totalPrice));
-
-		long amount = (long) (totalPrice * 100 * 23000);
+		long amount = (long) (getTotalPrice(appUser) * 100 * 23000);
 		// * 100 : quy định VNPAY
 		// * 23000 : $ -> VND
 

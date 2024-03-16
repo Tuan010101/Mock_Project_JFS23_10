@@ -33,11 +33,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll(); // Allow access to static resources
 		
 		http
+		.authorizeRequests()
+		.antMatchers("/user/active/email/check").permitAll();
+		http
+		.authorizeRequests()
+		.antMatchers("/user/**").hasRole("USER");
+		http
+		.authorizeRequests()
+		.antMatchers("/admin/**").hasRole("ADMIN");
+		
+		http
 		//phân quyền
 		.authorizeRequests()
-		.antMatchers("/", "/index", "/shop", "/about", "/cart", "/contact", "/product-single", "/login", "/register", "/forgot-password/**", "/user/active/email/check").permitAll()
+		.antMatchers("/", "/index", "/about", "/cart", "/contact", "/products/**", "/login", "/register", "/forgot-password/**").permitAll()
 		//chứng thực
 		.anyRequest().authenticated();
+		
+		
+		
 		
 		http.formLogin()
 		// Submit URL of login page.

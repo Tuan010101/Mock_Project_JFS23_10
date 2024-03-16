@@ -2,22 +2,26 @@ package fa.training.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import fa.training.entities.Category;
 
 public interface CategoryService {
 
-	 List<Category> getAllCategory();
+	List<Category> findAll();
 
-	/**
-	 * @author: NamLV
-	 * @param id 
-	 * @DoB: 1998/08/29
-	 */
-	Category findByCategoryId(int id);
+	Page<Category> findAllByCategoryNameContains(String keyword, Pageable pageable);
 
-	/**
-	 * @author: NamLV
-	 * @DoB: 1998/08/29
-	 */
-	Category findById(int categoryId);
+	List<Category> findAllByDeletedFalse();
+	
+	Category findById(int id);
+
+	void save(Category category);
+
+	void delete(Category category);
+	
+	
+	
+
 }

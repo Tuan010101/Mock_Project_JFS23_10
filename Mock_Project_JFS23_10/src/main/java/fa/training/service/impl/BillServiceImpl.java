@@ -43,4 +43,9 @@ public class BillServiceImpl implements BillService {
 //            "JOIN AppUser AS AP ON UP.user_id = AP.user_id " +
 //            "WHERE AP.username = :username", nativeQuery = true)
 //Page<Bill> getBillsByUsername(@Param("username") String username, Pageable pageable);
+	@Override
+	public void save(Bill bill) {
+		billRepository.save(bill);
+	}
+	
 }

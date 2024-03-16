@@ -31,36 +31,47 @@ public class ShopController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@GetMapping("/product-single/{productId}")
-	public String viewProductSinglePage(Model model, @PathVariable("productId") int productId) {
-		model.addAttribute("product", productService.findById(productId));
-		return "product-single";
+	@GetMapping("/products/{productId}")
+	public String getProductDetail(@PathVariable int productId, Model model) {
+		// Retrieve the current product
+		Product product = productService.findById(productId);
 
+		// Get the category of the current product
+		Category category = product.getCategoryId();
+
+		// Retrieve related products based on the category (excluding the current
+		// product)
+		List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNot(category, productId);
+
+		// Add the current product, category, and related products to the model
+		model.addAttribute("product", product);
+		model.addAttribute("category", category);
+		model.addAttribute("relatedProducts", relatedProducts);
+
+		return "product-single";
 	}
 
-	@GetMapping("/shop")
+	@GetMapping("/products")
 	public String findPaniganated(@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "category", defaultValue = "-1") String categoryId, Model model) {
 
 		int pageSize = 4;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Category category = categoryService.findById(Integer.valueOf(categoryId));
 
-		model.addAttribute("categories", categoryService.getAllCategory());
+		model.addAttribute("categories", categoryService.findAllByDeletedFalse());
 
 		List<Product> products;
 		Page<Product> productPage;
 		if (categoryId.equals("-1")) {
-			productPage = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable);
-			products = productService.findAllByProductNameContainingOrderByProductId(keyword, pageable).getContent();
-		} else {
-			productPage = productService.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword,
+			productPage = productService.findAllByProductNameContainingAndDeletedOrderByProductId(keyword, false,
 					pageable);
-			products = productService
-					.findAllByCategoryIdAndProductNameContainingOrderByProductId(category, keyword, pageable)
-					.getContent();
+		} else {
+			Category category = categoryService.findById(Integer.valueOf(categoryId));
+			productPage = productService.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(
+					category, keyword, pageable);
 		}
+		products = productPage.getContent();
 		model.addAttribute("products", products);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("productPage", productPage);

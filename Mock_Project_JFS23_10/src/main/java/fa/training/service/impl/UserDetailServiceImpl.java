@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import fa.training.entities.AppUser;
-import fa.training.repository.RoleRepository;
 import fa.training.repository.AppUserRepository;
 
 @Service
@@ -21,9 +20,6 @@ public class UserDetailServiceImpl implements UserDetailsService{
 
 	@Autowired
 	private AppUserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,5 +1,7 @@
 package fa.training.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,9 +12,18 @@ import fa.training.entities.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+	Page<Product> findAllByProductNameContains(String productName, Pageable pageable);
 
-	Page<Product> findAllByCategoryIdAndProductNameContainingOrderByProductId(Category category, String productName,
+	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String productName,
 			Pageable pageable);
 
-	Page<Product> findAllByProductNameContainingOrderByProductId(String productName, Pageable pageable);
+	Page<Product> findAllByProductNameContainingAndDeletedOrderByProductId(String productName,boolean deleted, Pageable pageable);
+
+	List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId);
+
+	
+	List<Product> findAllByDeletedFalse();
+	
+	Page<Product>findAllByUserProductUserIdUserId(int userId, Pageable pageable);
+
 }

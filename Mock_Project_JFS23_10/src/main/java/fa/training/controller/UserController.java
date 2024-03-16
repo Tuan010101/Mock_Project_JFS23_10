@@ -28,7 +28,6 @@ public class UserController {
 	@Autowired
 	AppUserService appUserService;
 
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@GetMapping("/profile")
 	public String GetProfileUser(Principal principal, Model model) {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
@@ -43,7 +42,6 @@ public class UserController {
 		return "profile";
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@PostMapping("/profile")
 	public String PostProfileUser(Principal principal, Model model, @ModelAttribute("appUserForm") AppUser appUserForm) {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
@@ -54,7 +52,6 @@ public class UserController {
 		return "redirect:/user/profile?status=change_profile_success";
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@PostMapping("/profile/change-password")
 	public String ChangePassword(@ModelAttribute("changePasswordForm") ChangePasswordForm changePasswordForm,
 			Principal principal) {
@@ -68,7 +65,6 @@ public class UserController {
 		return "redirect:/user/profile?status=change_password_success";
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@PostMapping("/profile/change-email")
 	public String ChangeEmail(Principal principal, @RequestParam("email") String email) {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
@@ -80,7 +76,6 @@ public class UserController {
 		return "redirect:/user/profile?status=change_email_success";
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@GetMapping("/active/email")
 	public String ActiveEmail(Principal principal) throws AddressException, MessagingException {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
@@ -99,7 +94,7 @@ public class UserController {
 	@GetMapping("/active/email/check")
 	public String CheckVerifyEmail(@RequestParam("verifyCode") String verifyCode, @RequestParam("username") String username) {
 		AppUser appUser = appUserService.findByUsername(username);
-		if (appUser == null || !appUser.getVerifyCode().equals(verifyCode)) {
+		if (appUser == null || !verifyCode.equals(appUser.getVerifyCode())) {
 			return "error_404";
 		}
 		

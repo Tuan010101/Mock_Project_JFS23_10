@@ -25,22 +25,24 @@ public class Contact {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "contact_id")
 	private int contactId;
-	
+
 	@Column(name = "full_name")
 	@NotBlank(message = "Must not be blank")
 	private String fullName;
-	
+
 	@NotBlank(message = "Must not be blank")
 	@Email(message = "Must be a well-formed email address")
 	private String email;
-	
+
 	@NotBlank(message = "Must not be blank")
 	private String subject;
-	
+
 	@NotBlank(message = "Must not be blank")
 	private String message;
-	
+
+	private boolean replied;
+
 	@Column(name = "created_date")
 	private LocalDate createdDate;
-	
+
 }
