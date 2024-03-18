@@ -5,11 +5,13 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fa.training.common.SendMail;
 import fa.training.entities.AppUser;
 import fa.training.form.ChangePasswordForm;
+import fa.training.form.ProfileForm;
 import fa.training.service.AppUserService;
 
 @Controller
@@ -29,7 +32,7 @@ public class UserController {
 	AppUserService appUserService;
 
 	@GetMapping("/profile")
-	public String GetProfileUser(Principal principal, Model model) {
+	public String GetProfileUser(Principal principal, Model model, @ModelAttribute("profileForm") ProfileForm profileForm) {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
 		if (appUser.getPassword().length() < 2) {
 			appUser.setPassword("****");
@@ -43,11 +46,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/profile")
-	public String PostProfileUser(Principal principal, Model model, @ModelAttribute("appUserForm") AppUser appUserForm) {
+	public String PostProfileUser(Principal principal, Model model, @ModelAttribute("profileForm") @Valid ProfileForm profileForm, BindingResult result) {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
-		appUser.setFullName(appUserForm.getFullName());
-		appUser.setPhoneNumber(appUserForm.getPhoneNumber());
-		appUser.setAddress(appUserForm.getAddress());
+		if (result.hasErrors()) {
+			if (appUser.getPassword().length() < 2) {
+				appUser.setPassword("****");
+			}else {
+				appUser.setPassword(appUser.getPassword().substring(0, 2) + "****");
+			}
+			appUser.setEmail(appUser.getEmail().substring(0, 2) + "****");
+			model.addAttribute("appUserForm", appUser);
+			return "profile";
+		}
+		appUser.setFullName(profileForm.getFullName());
+		appUser.setPhoneNumber(profileForm.getPhoneNumber());
+		appUser.setAddress(profileForm.getAddress());
 		appUserService.save(appUser);
 		return "redirect:/user/profile?status=change_profile_success";
 	}

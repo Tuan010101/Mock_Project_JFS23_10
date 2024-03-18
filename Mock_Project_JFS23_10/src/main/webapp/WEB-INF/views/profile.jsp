@@ -48,7 +48,7 @@
 			</div>
 			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 				<div class="card h-100">
-					<form:form id="inforForm" action="${pageContext.request.contextPath}/user/profile" method="post" modelAttribute="appUserForm" class="card-body">
+					<form:form id="inforForm" action="${pageContext.request.contextPath}/user/profile" method="post" modelAttribute="profileForm" class="card-body">
 						<div class="row gutters">
 							<div id="response" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							</div>
@@ -61,12 +61,14 @@
 									<form:input path="fullName" type="text"
 										class="form-control" id="fullName"
 										placeholder="Enter full name"/>
+									<form:errors path="fullName" class="text-danger"></form:errors>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
 									<label for="image">Image</label>
 									<form:input path="image" type="file" accept="image/*" class="form-control-file"/>
+									<form:errors path="image" class="text-danger"></form:errors>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -90,6 +92,7 @@
 									<form:input path="phoneNumber" type="text"
 										class="form-control"
 										placeholder="Enter phone number"/>
+									<form:errors path="phoneNumber" class="text-danger"></form:errors>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -107,6 +110,7 @@
 									<form:input path="address" type="text"
 										class="form-control"
 										placeholder="Enter address"/>
+									<form:errors path="address" class="text-danger"></form:errors>
 								</div>
 							</div>
 						</div>

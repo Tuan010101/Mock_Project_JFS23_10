@@ -15,7 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterForm {
-	@NotBlank(message = "Can not be empty")
 	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,50}$", message = "The account must be alphanumeric and have at least 6 and maximum 50 alphanumeric characters")
 	@Column(unique = true)
 	private String username;
@@ -24,7 +23,6 @@ public class RegisterForm {
 	@Length(max = 50, message = "Maximum account length is 50 characters")
 	private String password;
 	
-	@NotBlank(message = "Can not be empty")
 	@Pattern(regexp = "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Invalid email")
 	@Length(max = 320, message = "Maximum account length is 320 characters")
 	@Column(unique = true, length = 320)
