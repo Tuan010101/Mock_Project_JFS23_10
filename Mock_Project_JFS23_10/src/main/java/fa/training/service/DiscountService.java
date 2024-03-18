@@ -11,14 +11,12 @@ public interface DiscountService {
 
 	Discount findById(int id);
 
-
 	void save(Discount saveDiscount);
 
-
-	Discount findByPercent(String percent);
-
-	Page<Discount> findAllByDiscountnameContains(String keyword, Pageable pageable);
-
 	List<Discount> findAll();
+
+	Page<Discount> findAll(Pageable pageable);
+
+	Page<Discount> findByPercent(Pageable pageable, int percent);
 
 }

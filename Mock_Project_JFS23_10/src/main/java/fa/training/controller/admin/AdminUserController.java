@@ -69,8 +69,8 @@ public class AdminUserController {
 	}
 
 	@PostMapping("/User/create")
-	public String createUser(@ModelAttribute("addUserForm") @Valid AddUserForm addUserForm,
-			BindingResult bindingResult, Model model) {
+	public String createUser(@ModelAttribute("addUserForm") @Valid AddUserForm addUserForm, BindingResult bindingResult,
+			Model model) {
 
 		if (bindingResult.hasErrors()) {
 			Map<Integer, String> rolesMap = roleRepository.findAll().stream()
