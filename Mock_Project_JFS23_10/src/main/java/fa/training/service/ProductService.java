@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.Category;
 import fa.training.entities.Product;
-
-@Service
 public interface ProductService {
 
 	void save(Product product);
@@ -21,9 +19,9 @@ public interface ProductService {
 	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String keyword,
 			Pageable pageable);
 
-	Page<Product> findAllByProductNameContainingAndDeletedOrderByProductId(String productName,boolean deleted, Pageable pageable);
+	Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String productName, Pageable pageable);
 
-	List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId);
+	List<Product> findAllByCategoryIdAndProductIdNotAndDeletedFalse(Category category, int productId);
 
 	List<Product> getMixedProducts();
 

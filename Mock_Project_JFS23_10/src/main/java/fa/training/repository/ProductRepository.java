@@ -17,13 +17,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String productName,
 			Pageable pageable);
 
-	Page<Product> findAllByProductNameContainingAndDeletedOrderByProductId(String productName,boolean deleted, Pageable pageable);
+	Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String productName, Pageable pageable);
 
-	List<Product> findAllByCategoryIdAndProductIdNot(Category category, int productId);
+	List<Product> findAllByCategoryIdAndProductIdNotAndDeletedFalse(Category category, int productId);
 
-	
 	List<Product> findAllByDeletedFalse();
 	
-	Page<Product>findAllByUserProductUserIdUserId(int userId, Pageable pageable);
-
 }

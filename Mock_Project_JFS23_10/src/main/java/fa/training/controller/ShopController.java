@@ -41,7 +41,7 @@ public class ShopController {
 
 		// Retrieve related products based on the category (excluding the current
 		// product)
-		List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNot(category, productId);
+		List<Product> relatedProducts = productService.findAllByCategoryIdAndProductIdNotAndDeletedFalse(category, productId);
 
 		// Add the current product, category, and related products to the model
 		model.addAttribute("product", product);
@@ -64,7 +64,7 @@ public class ShopController {
 		List<Product> products;
 		Page<Product> productPage;
 		if (categoryId.equals("-1")) {
-			productPage = productService.findAllByProductNameContainingAndDeletedOrderByProductId(keyword, false,
+			productPage = productService.findAllByProductNameContainingAndDeletedFalseOrderByProductId(keyword,
 					pageable);
 		} else {
 			Category category = categoryService.findById(Integer.valueOf(categoryId));
