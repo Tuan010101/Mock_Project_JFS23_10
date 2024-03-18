@@ -179,7 +179,7 @@
 					<div class="DK-Content">
 						<div class="card">
 							<div class="card-body">
-								<form:form id="inforForm" action="${pageContext.request.contextPath}/register" method="post" modelAttribute="appUser">
+								<form:form id="inforForm" action="${pageContext.request.contextPath}/register" method="post" modelAttribute="registerForm">
 									<h3 class="text-center">Register</h3>
 									<div class="form-group">
 										<label for="username">UserName</label> 

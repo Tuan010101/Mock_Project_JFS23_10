@@ -24,6 +24,7 @@ import fa.training.entities.AppUser;
 import fa.training.entities.Role;
 import fa.training.entities.UserRole;
 import fa.training.form.ForgotPasswordForm;
+import fa.training.form.RegisterForm;
 import fa.training.service.AppUserService;
 import fa.training.service.RoleService;
 import fa.training.service.UserRoleService;
@@ -134,21 +135,21 @@ public class LoginController {
     }
 	
 	@GetMapping("/register")
-	public String Register(@ModelAttribute("appUser") AppUser appUser, Model model) {
+	public String Register(@ModelAttribute("appUser") RegisterForm registerForm, Model model) {
 		return "register";
 	}
 	
 	@PostMapping("/register")
-	public String PostRegister(@ModelAttribute("appUser") @Valid AppUser appUser, BindingResult result, Model model) {
+	public String PostRegister(@ModelAttribute("appUser") @Valid RegisterForm registerForm, BindingResult result, Model model) {
 		
-		appUser.setUsername(appUser.getUsername() != null ? appUser.getUsername().trim() : null);
+		registerForm.setUsername(registerForm.getUsername() != null ? registerForm.getUsername().trim() : null);
 		if (result.hasErrors()) {
 			return "register";
 		}
 		
-		if (appUserService.existsByUsername(appUser.getUsername())) {
+		if (appUserService.existsByUsername(registerForm.getUsername())) {
 			result.rejectValue("username", null, "Username already exists");
-		} else if (appUserService.existsByEmail(appUser.getEmail())) {
+		} else if (appUserService.existsByEmail(registerForm.getEmail())) {
 			result.rejectValue("email", null, "Email already exists");
 		} 
 		
@@ -157,10 +158,10 @@ public class LoginController {
 		}
 		
 		AppUser saveAppUser = new AppUser(0, 
-				appUser.getUsername(), 
-				appUser.getPassword(), 
-				passwordEncoder.encode(appUser.getPassword()), 
-				appUser.getEmail(), 
+				registerForm.getUsername(), 
+				registerForm.getPassword(), 
+				passwordEncoder.encode(registerForm.getPassword()), 
+				registerForm.getEmail(), 
 				null, 
 				null, 
 				null,
@@ -176,7 +177,7 @@ public class LoginController {
 		userRoleService.save(userRole);
 		
 		// Tạo một đối tượng Authentication cho người dùng mới đăng ký
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword());
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(registerForm.getUsername(), registerForm.getPassword());
 		// Xác thực thông tin đăng nhập của người dùng
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
 		// Nếu xác thực thành công, đặt Authentication vào SecurityContext
