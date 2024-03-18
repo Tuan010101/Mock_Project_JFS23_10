@@ -15,4 +15,16 @@ public interface BillService {
 	Bill findAllByBillId(int billId);
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
 	void save(Bill bill);
+	
+	/**
+	 * @author Vinh
+	 * @date 18/3/2023
+	 */
+	void deleteByBillId(int billId);
+	
+	/**
+	 * @author Vinh
+	 * @date 18/3/2023
+	 */
+	void updateBill(int billId); 
 }

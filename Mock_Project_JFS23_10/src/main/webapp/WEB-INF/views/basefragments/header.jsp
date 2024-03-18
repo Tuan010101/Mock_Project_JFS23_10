@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.timepicker.css">
 
+<!-- Vinh 18/3/2023 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">

@@ -11,6 +11,7 @@ import fa.training.entities.Bill;
 import fa.training.repository.BillRepository;
 import fa.training.service.BillService;
 
+
 @Service
 public class BillServiceImpl implements BillService {
 	@Autowired
@@ -35,17 +36,26 @@ public class BillServiceImpl implements BillService {
 	public Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable) {
 		return billRepository.findAllByUserProductsUserIdUsername(userName, pageable);
 	}
-//	@Query(value = "SELECT * FROM Bill AS B " +
-//            "JOIN UserProduct AS UP ON B.bill_id = UP.bill_id " +
-//            "JOIN AppUser AS AP ON UP.user_id = AP.user_id " +
-//            "WHERE AP.username = :username", countQuery = "SELECT COUNT(*) FROM Bill AS B " +
-//            "JOIN UserProduct AS UP ON B.bill_id = UP.bill_id " +
-//            "JOIN AppUser AS AP ON UP.user_id = AP.user_id " +
-//            "WHERE AP.username = :username", nativeQuery = true)
-//Page<Bill> getBillsByUsername(@Param("username") String username, Pageable pageable);
 	@Override
 	public void save(Bill bill) {
 		billRepository.save(bill);
+	}
+	
+	/**
+	 * @author Vinh 18/3/2023
+	 */
+	@Override
+	public void deleteByBillId(int billId) {
+		billRepository.deleteByBillId(billId);
+	}
+	
+	/**
+	 * @author Vinh
+	 * @date 18/3/2023
+	 */
+	@Override
+	public void updateBill(int billId) {
+		billRepository.updateBill(billId);
 	}
 	
 }

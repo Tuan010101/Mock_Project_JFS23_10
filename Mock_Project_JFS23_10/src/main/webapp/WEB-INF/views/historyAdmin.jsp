@@ -76,8 +76,8 @@
 													</td>					
 													
 													<td class="tick-remove">
-														<button class="cross-box btn"><i class="icon icon-close"></i></button>
-														<button class="tick-box btn"><i class="icon icon-check"></i></button>
+														<button id="delete${bill.billId}" class="deleteBtn btn"><i class="icon icon-close cross-box" style="color:#EB3817"></i></button>
+														<button id="update${bill.billId}" class="updateBtn btn"><i class="icon icon-check tick-box"></i></button>
 													</td>
 													
 												</tr>
@@ -138,132 +138,30 @@
 	</section>
 
 	<jsp:include page="basefragments/footer.jsp"></jsp:include>
-
-	
 	<script>
-
-		$(document).ready(function () {
-			var arrPrices = $("td.price");
-			var arrQuans = $("input[name='quantity']");
-			var arrTotals = $("td.total");
-
-			$('.quantity-right-plus').click(function (e) {
-
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				$('#quantity').val(quantity + 1);
-
-
-				// Increment
-
-			});
-
-			$('.quantity-left-minus').click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				// Increment
-				if (quantity > 0) {
-					$('#quantity').val(quantity - 1);
-				}
-			});
-
-
-
-
-
-			$(".cross-box").click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				let crossBox = $(e.currentTarget);
-				let tickBox = crossBox.next();
-				crossBox.toggleClass("cross-box-actived");
-				if (tickBox.hasClass("tick-box-actived")) {
-					tickBox.removeClass("tick-box-actived");
-				}
-
-			});
-
-			$(".tick-box").click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				let tickBox = $(e.currentTarget);
-				let crossBox = tickBox.prev();
-				tickBox.toggleClass("tick-box-actived");
-				if (crossBox.hasClass("cross-box-actived")) {
-					crossBox.removeClass("cross-box-actived");
-				}
-			});
-
-			//fix decimal part of total
-			for (let index = 0; index < arrQuans.length; index++) {
-				let tempPrice = arrPrices.eq(index).text().substring(1);
-				let tempQuan = arrQuans.eq(index).val();
-				let tempTotal = arrTotals.eq(index).text().substring(1);
-				arrTotals.eq(index).text("$" + (tempPrice * tempQuan).toFixed(2));
-			}
-			//fix decimal part of price and render the correcsponde total
-			for (let index = 0; index < arrPrices.length; index++) {
-				let tempPriceLeng = arrPrices.eq(index).text().length;
-				let tempPrice = arrPrices.eq(index).text().slice(0, tempPriceLeng - 2);
-				let tempTotal = tempPrice * arrQuans.eq(index).val();
-				// console.log(arrPrices.eq(index).text("$" + tempPrice.toFixed(2)))
-				console.log("this line: " + tempTotal);
-				arrTotals.eq(index).text("$" + tempTotal);
-				arrPrices.eq(index).text("$" + tempPrice);
-
-
-			}
-
-			// render the total of cart
-			function calCartTotal() {
-				var cartTotalTemp = 0;
-				for (let i = 1; i < $("tr").length - 1; i++) {
-					cartTotalTemp += parseFloat($("tr").eq(i).children().last().text().substring(1));
-				}
-				var cartTotal = $("tr").last().children().last();
-				cartTotal.text("$" + cartTotalTemp.toFixed(2));
-			};
-			calCartTotal();
-
-			// render total with change in quantity
-			$("[name='quantity']").change(function (e) {
-				let target = $(e.currentTarget);
-				let totalPrice = target.closest("td.quantity").next();
-				let quantity = target.val();
-				let price = target.closest("td.quantity").prev().text().substring(1);
-				let newTotalPrice = price * quantity;
-				totalPrice.text("$" + parseFloat(newTotalPrice).toFixed(2));
-
-				calCartTotal();
-			});
-			
-			// pagination
-			function getData(page) {
-			    $.ajax({
-			      url: "get_data.php",
-			      type: "GET",
-			      data: { page: page },
-			      success: function(response) {
-			        $("#result").html(response.data); // Hiển thị dữ liệu lấy được
-			        $("#pagination").html(response.pagination); // Hiển thị thanh phân trang
-			      }
-			    });
-
-		});
+	  $(document).ready(function() {
+	    $('.deleteBtn').click(function() {
+	    	console.log("clicked!!!");
+	    	var billIdTemp = $(this).attr('id');
+	    	var billId = billIdTemp.substring(6, billIdTemp.length - 1);
+	    	
+	    	var url = `${pageContext.request.contextPath}/history/${billId}`;
+		    var choose = confirm("Delete Bill with billId " + billId);
+	    	if (choose) {
+	    		$.ajax({
+	    	        url: url,
+	    	        method: 'DELETE',
+	    	        success: function(response) {
+	    	            console.log(response);
+	    	        },
+	    	        error: function(xhr, status, error) {
+	    	            console.error(error);
+	    	        }
+	    	      });	
+	    	}
+	    });
+	  });
 	</script>
-	
-	
-
 </body>
 
 </html>
