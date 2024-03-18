@@ -1,5 +1,6 @@
 package fa.training.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -11,12 +12,13 @@ import fa.training.entities.Discount;
 
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, Integer> {
-//	Page<Discount> findAllByDiscountNameContains(String DiscountName, Pageable pageable);
 
+	// Trong DiscountRepository
+	List<Discount> findAll();
 
-//	Page<Discount> findAllByDiscountNameContainingAndDeletedFalseOrderByDiscountId(String DiscountName, Pageable pageable);
+	Page<Discount> findByStartDiscountDate(LocalDate startDiscountDate, Pageable pageable);
 
-	
-//	List<Discount> findAllByDeletedFalse();
+	Page<Discount> findAll(Pageable pageable);
 
+	Page<Discount> findByDiscountPercent(Pageable pageable, int discountPercent);
 }

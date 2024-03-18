@@ -16,8 +16,8 @@ public interface ProductService {
 
 	List<Product> findAllByDeletedFalse();
 
-	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String keyword,
-			Pageable pageable);
+	Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category,
+			String keyword, Pageable pageable);
 
 	Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String productName, Pageable pageable);
 
@@ -27,13 +27,8 @@ public interface ProductService {
 
 	Page<Product> findAllByProductNameContains(String productName, Pageable pageable);
 
-
 	void delete(Product product);
 
-	/**
-	 * @author: NamLV
-	 * @DoB: 1998/08/29
-	 */
 	List<Product> findAll();
 
 }

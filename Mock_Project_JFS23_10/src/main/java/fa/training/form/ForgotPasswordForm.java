@@ -1,7 +1,9 @@
 package fa.training.form;
 
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +15,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ForgotPasswordForm {
-	@NotNull(message = "Can not be empty")
+	@NotBlank(message = "Can not be empty")
+	@Length(max = 320, message = "Maximum account length is 320 characters")
 	private String email;
 	
 	private String verifyCode;

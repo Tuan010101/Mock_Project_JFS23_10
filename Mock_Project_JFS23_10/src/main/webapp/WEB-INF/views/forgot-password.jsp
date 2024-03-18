@@ -182,7 +182,7 @@
 							<div class="card-body" style="width: 100%;">
 								<c:if test="${sendCode == 'notyet' }">
 									<form:form id="inforForm" action="${pageContext.request.contextPath}/forgot-password" method="post" modelAttribute="forgotPasswordForm">
-										<h3 class="text-center">Forgot Password 2</h3>
+										<h3 class="text-center">Forgot Password</h3>
 										<div class="form-group">
 											<label for="Email">Please enter email to go to the next step</label> 
 											<div class="input-group mb-2">
@@ -201,7 +201,7 @@
 								</c:if>
 								<c:if test="${sendCode == 'done' }">
 									<div>
-										<h3 class="text-center">Forgot Password 3</h3>
+										<h3 class="text-center">Forgot Password</h3>
 										<c:if test="${message != null }">
 											<div class="alert alert-${messageColor }" role="alert">
 												${message}
