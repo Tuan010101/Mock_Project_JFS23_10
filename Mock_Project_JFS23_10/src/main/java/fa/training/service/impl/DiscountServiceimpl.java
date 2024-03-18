@@ -28,20 +28,19 @@ public class DiscountServiceimpl implements DiscountService {
 
 	}
 
-
-	@Override
-	public Discount findByPercent(String percent) {
-		return null;
-	}
-
-	@Override
-	public Page<Discount> findAllByDiscountnameContains(String keyword, Pageable pageable) {
-		return null;
-	}
-
 	@Override
 	public List<Discount> findAll() {
-		return null;
+		return discountRepository.findAll();
+	}
+
+	@Override
+	public Page<Discount> findAll(Pageable pageable) {
+		return discountRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<Discount> findByPercent(Pageable pageable, int percent) {
+		return discountRepository.findByDiscountPercent(pageable, percent);
 	}
 
 }

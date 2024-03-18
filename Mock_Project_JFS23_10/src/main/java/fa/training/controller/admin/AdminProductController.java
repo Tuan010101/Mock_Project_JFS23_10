@@ -37,7 +37,8 @@ public class AdminProductController {
 	CategoryService categoryService;
 
 	@GetMapping("/products")
-	public String showAllProducts(@RequestParam(value = "keyword", defaultValue = "") String keyword,
+	public String showAllProducts(
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo, Model model) {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);

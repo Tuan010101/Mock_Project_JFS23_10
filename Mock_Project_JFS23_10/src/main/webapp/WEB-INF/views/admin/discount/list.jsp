@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>Admin - User List</title>
+<title>Admin - Discount List</title>
 <%@ include file="../common/head.jsp"%>
 </head>
 <body>
@@ -24,27 +24,59 @@
 						<div class="app-content">
 							<div class="app-title">
 								<ul class="app-breadcrumb breadcrumb side">
-									<li class="breadcrumb-item active"><a href="#"><b>User
+									<li class="breadcrumb-item active"><a href="#"><b>Discount
 												list</b></a></li>
 								</ul>
 							</div>
 							<div class="row m-0 p-0">
 								<div class="col-12 m-0 p-0">
 									<div class="tile">
+										<div class="seach">
+											<form:form action="" method="post" class="form-row"
+												modelAttribute="addProductDiscountForm">
+												<div class="form-group col-6">
+													<label for="product" class="form-label font-weight-bold">Product
+														Name</label>
+													<form:select class="form-control" path="product.productId">
+														<form:options items="${productMap}" />
+													</form:select>
+													<form:errors path="product.productId" class="text-danger"></form:errors>
+												</div>
+												<div class="form-group col-6">
+													<label for="discount" class="form-label font-weight-bold">Discount
+														ID</label>
+													<form:select class="form-control p-1"
+														path="discount.discountId">
+														<form:options items="${discountMap}" />
+													</form:select>
+													<form:errors path="discount.discountId" class="text-danger"></form:errors>
+												</div>
+
+												<div class="input-group-appenda col-12 ">
+													<button class="btn btn-outline-secondary" type="submit">Add
+														Discount Product</button>
+												</div>
+
+
+											</form:form>
+										</div>
+
+
 										<div class="tile-body">
 											<div class="row element-button justify-content-between p-3">
 												<div class="col-sm-2 d-flex align-items-center p-0">
 													<a class="btn btn-add btn-sm p-2"
-														href="${pageContext.request.contextPath}/admin/User/create"
+														href="${pageContext.request.contextPath}/admin/discount/create"
 														title="Thêm"><i class="fas fa-plus"></i> Create new
-														User</a>
+														Discount</a>
 												</div>
 												<form class="mb-2 d-flex seach align-items-center">
-													<input type="text" class="form-control"
-														placeholder="Search by Full Name, Email, or Subject"
-														name="keyword" value="${keyword}">
+													<input type="number" class="form-control"
+														placeholder="Search by Percent" name="percent"
+														value="${percent}">
 													<div class="input-group-appenda ml-2">
 														<button class="btn btn-outline-secondary" type="submit">Search</button>
+													</div>
 												</form>
 
 											</div>
@@ -54,35 +86,24 @@
 												<thead>
 													<tr>
 														<th>#</th>
-														<th>User Name</th>
-														<th>Email</th>
-														<th>Full Name</th>
-														<th>Address</th>
-														<th>Phone Number</th>
-														<th>Roles</th>
-
+														<th>Discount Percent</th>
+														<th>Start DiscountDate</th>
+														<th>End DiscountDate</th>
 														<th>Action</th>
-
-
 													</tr>
+												</thead>
 												<tbody>
-													<c:forEach var="appUserPage" items="${appUserPage.content}"
-														varStatus="status">
+													<c:forEach var="discount"
+														items="${appDiscountPage.content}" varStatus="status">
 														<tr>
 															<td>${status.index + 1}</td>
-															<td>${appUserPage.username}</td>
-															<td>${appUserPage.email}</td>
-															<td>${appUserPage.fullName}</td>
-															<td>${appUserPage.address}</td>
-															<td>${appUserPage.phoneNumber}</td>
-															<td><c:forEach var="userRole"
-																	items="${appUserPage.userRoles}">
-    ${userRole.roleId.roleName}<br />
-																</c:forEach></td>
+															<td>${discount.discountPercent}</td>
+															<td>${discount.startDiscountDate}</td>
+															<td>${discount.endDiscountDate}</td>
 															<td class="table-td-center">
 																<!-- Edit button --> <a
-																href="${pageContext.request.contextPath}/admin/User/edit/${appUserPage.userId}"
-																class="btn btn-primary btn-sm trash ">Edit</a> <!-- Delete button -->
+																href="${pageContext.request.contextPath}/admin/discount/edit/${discount.discountId}"
+																class="btn btn-primary btn-sm trash">Edit</a> <!-- Delete button -->
 																<%-- <a
 																href="${pageContext.request.contextPath}/admin/products/delete/${product.productId}"
 																class="btn btn-primary btn-sm edit">Delete</a> --%> <a
@@ -94,7 +115,7 @@
 																		<div class="modal-dialog">
 																			<div class="modal-content">
 																				<form
-																					action="/products/delete/${appUserPage.userId}"
+																					action="/products/delete/${discount.discountId}"
 																					method="post">
 																					<div class="modal-header">
 																						<h4 class="modal-title"
@@ -106,8 +127,7 @@
 																					</div>
 																					<div class="modal-body">
 																						<p class="text-dark">Bạn có chắc là xóa sản
-																							phẩm có tên ${appUserPage.username} và id là
-																							${appUserPage.userId} ?</p>
+																							phẩm có id là ${discount.discountId} ?</p>
 																						<p class="text-danger">
 																							<small>Sản phẩm này sẽ không thể phục hồi
 																								lại</small>
@@ -126,6 +146,7 @@
 															</td>
 														</tr>
 													</c:forEach>
+
 												</tbody>
 											</table>
 											<!-- Pagination -->

@@ -21,8 +21,8 @@
 				class="icomoon icon-dashboard pr-2"></i>Dashboard</li>
 		</a>
 		<a href="${pageContext.request.contextPath}/admin/products">
-			<li class="list-group-item"><i class="icomoon icon-tags pr-1"></i>
-				</i>Product Management</li>
+			<li class="list-group-item"><i class="icomoon icon-tags pr-1"></i>Product
+				Management</li>
 		</a>
 		<a href="${pageContext.request.contextPath}/admin/User">
 			<li class="list-group-item"><i class="icomoon icon-users pr-2"></i>User
@@ -36,7 +36,7 @@
 			<li class="list-group-item"><i
 				class="icomoon icon-shopping-cart pr-2"></i>Order management</li>
 		</a>
-		<a href="#">
+		<a href="${pageContext.request.contextPath}/admin/discount">
 			<li class="list-group-item"><i class="icomoon icon-ticket pr-2"></i>Sales
 				report</li>
 		</a>
@@ -44,6 +44,6 @@
 			<li class="list-group-item"><i class="icomoon icon-cogs pr-2"></i>System
 				installation</li>
 		</a>
-
 	</ul>
 </div>
+
