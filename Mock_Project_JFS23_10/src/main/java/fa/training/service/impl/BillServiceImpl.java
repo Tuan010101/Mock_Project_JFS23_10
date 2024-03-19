@@ -1,21 +1,61 @@
 package fa.training.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fa.training.entities.Bill;
 import fa.training.repository.BillRepository;
 import fa.training.service.BillService;
+
+
 @Service
 public class BillServiceImpl implements BillService {
-
 	@Autowired
-	BillRepository billRepository;
+	private BillRepository billRepository;
 	
 	@Override
-	public void save( Bill bill) {
-		billRepository.save(bill);
-		
+	public List<Bill> findAll() {
+		return billRepository.findAll();
+	}
+	
+	@Override
+	public Page<Bill> findAll(Pageable pageable) {
+		return billRepository.findAll(pageable);
 	}
 
+	@Override
+	public Bill findAllByBillId(int billId) {
+		return billRepository.findAllByBillId(billId);
+	}
+
+	@Override
+	public Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable) {
+		return billRepository.findAllByUserProductsUserIdUsername(userName, pageable);
+	}
+	@Override
+	public void save(Bill bill) {
+		billRepository.save(bill);
+	}
+	
+	/**
+	 * @author Vinh 18/3/2023
+	 */
+	@Override
+	public void deleteByBillId(int billId) {
+		billRepository.deleteByBillId(billId);
+	}
+	
+	/**
+	 * @author Vinh
+	 * @date 18/3/2023
+	 */
+	@Override
+	public void updateBill(int billId) {
+		billRepository.updateBill(billId);
+	}
+	
 }

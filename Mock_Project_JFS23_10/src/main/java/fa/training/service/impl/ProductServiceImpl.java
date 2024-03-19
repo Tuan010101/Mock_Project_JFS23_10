@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.Category;
 import fa.training.entities.Product;
+import fa.training.entities.UserProduct;
 import fa.training.repository.ProductRepository;
 import fa.training.service.ProductService;
 
@@ -99,5 +100,4 @@ public class ProductServiceImpl implements ProductService {
 	public void saveAll(Set<Product> products) {
 		productRepository.saveAll(products);
 	}
-
 }

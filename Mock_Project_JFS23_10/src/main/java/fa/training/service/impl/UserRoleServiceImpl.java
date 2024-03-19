@@ -22,6 +22,10 @@ public class UserRoleServiceImpl implements UserRoleService {
 	}
 
 	@Override
+	public List<UserRole> findAllByUserIdUsername(String userName) {
+		return userRoleRepository.findAllByUserIdUsername(userName);
+	}
+	
 	public List<UserRole> findAll() {
 		return userRoleRepository.findAll();
 	}

@@ -179,7 +179,7 @@
 					<div class="DK-Content">
 						<div class="card">
 							<div class="card-body">
-								<form:form id="inforForm" action="${pageContext.request.contextPath}/register" method="post" modelAttribute="appUser">
+								<form:form id="inforForm" action="${pageContext.request.contextPath}/register" method="post" modelAttribute="registerForm">
 									<h3 class="text-center">Register</h3>
 									<div class="form-group">
 										<label for="username">UserName</label> 
@@ -244,24 +244,14 @@
 	        const rePassword = $(this.rePassword).val();
 	        const rePasswordElement = $(this.rePassword);
 	
-	        if(username && username.match(/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)){
+	        if(username && username.match(/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,50}$/)){
 	            hideError(usernameElement);
-	            if(username.match(/^.{1,50}$/)){
-		            hideError(usernameElement);
-		        } else {
-		        	usernameElement.next(".text-danger").remove();
-		        	usernameElement.parent().append(`
-			          <div class="text-danger">Maximum account length is 50 characters</div>
-			        `);
-		        }
 	        } else {
 	        	usernameElement.next(".text-danger").remove();
 	        	usernameElement.parent().append(`
-		          <div class="text-danger">The account must be alphanumeric and at least 6 alphanumeric characters</div>
+		          <div class="text-danger">The account must be alphanumeric and have at least 6 and maximum 50 alphanumeric characters</div>
 		        `);
 	        }
-	        
-	        
 	        
 	        if(password){
 	            hideError(passwordElement);
@@ -279,8 +269,6 @@
 		          <div class="text-danger">Can not be empty</div>
 		        `);
 	        }
-	        
-	        
 	        
 	        if(rePassword && password == rePassword){
 	            hideError(rePasswordElement);
@@ -316,7 +304,7 @@
 	        this.submit();
 	    }
 	    $(document).ready(function(){
-// 	        $("#inforForm").on("submit", submit);
+	        $("#inforForm").on("submit", submit);
 	    })
 	</script>
 </body>

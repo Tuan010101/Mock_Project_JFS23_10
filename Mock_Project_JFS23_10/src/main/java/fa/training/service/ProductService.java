@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.Category;
 import fa.training.entities.Product;
-
-@Service
 public interface ProductService {
 
 	void save(Product product);

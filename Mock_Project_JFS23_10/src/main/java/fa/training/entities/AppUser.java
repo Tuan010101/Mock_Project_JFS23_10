@@ -44,6 +44,7 @@ public class AppUser {
 	private String encryptedPassword;
 
 	@NotBlank(message = "Can not be empty")
+	@Pattern(regexp = "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Invalid email")
 	@Length(max = 320, message = "Maximum account length is 320 characters")
 	@Column(unique = true, length = 320)
 	private String email;
@@ -51,11 +52,13 @@ public class AppUser {
 	private String image;
 
 	@Column(name = "full_name")
+	@Length(max = 50, message = "Maximum account length is 50 characters")
 	private String fullName;
 
 	private String address;
 
 	@Column(name = "phone_number")
+	@Length(max = 10, message = "Maximum account length is 10 characters")
 	private String phoneNumber;
 
 	private int status;
