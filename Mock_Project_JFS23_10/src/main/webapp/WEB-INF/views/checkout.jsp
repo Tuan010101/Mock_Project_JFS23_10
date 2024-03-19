@@ -36,7 +36,7 @@
 			<div class="col-xl-7 ftco-animate">
 				<h3 class="mb-4 billing-heading">Billing Details</h3>
 				<div class="row align-items-end">
-					<div class="col-12">
+					<div class="col-12" style="height: 120px">
 						<div class="form-group">
 							<label for="fullName">Full Name</label>
 							<form:input type="text" class="form-control" path="fullName"
@@ -44,7 +44,7 @@
 							<form:errors class="text-danger" path="fullName"></form:errors>
 						</div>
 					</div>
-					<div class="col-12">
+					<div class="col-12" style="height: 120px">
 						<div class="form-group">
 							<label for="address">Street Address</label>
 							<form:input type="text" class="form-control" path="address"
@@ -52,7 +52,7 @@
 							<form:errors class="text-danger" path="address"></form:errors>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" style="height: 120px">
 						<div class="form-group">
 							<label for="phoneNumber">Phone</label>
 							<form:input type="text" class="form-control" path="phoneNumber"
@@ -60,7 +60,7 @@
 							<form:errors class="text-danger" path="phoneNumber"></form:errors>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" style="height: 120px">
 						<div class="form-group">
 							<label for="email">Email Address</label>
 							<form:input type="text" class="form-control" path="email"
