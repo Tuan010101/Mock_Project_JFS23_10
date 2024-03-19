@@ -25,7 +25,7 @@
 					<span class="mr-2"><a
 						href="${pageContext.request.contextPath}/index">Home</a></span> <span
 						class="mr-2"><a
-						href="${pageContext.request.contextPath}/shop">Product</a></span> <span>Product
+						href="${pageContext.request.contextPath}/product">Product</a></span> <span>Product
 						Single</span>
 				</p>
 				<h1 class="mb-0 bread">Product Single</h1>
@@ -43,24 +43,7 @@
 			</div>
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 				<h3>${product.productName }</h3>
-				<div class="rating d-flex">
-					<p class="text-left mr-4">
-						<a href="#" class="mr-2">5.0</a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a>
-					</p>
-					<p class="text-left mr-4">
-						<a href="#" class="mr-2" style="color: #000;">100 <span
-							style="color: #bbb;">Rating</span></a>
-					</p>
-					<p class="text-left">
-						<a href="#" class="mr-2" style="color: #000;">500 <span
-							style="color: #bbb;">Sold</span></a>
-					</p>
-				</div>
+
 				<p class="price-dc">
 					<c:set var="maxDiscountPercent" value="0" />
 					<c:forEach var="productDiscount"
@@ -71,7 +54,7 @@
 								value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
 						</c:if>
 					</c:forEach>
-					<span>Giá gốc:</span> <span>$${product.price}</span>
+					<span>Original price:</span> <span>$${product.price}</span>
 				</p>
 				<span>sale ${maxDiscountPercent }%</span>
 
@@ -83,32 +66,42 @@
 
 				</p>
 				<p>${product.description }</p>
-				<div class="row mt-4">
-					<div class="col-md-6"></div>
-					<div class="w-100"></div>
-					<div class="input-group col-md-6 d-flex mb-3">
-						<span class="input-group-btn mr-2">
-							<button type="button" class="quantity-left-minus btn"
-								data-type="minus" data-field="">
-								<i class="ion-ios-remove"></i>
-							</button>
-						</span> <input type="text" id="quantity" name="quantity"
-							class="form-control input-number" value="1" min="1" max="100">
-						<span class="input-group-btn ml-2">
-							<button type="button" class="quantity-right-plus btn"
-								data-type="plus" data-field="">
-								<i class="ion-ios-add"></i>
-							</button>
-						</span>
+
+
+
+
+				<form action="${pageContext.request.contextPath}/add-to-cart"
+					method="get">
+					<div class="row mt-4">
+						<div class="col-md-6"></div>
+						<div class="w-100"></div>
+						<div class="input-group col-md-6 d-flex mb-3">
+							<span class="input-group-btn mr-2">
+								<button type="button" class="quantity-left-minus btn"
+									data-type="minus" data-field="">
+									<i class="ion-ios-remove"></i>
+								</button>
+							</span> <input type="number" id="quantity" name="quantity"
+								class="form-control input-number" value="1" min="1" max="100"
+								step="1"> <span class="input-group-btn ml-2">
+								<button type="button" class="quantity-right-plus btn"
+									data-type="plus" data-field="">
+									<i class="ion-ios-add"></i>
+								</button>
+							</span> <input type="hidden" name="productId"
+								value="${product.productId }">
+						</div>
+						<div class="w-100"></div>
 					</div>
-					<div class="w-100"></div>
-					<div class="col-md-12">
-						<p style="color: #000;">Số lượng còn lại: ${product.quantity }</p>
-					</div>
-				</div>
-				<p>
-					<a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a>
-				</p>
+					<p>
+						<input type="submit" value="Add to Cart"
+							class="btn btn-black py-3 px-5">
+					</p>
+				</form>
+
+
+
+
 			</div>
 		</div>
 	</div>
@@ -134,15 +127,15 @@
 				varStatus="loopStatus">
 				<c:if test="${loopStatus.index < 4}">
 					<!-- Display only the first 4 items -->
-<c:set var="maxDiscountPercent" value="0" />
-											<c:forEach var="productDiscount"
-												items="${relatedProducts.productDiscounts}">
-												<c:if
-													test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
-													<c:set var="maxDiscountPercent"
-														value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
-												</c:if>
-											</c:forEach>
+					<c:set var="maxDiscountPercent" value="0" />
+					<c:forEach var="productDiscount"
+						items="${relatedProducts.productDiscounts}">
+						<c:if
+							test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+							<c:set var="maxDiscountPercent"
+								value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+						</c:if>
+					</c:forEach>
 					<!-- The following code is executed for each related product -->
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
@@ -169,7 +162,7 @@
 								<div class="d-flex">
 									<div class="pricing">
 										<p class="price">
-											
+
 
 											<c:choose>
 												<c:when test="${maxDiscountPercent gt 0}">

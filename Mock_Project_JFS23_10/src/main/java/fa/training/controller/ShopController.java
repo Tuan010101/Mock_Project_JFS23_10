@@ -52,32 +52,33 @@ public class ShopController {
 	}
 
 	@GetMapping("/products")
-	public String findPaniganated(@RequestParam(value = "keyword", defaultValue = "") String keyword,
-			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-			@RequestParam(value = "category", defaultValue = "-1") String categoryId, Model model) {
+	public String findPaginated(@RequestParam(value = "keyword", defaultValue = "") String keyword,
+	                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+	                            @RequestParam(value = "category", defaultValue = "-1") String categoryId,
+	                            Model model) {
 
-		int pageSize = 4;
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+	    int pageSize = 4;
+	    Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
-		model.addAttribute("categories", categoryService.findAllByDeletedFalse());
+	    model.addAttribute("categories", categoryService.findAllByDeletedFalse());
+	    String trimmedKeyword = keyword.trim();
 
-		List<Product> products;
-		Page<Product> productPage;
-		if (categoryId.equals("-1")) {
-			productPage = productService.findAllByProductNameContainingAndDeletedFalseOrderByProductId(keyword,
-					pageable);
-		} else {
-			Category category = categoryService.findById(Integer.valueOf(categoryId));
-			productPage = productService.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(
-					category, keyword, pageable);
-		}
-		products = productPage.getContent();
-		model.addAttribute("products", products);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("productPage", productPage);
+	    List<Product> products;
+	    Page<Product> productPage;
+	    if (categoryId.equals("-1")) {
+	        productPage = productService.findAllByProductNameContainingAndDeletedFalseOrderByProductId(trimmedKeyword, pageable);
+	    } else {
+	        Category category = categoryService.findById(Integer.valueOf(categoryId));
+	        productPage = productService.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(category, trimmedKeyword, pageable);
+	    }
 
-		return "shop";
+	    products = productPage.getContent();
+	    model.addAttribute("products", products);
+	    model.addAttribute("keyword", trimmedKeyword);
+	    model.addAttribute("productPage", productPage);
 
+	    return "shop";
 	}
+
 
 }
