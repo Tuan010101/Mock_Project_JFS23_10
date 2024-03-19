@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import fa.training.entities.Product;
-import fa.training.service.CategoryService;
 import fa.training.service.ContactService;
 import fa.training.service.ProductService;
 
@@ -33,11 +32,6 @@ public class IndexController {
 	@GetMapping("/about")
 	public String About() {
 		return "about";
-	}
-
-	@GetMapping("/cart")
-	public String Cart() {
-		return "cart";
 	}
 
 	@GetMapping("/product-single")

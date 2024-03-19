@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<title>Cart - Vinh</title>
+	<title>History - Vinh</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
@@ -16,8 +17,8 @@
 		<div class="container">
 			<div class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
-					<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
-					<h1 class="mb-0 bread">My Cart</h1>
+					<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>History</span></p>
+					<h1 class="mb-0 bread">My History</h1>
 				</div>
 			</div>
 		</div>
@@ -29,46 +30,85 @@
 				<div class="col-md-12 ftco-animate">
 					<div class="cart-list">
 						<table class="table table-hover">
-							<thead class="thead-primary">
-								<tr class="text-center">
-									<th>&nbsp;</th>
-									<th>&nbsp;</th>
-									<th>Product name</th>
-									<th>Price</th>
-									<th>Quantity</th>
-									<th>Total</th>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Address</th>
+									<th>Order time</th>
+									<th>Order date</th>
+									<th>Products</th>
+									<th>Cost</th>
+									<th>Status</th>
+									<th>Action</th>
+									
+
 								</tr>
 							</thead>
 							<tbody>
-								<c:choose>
-										<c:when test="${not empty userProducts}">
-											<c:forEach items="${userProducts}" var="userProduct">
+								<tr>
+									<c:choose>
+										<c:when test="${not empty bills}">
+											<c:forEach items="${bills}" var="bill">
 												
 												<tr class="text-center">
-													<td class="tick-remove">
-														<button class="cross-box btn"><i class="icon icon-close"></i></button>
-														<button class="tick-box btn"><i class="icon icon-check"></i></button>
+													<td>
+														<p>${bill.billId}</p>
 													</td>
-				
-													<td class="image-prod">
-														<div class="img" style="background-image:url(${userProduct.productId.image});"></div>
+												
+													<td>
+														<p>${bill.address}</p>
 													</td>
-				
-													<td class="product-name">
-														<h3>${userProduct.productId.productName}</h3>
-														<p>${userProduct.productId.description}</p>
+													
+													<td>
+														<p>${bill.buyTime}</p>
 													</td>
-				
-													<td class="price">${userProduct.productId.price}</td>
-				
-													<td class="quantity">
-														<div class="input-group mb-3">
-															<input type="number" name="quantity"
-																class="quantity form-control input-number" value="${userProduct.quantity}" min="1" max="100">
-														</div>
+													
+													<td>
+														<p>${bill.buyDate}</p>
+													</td>		
+													
+												
+													<td>
+														<c:forEach items="${mapUserProducts.get(bill.billId)}" var="userProduct">
+															<c:if test="${userProduct.quantity > 1}">
+																<p>${userProduct.productId.productName} x${userProduct.quantity}</p>
+															</c:if>												
+															<c:if test="${userProduct.quantity == 1}">
+																<p>${userProduct.productId.productName}</p>
+															</c:if>																																																																										
+														</c:forEach>						
 													</td>
-				
-													<td class="total">0</td>
+													<td>
+														<c:set var="total1" value="0" />
+														<c:forEach items="${mapUserProducts.get(bill.billId)}" var="userProduct">	
+															<c:set var="subtotal" value="${userProduct.quantity * userProduct.productId.price}" />
+    														<c:set var="total1" value="${total1 + subtotal}" />																																																														
+														</c:forEach>
+														<p><fmt:formatNumber value="${total1}" pattern="#,##0.00" />$</p>
+													</td>																			
+													<td>
+														<c:if test="${bill.status == 1}">
+														   <i>Chờ lấy hàng</i>
+														</c:if>
+														<c:if test="${bill.status == 2}">
+														   <i>Đang giao</i>
+														</c:if>
+														<c:if test="${bill.status == 3}">
+														   <i>Giao thành công</i>
+														</c:if>
+														<c:if test="${bill.status == 4}">
+														   <i>Giao thất bại</i>
+														</c:if>
+														<c:if test="${bill.status == 5}">
+														   <i>Hủy đơn</i>
+														</c:if>
+													</td>							
+													<td>
+														<c:if test="${bill.status == 0}">
+														    <button type="button" class="btn btn-danger">Hủy đơn</button>
+														</c:if>
+														
+													</td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -77,30 +117,32 @@
 											<td colspan="4" style="text-align: center">No record</td>
 										</c:otherwise>
 									</c:choose>
-
-								<tr class="text-center">
-									<td colspan="4" class="product-remove display-4">
-										Total of cart
-									</td>
-
-
-									<td colspan="2" class="total display-4 text-right">0</td>
 								</tr>
-								<!-- END TR-->
-							
+								
 							</tbody>
 						</table>
+				
+						
+						 
+						
 					</div>
+					
 				</div>
+				<ul class="pagination mx-auto mt-4">
+					<c:if test="${billpage.number > 1}">
+						<li class="page-item"><a class="page-link" href="?page=${billpage.number - 1}">Previous</a></li>
+			        </c:if>
+		        	<li class="page-item"><a class="page-link" href="?page=${billpage.number}">${billpage.number + 1}</a></li>
+		        	<c:if test="${currentPage < totalPages}">
+			            <li class="page-item"><a class="page-link" href="?page=${billpage.number + 1}">Next</a></li>
+			        </c:if>
+		        </ul>
+				
+				
+						 
 			</div>
 		
-			<div class="row justify-content-end">
-
-				<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-
-					<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-				</div>
-			</div>
+			
 
 		</div>
 	</section>
@@ -233,6 +275,18 @@
 
 				calCartTotal();
 			});
+			
+			// pagination
+			function getData(page) {
+			    $.ajax({
+			      url: "get_data.php",
+			      type: "GET",
+			      data: { page: page },
+			      success: function(response) {
+			        $("#result").html(response.data); // Hiển thị dữ liệu lấy được
+			        $("#pagination").html(response.pagination); // Hiển thị thanh phân trang
+			      }
+			    });
 
 		});
 	</script>

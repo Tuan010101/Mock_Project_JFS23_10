@@ -23,7 +23,8 @@ public class ProfileForm {
 	@Length(max = 200, message = "Maximum account length is 200 characters")
 	private String address;
 	
-	@NotBlank(message = "Can not be empty")
 	@Pattern(regexp = "^(0|84|\\+84)\\d{9}$", message = "Invalid phone number")
 	private String phoneNumber;
+	
+	private String image;
 }

@@ -135,14 +135,13 @@ public class LoginController {
     }
 	
 	@GetMapping("/register")
-	public String Register(@ModelAttribute("appUser") RegisterForm registerForm, Model model) {
+	public String Register(@ModelAttribute("registerForm") RegisterForm registerForm, Model model) {
 		return "register";
 	}
 	
 	@PostMapping("/register")
-	public String PostRegister(@ModelAttribute("appUser") @Valid RegisterForm registerForm, BindingResult result, Model model) {
+	public String PostRegister(@ModelAttribute("registerForm") @Valid RegisterForm registerForm, BindingResult result, Model model) {
 		
-		registerForm.setUsername(registerForm.getUsername() != null ? registerForm.getUsername().trim() : null);
 		if (result.hasErrors()) {
 			return "register";
 		}
