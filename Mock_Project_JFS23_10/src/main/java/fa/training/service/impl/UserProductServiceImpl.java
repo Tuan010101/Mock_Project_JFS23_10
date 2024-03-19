@@ -39,7 +39,9 @@ public class UserProductServiceImpl implements UserProductService {
 		return userProductRepository.findAll(pageable);
 	}
 
-	
+	@Override
+	public List<UserProduct> findAllByUserIdAndBillId(int id) {
+		return userProductRepository.findAllByUserIdAndBillId(id);
+	}
 
-	
 }

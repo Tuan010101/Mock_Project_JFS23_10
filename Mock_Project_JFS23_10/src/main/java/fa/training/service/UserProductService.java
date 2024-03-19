@@ -14,4 +14,5 @@ public interface UserProductService {
 	public Page<UserProduct> findAll(Pageable pageable);
 	public List<UserProduct> findAllByBillIdBillId(int billId);
 	public List<UserProduct> findAllByUserIdUsernameAndBillIdBillId(String userName, int billId);
+	public List<UserProduct> findAllByUserIdAndBillId(int id);
 }
