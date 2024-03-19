@@ -14,14 +14,11 @@ public interface CategoryService {
 	Page<Category> findAllByCategoryNameContains(String keyword, Pageable pageable);
 
 	List<Category> findAllByDeletedFalse();
-	
+
 	Category findById(int id);
 
 	void save(Category category);
 
 	void delete(Category category);
-	
-	
-	
 
 }

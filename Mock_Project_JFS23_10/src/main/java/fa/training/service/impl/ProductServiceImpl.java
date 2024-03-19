@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category, String keyword,
-			Pageable pageable) {
-		return productRepository.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(category, keyword,
-				pageable);
+	public Page<Product> findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(Category category,
+			String keyword, Pageable pageable) {
+		return productRepository.findAllByCategoryIdAndProductNameContainingAndDeletedFalseOrderByProductId(category,
+				keyword, pageable);
 	}
 
 	@Override
-	public Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String keyword, Pageable pageable) {
+	public Page<Product> findAllByProductNameContainingAndDeletedFalseOrderByProductId(String keyword,
+			Pageable pageable) {
 		return productRepository.findAllByProductNameContainingAndDeletedFalseOrderByProductId(keyword, pageable);
 	}
 
@@ -90,8 +92,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> findAllByDeletedFalse() {
-		// TODO Auto-generated method stub
 		return productRepository.findAllByDeletedFalse();
+	}
+
+	@Override
+	public void saveAll(Set<Product> products) {
+		productRepository.saveAll(products);
 	}
 
 }
