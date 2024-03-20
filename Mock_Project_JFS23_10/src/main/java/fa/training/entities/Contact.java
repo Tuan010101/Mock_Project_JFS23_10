@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +31,8 @@ public class Contact {
 
 	@Column(name = "full_name")
 	@NotBlank(message = "Must not be blank")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]*$", message = "Only alphanumeric characters and spaces are allowed")
+	@Length(min = 1, max = 50, message = "Must be between 1 and 50 characters")
 	private String fullName;
 
 	@NotBlank(message = "Must not be blank")
@@ -35,9 +40,11 @@ public class Contact {
 	private String email;
 
 	@NotBlank(message = "Must not be blank")
+	@Length(min = 1, max = 50, message = "Must be between 1 and 50 characters")
 	private String subject;
 
 	@NotBlank(message = "Must not be blank")
+	@Length(min = 1, max = 200, message = "Must be between 1 and 200 characters")
 	private String message;
 
 	private boolean replied;

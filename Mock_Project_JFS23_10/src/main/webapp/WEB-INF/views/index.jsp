@@ -12,6 +12,11 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+.product:hover .pricing {
+     opacity: 1 !important; 
+}
+</style>
 
 <jsp:include page="basefragments/header.jsp"></jsp:include>
 
@@ -249,17 +254,6 @@
 									</p>
 								</div>
 							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="#"
-										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="#"
-										class="heart d-flex justify-content-center align-items-center">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -285,19 +279,13 @@
 			<div
 				class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
 				<span class="subheading">Best Price For You</span>
-				<h2 class="mb-4">Deal of the day</h2>
+				<h2 class="mb-4">Join us and see new products every day</h2>
 				<p>Far far away, behind the word mountains, far from the
 					countries Vokalia and Consonantia</p>
 				<h3>
-					<a href="${pageContext.request.contextPath}/products/9">Click to see your surprise deal of the day</a>
+					See your surprise deal of the day
 				</h3>
-				<span class="price"> $ ??? <a href="#">now $ ??? only</a></span>
-				<div id="timer" class="d-flex mt-5">
-					<div class="time" id="days"></div>
-					<div class="time pl-3" id="hours"></div>
-					<div class="time pl-3" id="minutes"></div>
-					<div class="time pl-3" id="seconds"></div>
-				</div>
+				<span class="price"> $ ??? now $ ??? only</span>
 			</div>
 		</div>
 	</div>

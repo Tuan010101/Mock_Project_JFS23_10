@@ -8,13 +8,19 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.AppUser;
 import fa.training.entities.Bill;
+import fa.training.entities.Category;
+import fa.training.entities.Product;
 
 @Service
 public interface BillService {
 	List<Bill> findAll();
+
 	Page<Bill> findAll(Pageable pageable);
+
 	Bill findAllByBillId(int billId);
+
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
+
 	void save(Bill bill);
 	
 	/**

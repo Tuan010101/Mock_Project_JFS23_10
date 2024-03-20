@@ -15,9 +15,13 @@ import fa.training.entities.Bill;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 	List<Bill> findAll();
+
 	Page<Bill> findAll(Pageable pageable);
+
 	Bill findAllByBillId(int billId);
+
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
+
 	void deleteByBillId(int billId);
 	
 	@EntityGraph(attributePaths = {"userProducts"})

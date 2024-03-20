@@ -38,7 +38,7 @@ public class AddUserForm {
 	private String verifyCode;
 
 	@NotNull(message = "Must not be null")
-	private int roleId;
+	private Integer roleId; // Sửa kiểu dữ liệu thành Integer
 
 	public AddUserForm(AppUser appUser) {
 		this.userName = appUser.getUsername();
@@ -53,6 +53,14 @@ public class AddUserForm {
 	public AddUserForm(UserRole userRole) {
 		this.roleId = userRole.getUserRoleId();
 
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 }

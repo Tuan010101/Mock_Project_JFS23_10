@@ -66,7 +66,8 @@ public class PaymentController {
 						LocalDate startDate = productDiscount.getDiscount().getStartDiscountDate();
 						LocalDate endDate = productDiscount.getDiscount().getEndDiscountDate();
 						return isInDiscountPeriod(today, startDate, endDate);
-					}).mapToDouble(productDiscount -> productDiscount.getDiscount().getDiscountPercent()).max().orElse(0.0);
+					}).mapToDouble(productDiscount -> productDiscount.getDiscount().getDiscountPercent()).max()
+							.orElse(0.0);
 
 					return product.getPrice() * (1 - maxDiscountPercent / 100.0) * userProduct.getQuantity();
 				}).sum();
@@ -78,8 +79,16 @@ public class PaymentController {
 
 	@GetMapping("/checkout")
 	public String showCheckout(@ModelAttribute("bill") Bill bill, Principal principal, Model model) {
+
 		String username = principal.getName();
 		AppUser appUser = appUserService.findByUsername(username);
+
+		int sizeBill = (int) appUser.getUserProducts().stream().filter(userProduct -> userProduct.getBillId() == null)
+				.count();
+
+		if (sizeBill == 0) {
+			return "redirect:/cart";
+		}
 
 		bill.setFullName(appUser.getFullName());
 		bill.setAddress(appUser.getAddress());

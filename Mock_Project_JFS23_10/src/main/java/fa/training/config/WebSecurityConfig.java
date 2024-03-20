@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/user/active/email/check").permitAll()
 		.antMatchers("/user/**").hasRole("USER")
 		.antMatchers("/admin/**").hasRole("ADMIN")
-		.antMatchers("/", "/index", "/about", "/cart", "/contact", "/products/**", "/login", "/register", "/forgot-password/**").permitAll()
+		.antMatchers("/", "/index", "/about", "/contact", "/products/**", "/login", "/register", "/forgot-password/**").permitAll()
 		//chứng thực
 		.anyRequest().authenticated();
 		

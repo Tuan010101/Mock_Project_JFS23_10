@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.AppUser;
 import fa.training.entities.Bill;
+import fa.training.entities.Product;
 import fa.training.repository.BillRepository;
 import fa.training.service.BillService;
-
 
 @Service
 public class BillServiceImpl implements BillService {
 	@Autowired
 	private BillRepository billRepository;
-	
+
 	@Override
 	public List<Bill> findAll() {
 		return billRepository.findAll();
 	}
-	
+
 	@Override
 	public Page<Bill> findAll(Pageable pageable) {
 		return billRepository.findAll(pageable);
@@ -37,11 +37,12 @@ public class BillServiceImpl implements BillService {
 	public Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable) {
 		return billRepository.findAllByUserProductsUserIdUsername(userName, pageable);
 	}
+
 	@Override
 	public void save(Bill bill) {
 		billRepository.save(bill);
 	}
-	
+
 	/**
 	 * @author Vinh 18/3/2023
 	 */
@@ -59,5 +60,5 @@ public class BillServiceImpl implements BillService {
 	public Bill findByBillId(int billId) {
 		return billRepository.findByBillId(billId);
 	}
-	
+
 }

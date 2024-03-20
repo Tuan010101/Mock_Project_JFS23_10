@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.lang.Math"%>
 <!DOCTYPE html>
 <html>
 
@@ -50,6 +52,7 @@
 														name="keyword" value="${keyword}">
 													<div class="input-group-appenda ml-2">
 														<button class="btn btn-outline-secondary" type="submit">Search</button>
+													</div>
 												</form>
 
 											</div>
@@ -65,6 +68,7 @@
 														<th>Price</th>
 														<th>Quantity</th>
 														<th>Category</th>
+														<th>Discount</th>
 														<th>Status</th>
 
 														<th>Action</th>
@@ -73,6 +77,16 @@
 												<tbody>
 													<c:forEach var="product" items="${products.content}"
 														varStatus="status">
+														<c:set var="maxDiscountPercent" value="0" />
+														<c:forEach var="productDiscount"
+															items="${product.productDiscounts}">
+															<c:if
+																test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+																<c:set var="maxDiscountPercent"
+																	value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+															</c:if>
+														</c:forEach>
+
 														<tr>
 															<td>${products.number * products.size + status.index + 1}</td>
 															<td>${product.productName}</td>
@@ -81,52 +95,97 @@
 															<td>${product.price}</td>
 															<td>${product.quantity}</td>
 															<td>${product.categoryId.categoryName}</td>
-															<td class="text-center" style="font-size: 20px">${contact.replied == true ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-close text-danger"></i>'}</td>
+
+															<td>${maxDiscountPercent}%</td>
 
 
-
+															<td class="text-center" style="font-size: 20px">${product.deleted == false ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-close text-danger"></i>'}</td>
 															<td class="table-td-center">
 																<!-- Edit button --> <a
 																href="${pageContext.request.contextPath}/admin/products/edit/${product.productId}"
-																class="btn btn-primary btn-sm trash ">Edit</a> <!-- Delete button --> <%-- <a
-																href="${pageContext.request.contextPath}/admin/products/delete/${product.productId}"
-																class="btn btn-primary btn-sm edit">Delete</a> --%> <a
-																class="btn btn-primary btn-sm">
-																	<p class="m-0" data-toggle="modal"
-																		data-target="#deleteModal${status.count}"
-																		title="Delete">Delete</p>
-																	<div id="deleteModal${status.count}" class="modal fade">
-																		<div class="modal-dialog">
-																			<div class="modal-content">
-																				<form action="/products/delete/${product.productId}"
-																					method="post">
-																					<div class="modal-header">
-																						<h4 class="modal-title"
-																							style="color: #0b0b0b !important;">Xóa sản
-																							phẩm</h4>
-																						<button type="button" class="close"
-																							data-dismiss="modal" aria-hidden="true">&times;
-																						</button>
-																					</div>
-																					<div class="modal-body">
-																						<p class="text-dark">Bạn có chắc là xóa sản
-																							phẩm có tên ${product.productName} và id là
-																							${product.productId} ?</p>
-																						<p class="text-danger">
-																							<small>Sản phẩm này sẽ không thể phục hồi
-																								lại</small>
-																						</p>
-																					</div>
-																					<div class="modal-footer">
-																						<input type="button" class="btn btn-default"
-																							data-dismiss="modal" value="Trở về"> <input
-																							type="submit" class="btn btn-danger" value="Xóa">
-																					</div>
-																				</form>
+																class="btn btn-primary btn-sm trash">Edit</a> <!-- Delete button -->
+																<c:if test="${product.deleted= false}">
+																	<a class="btn btn-primary btn-sm">
+																		<p class="m-0" data-toggle="modal"
+																			data-target="#deleteModal${status.count}"
+																			title="Delete">Delete</p>
+																		<div id="deleteModal${status.count}"
+																			class="modal fade">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<form
+																						action="/products/delete/${product.productId}"
+																						method="post">
+																						<div class="modal-header">
+																							<h4 class="modal-title"
+																								style="color: #0b0b0b !important;">Xóa sản
+																								phẩm</h4>
+																							<button type="button" class="close"
+																								data-dismiss="modal" aria-hidden="true">&times;</button>
+																						</div>
+																						<div class="modal-body">
+																							<p class="text-dark">Bạn có chắc là xóa sản
+																								phẩm có tên ${product.productName} và id là
+																								${product.productId} ?</p>
+																							<p class="text-danger">
+																								<small>Sản phẩm này sẽ không thể phục
+																									hồi lại</small>
+																							</p>
+																						</div>
+																						<div class="modal-footer">
+																							<input type="button" class="btn btn-default"
+																								data-dismiss="modal" value="Trở về"> <input
+																								type="submit" class="btn btn-danger" value="Xóa">
+																						</div>
+																					</form>
+																				</div>
 																			</div>
 																		</div>
-																	</div>
-															</a>
+																	</a>
+																</c:if> <c:if test="${product.deleted= true}">
+
+
+																	<a class="btn btn-primary btn-sm">
+																		<p class="m-0" data-toggle="modal"
+																			data-target="#deleteModal${status.count}"
+																			title="Delete">Un Delete</p>
+																		<div id="deleteModal${status.count}"
+																			class="modal fade">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<form
+																						action="/products/delete/${product.productId}"
+																						method="post">
+																						<div class="modal-header">
+																							<h4 class="modal-title"
+																								style="color: #0b0b0b !important;">Xóa sản
+																								phẩm</h4>
+																							<button type="button" class="close"
+																								data-dismiss="modal" aria-hidden="true">&times;</button>
+																						</div>
+																						<div class="modal-body">
+																							<p class="text-dark">Bạn có chắc là xóa sản
+																								phẩm có tên ${product.productName} và id là
+																								${product.productId} ?</p>
+																							<p class="text-danger">
+																								<small>Sản phẩm này sẽ không thể phục
+																									hồi lại</small>
+																							</p>
+																						</div>
+																						<div class="modal-footer">
+																							<input type="button" class="btn btn-default"
+																								data-dismiss="modal" value="Trở về"> <input
+																								type="submit" class="btn btn-danger" value="Xóa">
+																						</div>
+																					</form>
+																				</div>
+																			</div>
+																		</div>
+																	</a>
+
+
+
+																</c:if>
 															</td>
 														</tr>
 													</c:forEach>

@@ -11,10 +11,16 @@ import fa.training.entities.AppUser;
 import fa.training.entities.UserProduct;
 import fa.training.repository.UserProductRepository;
 import fa.training.service.UserProductService;
+
 @Service
 public class UserProductServiceImpl implements UserProductService {
 	@Autowired
 	private UserProductRepository userProductRepository;
+
+	@Override
+	public void save(UserProduct userProduct) {
+		userProductRepository.save(userProduct);
+	}
 
 	@Override
 	public List<UserProduct> findAll() {
@@ -26,13 +32,11 @@ public class UserProductServiceImpl implements UserProductService {
 		return userProductRepository.findAllByBillIdBillId(billId);
 	}
 
-	
 	@Override
 	public List<UserProduct> findAllByUserIdUsernameAndBillIdBillId(String userName, int billId) {
 		// TODO Auto-generated method stub
 		return userProductRepository.findAllByUserIdUsernameAndBillIdBillId(userName, billId);
 	}
-
 
 	@Override
 	public Page<UserProduct> findAll(Pageable pageable) {
@@ -44,10 +48,14 @@ public class UserProductServiceImpl implements UserProductService {
 	public List<UserProduct> findAllByUserIdAndBillIdIsNull(AppUser appUser) {
 		return userProductRepository.findAllByUserIdAndBillIdIsNull(appUser);
 	}
+	
+	public UserProduct findByProductIdProductIdAndUserIdAndBillIdIsNull(int productId, AppUser appUser) {
+		return userProductRepository.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId, appUser);
+	}
 
 	@Override
-	public List<UserProduct> findAllByUserIdAndBillIdNotNull(AppUser appUser) {
-		return userProductRepository.findAllByUserIdAndBillIdNotNull(appUser);
+	public void delete(UserProduct userProduct) {
+		userProductRepository.delete(userProduct);
 	}
 
 }

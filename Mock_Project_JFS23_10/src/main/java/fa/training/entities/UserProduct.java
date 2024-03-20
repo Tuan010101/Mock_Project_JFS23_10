@@ -21,11 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class UserProduct implements Serializable{
-	/**
-	 * @author 	Nguyen Ngoc Tuan
-	 * @birthDay	01/01/2001
-	 * @file 	UserProduct.java
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
