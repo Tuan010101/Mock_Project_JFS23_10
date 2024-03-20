@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fa.training.entities.Discount;
 import fa.training.entities.Product;
+import fa.training.entities.ProductDiscount;
 import fa.training.form.AddDiscountForm;
 import fa.training.form.AddProductDiscountForm;
 import fa.training.repository.DiscountRepository;
 import fa.training.repository.ProductDiscountRepository;
 import fa.training.repository.ProductRepository;
 import fa.training.service.DiscountService;
+import fa.training.service.ProductDiscountService;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,6 +38,8 @@ public class AdminDiscountController {
 
 	@Autowired
 	DiscountService discountService;
+	@Autowired
+	ProductDiscountService productDiscountService;
 	@Autowired
 	ProductDiscountRepository productDiscountRepository;
 	@Autowired
@@ -50,7 +54,7 @@ public class AdminDiscountController {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
-		AddProductDiscountForm addProductDiscountForm = new AddProductDiscountForm();
+		AddDiscountForm addDiscountForm = new AddDiscountForm();
 
 		Map<Integer, String> productMap = productRepository.findAll().stream()
 				.collect(Collectors.toMap(Product::getProductId, Product::getProductName));
@@ -58,7 +62,7 @@ public class AdminDiscountController {
 		Map<Integer, Integer> discountMap = discountService.findAll().stream()
 				.collect(Collectors.toMap(Discount::getDiscountId, Discount::getDiscountId));
 
-		model.addAttribute("addProductDiscountForm", addProductDiscountForm);
+		model.addAttribute("addDiscountForm", addDiscountForm);
 		model.addAttribute("productId", new Product());
 		model.addAttribute("discountId", new Discount());
 		model.addAttribute("productMap", productMap);
@@ -74,6 +78,48 @@ public class AdminDiscountController {
 		model.addAttribute("appDiscountPage", appDiscountPage);
 		System.out.println(appDiscountPage.getNumber());
 		System.out.println(appDiscountPage.getTotalPages());
+
+		return "admin/discount/list";
+	}
+
+	@PostMapping("/discount")
+	public String createProductDiscount(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "percent", defaultValue = "0") int percent, Model model) {
+		int pageSize = 5;
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
+		AddDiscountForm addDiscountForm = new AddDiscountForm();
+
+		Map<Integer, String> productMap = productRepository.findAll().stream()
+				.collect(Collectors.toMap(Product::getProductId, Product::getProductName));
+
+		Map<Integer, Integer> discountMap = discountService.findAll().stream()
+				.collect(Collectors.toMap(Discount::getDiscountId, Discount::getDiscountId));
+
+		model.addAttribute("addDiscountForm", addDiscountForm);
+		model.addAttribute("productId", new Product());
+		model.addAttribute("discountId", new Discount());
+		model.addAttribute("productMap", productMap);
+		model.addAttribute("discountMap", discountMap);
+
+		// Trả về trang thực hiện việc hiển thị danh sách discount
+		Page<Discount> appDiscountPage;
+		if (percent > 0) {
+			appDiscountPage = discountService.findByPercent(pageable, percent);
+		} else {
+			appDiscountPage = discountService.findAll(pageable);
+		}
+		model.addAttribute("appDiscountPage", appDiscountPage);
+		System.out.println(appDiscountPage.getNumber());
+		System.out.println(appDiscountPage.getTotalPages());
+
+		// Tạo mới ProductDiscount
+		ProductDiscount productDiscount = new ProductDiscount();
+		productDiscount.setProduct(addDiscountForm.getProduct());
+		productDiscount.setDiscount(addDiscountForm.getDiscount());
+
+		// Lưu ProductDiscount vào cơ sở dữ liệu
+		productDiscountService.save(productDiscount);
 
 		return "admin/discount/list";
 	}
@@ -101,7 +147,7 @@ public class AdminDiscountController {
 
 		// Sau khi tạo discount thành công, chuyển hướng người dùng đến trang danh sách
 		// discount
-		return "redirect:/admin/discount";
+		return "admin/discount/create";
 	}
 
 	@GetMapping("/discount/edit/{id}")

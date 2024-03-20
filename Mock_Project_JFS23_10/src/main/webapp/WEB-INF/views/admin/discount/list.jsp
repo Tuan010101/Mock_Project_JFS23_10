@@ -33,11 +33,13 @@
 									<div class="tile">
 										<div class="seach">
 											<form:form action="" method="post" class="form-row"
-												modelAttribute="addProductDiscountForm">
+												modelAttribute="addDiscountForm">
 												<div class="form-group col-6">
 													<label for="product" class="form-label font-weight-bold">Product
 														Name</label>
 													<form:select class="form-control" path="product.productId">
+														<%-- 														<form:option value="" selected="selected">Select Product</form:option>
+ --%>
 														<form:options items="${productMap}" />
 													</form:select>
 													<form:errors path="product.productId" class="text-danger"></form:errors>
@@ -47,6 +49,8 @@
 														ID</label>
 													<form:select class="form-control p-1"
 														path="discount.discountId">
+														<%-- 														<form:option value="" selected="selected">Select Discount</form:option>
+ --%>
 														<form:options items="${discountMap}" />
 													</form:select>
 													<form:errors path="discount.discountId" class="text-danger"></form:errors>

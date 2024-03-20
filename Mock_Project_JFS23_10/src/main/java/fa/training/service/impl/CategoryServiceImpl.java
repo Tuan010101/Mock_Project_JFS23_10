@@ -44,8 +44,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> findAllByDeletedFalse() {
-		// TODO Auto-generated method stub
 		return categoryRepository.findAllByDeletedFalse();
 	}
+
 
 }

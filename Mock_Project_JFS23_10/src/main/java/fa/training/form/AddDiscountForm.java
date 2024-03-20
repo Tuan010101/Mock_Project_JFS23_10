@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import fa.training.entities.Discount;
+import fa.training.entities.Product;
+import fa.training.entities.ProductDiscount;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +29,17 @@ public class AddDiscountForm {
 	@NotNull(message = "Ngày kết thúc không được để trống")
 	private LocalDate endDiscountDate;
 
+	private Discount discount;
+	private Product product;
+
 	public AddDiscountForm(Discount discount) {
 		this.discountPercent = discount.getDiscountPercent();
 		this.startDiscountDate = discount.getStartDiscountDate();
 		this.endDiscountDate = discount.getEndDiscountDate();
+	}
+
+	public AddDiscountForm(ProductDiscount productDiscount) {
+		this.discount = productDiscount.getDiscount();
+		this.product = productDiscount.getProduct();
 	}
 }

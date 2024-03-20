@@ -16,6 +16,7 @@ import fa.training.entities.AppUser;
 import fa.training.entities.Product;
 import fa.training.entities.UserProduct;
 import fa.training.service.AppUserService;
+import fa.training.service.ProductService;
 import fa.training.service.UserProductService;
 
 @Controller
@@ -24,7 +25,10 @@ public class CartController {
 	private UserProductService userProductService;
 
 	@Autowired
-	AppUserService appUserService;
+	private ProductService productService;
+
+	@Autowired
+	private AppUserService appUserService;
 
 	private boolean isInDiscountPeriod(LocalDate currentDate, LocalDate startDate, LocalDate endDate) {
 		return !currentDate.isBefore(startDate) && !currentDate.isAfter(endDate);
@@ -99,6 +103,32 @@ public class CartController {
 
 		userProductService.delete(userProduct);
 		return "redirect:/cart";
+	}
+
+	@GetMapping("/add-to-cart")
+	public String addToCart(Model model, Principal principal, @RequestParam("productId") int productId,
+			@RequestParam("quantity") int quantity) {
+
+		String userName = principal.getName();
+		AppUser user = appUserService.findByUsername(userName);
+		System.out.println(productId);
+		System.out.println(quantity);
+
+		Product product = productService.findById(productId);
+		UserProduct existingUserProduct = userProductService.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId,
+				user);
+
+		if (existingUserProduct != null) {
+			existingUserProduct.setQuantity(existingUserProduct.getQuantity() + quantity);
+			userProductService.save(existingUserProduct);
+		} else {
+			UserProduct newUserProduct = new UserProduct();
+			newUserProduct.setProductId(product);
+			newUserProduct.setUserId(user);
+			newUserProduct.setQuantity(quantity);
+			userProductService.save(newUserProduct);
+		}
+		return "redirect:/products/" + productId;
 	}
 
 }

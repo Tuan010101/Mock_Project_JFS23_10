@@ -1,5 +1,7 @@
 package fa.training.controller.admin;
 
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fa.training.entities.Category;
+import fa.training.entities.Product;
 import fa.training.service.CategoryService;
+import fa.training.service.ProductService;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +31,8 @@ public class AdminCategoryController {
 
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	ProductService productService;
 
 	@GetMapping("/categories")
 	public String showAllCategories(@RequestParam(value = "keyword", defaultValue = "") String keyword,
@@ -87,7 +93,16 @@ public class AdminCategoryController {
 	@RequestMapping("/categories/delete/{id}")
 	public String doDeleteCategories(@PathVariable int id) {
 		Category category = categoryService.findById(id);
-		categoryService.delete(category);
+
+		Set<Product> products = category.getProducts();
+		for (Product product : products) {
+			product.setDeleted(true);
+		}
+		productService.saveAll(products);
+
+
+		category.setDeleted(true);
+		categoryService.save(category);
 
 		return "redirect:/admin/categories";
 	}
