@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fa.training.entities.AppUser;
 import fa.training.entities.UserProduct;
 import fa.training.repository.UserProductRepository;
 import fa.training.service.UserProductService;
@@ -40,8 +41,13 @@ public class UserProductServiceImpl implements UserProductService {
 	}
 
 	@Override
-	public List<UserProduct> findAllByUserIdAndBillId(int id) {
-		return userProductRepository.findAllByUserIdAndBillId(id);
+	public List<UserProduct> findAllByUserIdAndBillIdIsNull(AppUser appUser) {
+		return userProductRepository.findAllByUserIdAndBillIdIsNull(appUser);
+	}
+
+	@Override
+	public List<UserProduct> findAllByUserIdAndBillIdNotNull(AppUser appUser) {
+		return userProductRepository.findAllByUserIdAndBillIdNotNull(appUser);
 	}
 
 }

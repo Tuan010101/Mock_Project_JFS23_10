@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fa.training.entities.AppUser;
 import fa.training.entities.Bill;
 
 @Service
@@ -20,11 +21,9 @@ public interface BillService {
 	 * @author Vinh
 	 * @date 18/3/2023
 	 */
-	void deleteByBillId(int billId);
+	void deleteByBillId(int billId); 
 	
-	/**
-	 * @author Vinh
-	 * @date 18/3/2023
-	 */
-	void updateBill(int billId); 
+	Page<Bill> findAllByUserProductsUserId(AppUser appUser, Pageable pageable);
+	
+	Bill findByBillId(int billId);
 }

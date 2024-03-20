@@ -28,7 +28,7 @@ public class CartController {
 	@GetMapping("/cart")
 	public String Cart(Model model, Principal principal) {
 		AppUser appUser = appUserService.findByUsername(principal.getName());
-		List<UserProduct> userProducts = userProductService.findAllByUserIdAndBillId(appUser.getUserId());
+		List<UserProduct> userProducts = userProductService.findAllByUserIdAndBillIdIsNull(appUser);
 		model.addAttribute("userProducts", userProducts);
 		return "cart";
 	}

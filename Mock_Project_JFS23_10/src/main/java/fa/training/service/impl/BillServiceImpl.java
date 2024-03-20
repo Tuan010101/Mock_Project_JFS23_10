@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fa.training.entities.AppUser;
 import fa.training.entities.Bill;
 import fa.training.repository.BillRepository;
 import fa.training.service.BillService;
@@ -48,14 +49,15 @@ public class BillServiceImpl implements BillService {
 	public void deleteByBillId(int billId) {
 		billRepository.deleteByBillId(billId);
 	}
-	
-	/**
-	 * @author Vinh
-	 * @date 18/3/2023
-	 */
+
 	@Override
-	public void updateBill(int billId) {
-		billRepository.updateBill(billId);
+	public Page<Bill> findAllByUserProductsUserId(AppUser appUser, Pageable pageable) {
+		return billRepository.findAllByUserProductsUserId(appUser, pageable);
+	}
+
+	@Override
+	public Bill findByBillId(int billId) {
+		return billRepository.findByBillId(billId);
 	}
 	
 }
