@@ -209,7 +209,7 @@
 										<a class="text-muted" href="${pageContext.request.contextPath}/login"><small>Login</small></a>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button type="submit" class="btn btn-success">Register</button>
+										<button id="submitInfor" type="submit" class="btn btn-success">Register</button>
 									</div>
 								</form:form>
 							</div>
@@ -231,7 +231,7 @@
 	
 	    function submit(e) {
 	        e.preventDefault();
-	        
+	        $('#submitInfor').prop('disabled', true);
 	        const username = $(this.username).val();
 	        const usernameElement = $(this.username);
 	        
@@ -299,8 +299,10 @@
 	        const isInvalid = !!$(".text-danger").length;
 	      
 	        if (isInvalid) {
-	          return;
+	        	$('#submitInfor').prop('disabled', false);
+	        	return;
 	        }
+	        
 	        this.submit();
 	    }
 	    $(document).ready(function(){
