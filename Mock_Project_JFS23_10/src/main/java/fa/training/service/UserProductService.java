@@ -6,11 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import fa.training.entities.AppUser;
-import fa.training.entities.Product;
 import fa.training.entities.UserProduct;
 
 public interface UserProductService {
-	public void save(UserProduct exitingUserProduct);
+	public void save(UserProduct userProduct);
 
 	public List<UserProduct> findAll();
 
@@ -20,8 +19,9 @@ public interface UserProductService {
 
 	public List<UserProduct> findAllByUserIdUsernameAndBillIdBillId(String userName, int billId);
 
-	public List<UserProduct> findAllByUserIdAndBillId(int id);
+	public List<UserProduct> findAllByUserIdAndBillIdIsNull(AppUser appUser);
 
-	public UserProduct findByProductIdProductIdAndUserIdAndBillIdIsNull(int productId, AppUser user);
+	public UserProduct findByProductIdProductIdAndUserIdAndBillIdIsNull(int productId, AppUser appUser);
 
+	public void delete(UserProduct userProduct);
 }

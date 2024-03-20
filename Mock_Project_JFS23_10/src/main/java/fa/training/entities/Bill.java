@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,6 +60,6 @@ public class Bill {
 	@Column(name = "buy_time")
 	private LocalTime buyTime;
 
-	@OneToMany(mappedBy = "billId", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "billId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserProduct> userProducts;
 }

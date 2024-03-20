@@ -154,7 +154,6 @@ public class AdminDiscountController {
 	public String showEditCategories(@PathVariable int id, Model model) {
 
 		Discount discount = discountService.findById(id);
-
 		AddDiscountForm addDiscountForm = new AddDiscountForm(discount);
 		model.addAttribute("addDiscountForm", addDiscountForm);
 
