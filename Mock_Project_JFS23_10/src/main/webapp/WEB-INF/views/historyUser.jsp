@@ -24,13 +24,10 @@
 		</div>
 	</div>
 
-	<section class="ftco-section ftco-cart">
+	<section class="ftco-section">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12 ftco-animate">
-					<div class="cart-list">
-						<table class="table table-hover">
-							<thead>
+						<table class="table">
+							<thead class="thead-primary">
 								<tr>
 									<th>ID</th>
 									<th>Address</th>
@@ -46,104 +43,135 @@
 							</thead>
 							<tbody>
 								<tr>
-									<c:choose>
-										<c:when test="${not empty bills}">
-											<c:forEach items="${bills}" var="bill">
-												
-												<tr class="text-center">
-													<td>
-														<p>${bill.billId}</p>
-													</td>
-												
-													<td>
-														<p>${bill.address}</p>
-													</td>
-													
-													<td>
-														<p>${bill.buyTime}</p>
-													</td>
-													
-													<td>
-														<p>${bill.buyDate}</p>
-													</td>		
-													
-												
-													<td>
-														<c:forEach items="${mapUserProducts.get(bill.billId)}" var="userProduct">
-															<c:if test="${userProduct.quantity > 1}">
-																<p>${userProduct.productId.productName} x${userProduct.quantity}</p>
-															</c:if>												
-															<c:if test="${userProduct.quantity == 1}">
-																<p>${userProduct.productId.productName}</p>
-															</c:if>																																																																										
-														</c:forEach>						
-													</td>
-													<td>
-														<c:set var="total1" value="0" />
-														<c:forEach items="${mapUserProducts.get(bill.billId)}" var="userProduct">	
-															<c:set var="subtotal" value="${userProduct.quantity * userProduct.productId.price}" />
-    														<c:set var="total1" value="${total1 + subtotal}" />																																																														
-														</c:forEach>
-														<p><fmt:formatNumber value="${total1}" pattern="#,##0.00" />$</p>
-													</td>																			
-													<td>
-														<c:if test="${bill.status == 1}">
-														   <i>Chờ lấy hàng</i>
-														</c:if>
-														<c:if test="${bill.status == 2}">
-														   <i>Đang giao</i>
-														</c:if>
-														<c:if test="${bill.status == 3}">
-														   <i>Giao thành công</i>
-														</c:if>
-														<c:if test="${bill.status == 4}">
-														   <i>Giao thất bại</i>
-														</c:if>
-														<c:if test="${bill.status == 5}">
-														   <i>Hủy đơn</i>
-														</c:if>
-													</td>							
-													<td>
-														<c:if test="${bill.status == 0}">
-														    <button type="button" class="btn btn-danger">Hủy đơn</button>
-														</c:if>
-														
-													</td>
-												</tr>
-											</c:forEach>
-										</c:when>
+									<c:forEach items="${bills}" var="bill" varStatus="loopCounter">
 										
-										<c:otherwise>
-											<td colspan="4" style="text-align: center">No record</td>
-										</c:otherwise>
-									</c:choose>
+										<tr class="text-center">
+											<td>
+												<p>${bill.billId}</p>
+											</td>
+										
+											<td>
+												<p>${bill.address}</p>
+											</td>
+											
+											<td>
+												<p>${bill.buyTime}</p>
+											</td>
+											
+											<td>
+												<p>${bill.buyDate}</p>
+											</td>		
+											
+										
+											<td>
+												<c:set var="total" value="0" />
+												<c:forEach items="${bill.userProducts}" var="userProduct">
+													<c:set var="maxDiscountPercent" value="0" />
+													<c:forEach var="productDiscount" items="${userProduct.productId.productDiscounts}">
+														<c:if
+															test="${!bill.buyDate.isBefore(productDiscount.discount.startDiscountDate) && !bill.buyDate.isAfter(productDiscount.discount.endDiscountDate)}">
+															<c:set var="maxDiscountPercent"
+																value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+														</c:if>
+													</c:forEach>
+													
+													<p>${userProduct.productId.productName } x ${userProduct.quantity}</p>
+													<c:set var="subtotal" value="${userProduct.quantity * userProduct.productId.price * (100-maxDiscountPercent) / 100}" />
+  													<c:set var="total" value="${total + subtotal}" />
+												</c:forEach>						
+											</td>
+											<td>
+												<p><fmt:formatNumber value="${total}" pattern="#,##0.00" />$</p>
+											</td>																			
+											<td>
+												<c:if test="${bill.status == 1}">
+													<p>Chờ xác nhận</p>
+												</c:if>
+												<c:if test="${bill.status == 2}">
+													<p>Chờ lấy hàng</p>
+												</c:if>
+												<c:if test="${bill.status == 3}">
+													<p>Đang giao</p>
+												</c:if>
+												<c:if test="${bill.status == 4}">
+													<p>Giao thành công</p>	
+												</c:if>
+												<c:if test="${bill.status == 5}">
+													<p>Giao thất bại</p>
+												</c:if>
+												<c:if test="${bill.status == 6}">
+													<p>Hủy đơn</p>
+												</c:if>
+											</td>							
+											<td>
+												<c:if test="${bill.status == 1}">
+													<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete${loopCounter.count }">
+													  Cancel
+													</button>
+													
+													<!-- Modal -->
+													<div class="modal fade" id="modalDelete${loopCounter.count }" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													  <div class="modal-dialog" role="document">
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+													        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													          <span aria-hidden="true">&times;</span>
+													        </button>
+													      </div>
+													      <form action="${pageContext.request.contextPath}/user/history/delete/bill/${bill.billId }" method="post">
+														      <div class="modal-body">
+														        <p>Are you sure about delete the bill with id ${bill.billId}?</p>
+														      </div>
+														      <div class="modal-footer">
+														        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														        <button type="submit" class="btn btn-danger">Delete</button>
+														      </div>
+													      </form>
+													    </div>
+													  </div>
+													</div>
+												</c:if>
+											</td>
+										</tr>
+									</c:forEach>
 								</tr>
-								
 							</tbody>
 						</table>
-				
-						
-						 
-						
-					</div>
-					
-				</div>
-				<ul class="pagination mx-auto mt-4">
-					<c:if test="${billpage.number > 1}">
-						<li class="page-item"><a class="page-link" href="?page=${billpage.number - 1}">Previous</a></li>
-			        </c:if>
-		        	<li class="page-item"><a class="page-link" href="?page=${billpage.number}">${billpage.number + 1}</a></li>
-		        	<c:if test="${currentPage < totalPages}">
-			            <li class="page-item"><a class="page-link" href="?page=${billpage.number + 1}">Next</a></li>
-			        </c:if>
-		        </ul>
-				
-				
-						 
-			</div>
-		
-			
-
+		    <c:if test="${billPage.totalPages > 1}">
+			    <nav aria-label="Page navigation">
+			        <ul class="pagination justify-content-center">
+			            <c:if test="${billPage.hasPrevious()}">
+			                <li class="page-item">
+			                    <a class="page-link" href="?page=${billPage.number - 1}" aria-label="Previous">
+			                        <span aria-hidden="true">&laquo;</span>
+			                        <span class="sr-only">Previous</span>
+			                    </a>
+			                </li>
+			            </c:if>
+			            <c:forEach begin="0" end="${billPage.totalPages - 1}" step="1" var="i">
+			                <li class="page-item">
+			                    <c:choose>
+			                        <c:when test="${billPage.number eq i}">
+			                            <span class="page-link">${i + 1}</span>
+			                        </c:when>
+			                        <c:otherwise>
+			                            <a class="page-link" href="?page=${i}">${i + 1}</a>
+			                        </c:otherwise>
+			                    </c:choose>
+			                </li>
+			            </c:forEach>
+			            <c:if test="${billPage.hasNext()}">
+			                <li class="page-item">
+			                    <a class="page-link" href="?page=${billPage.number + 1}" aria-label="Next">
+			                        <span aria-hidden="true">&raquo;</span>
+			                        <span class="sr-only">Next</span>
+			                    </a>
+			                </li>
+			            </c:if>
+			        </ul>
+			    </nav>
+			</c:if>
 		</div>
 	</section>
 
@@ -167,132 +195,6 @@
 	</section>
 
 	<jsp:include page="basefragments/footer.jsp"></jsp:include>
-
-	
-	<script>
-
-		$(document).ready(function () {
-			var arrPrices = $("td.price");
-			var arrQuans = $("input[name='quantity']");
-			var arrTotals = $("td.total");
-
-			$('.quantity-right-plus').click(function (e) {
-
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				$('#quantity').val(quantity + 1);
-
-
-				// Increment
-
-			});
-
-			$('.quantity-left-minus').click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				// Increment
-				if (quantity > 0) {
-					$('#quantity').val(quantity - 1);
-				}
-			});
-
-
-
-
-
-			$(".cross-box").click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				let crossBox = $(e.currentTarget);
-				let tickBox = crossBox.next();
-				crossBox.toggleClass("cross-box-actived");
-				if (tickBox.hasClass("tick-box-actived")) {
-					tickBox.removeClass("tick-box-actived");
-				}
-
-			});
-
-			$(".tick-box").click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				let tickBox = $(e.currentTarget);
-				let crossBox = tickBox.prev();
-				tickBox.toggleClass("tick-box-actived");
-				if (crossBox.hasClass("cross-box-actived")) {
-					crossBox.removeClass("cross-box-actived");
-				}
-			});
-
-			//fix decimal part of total
-			for (let index = 0; index < arrQuans.length; index++) {
-				let tempPrice = arrPrices.eq(index).text().substring(1);
-				let tempQuan = arrQuans.eq(index).val();
-				let tempTotal = arrTotals.eq(index).text().substring(1);
-				arrTotals.eq(index).text("$" + (tempPrice * tempQuan).toFixed(2));
-			}
-			//fix decimal part of price and render the correcsponde total
-			for (let index = 0; index < arrPrices.length; index++) {
-				let tempPriceLeng = arrPrices.eq(index).text().length;
-				let tempPrice = arrPrices.eq(index).text().slice(0, tempPriceLeng - 2);
-				let tempTotal = tempPrice * arrQuans.eq(index).val();
-				// console.log(arrPrices.eq(index).text("$" + tempPrice.toFixed(2)))
-				console.log("this line: " + tempTotal);
-				arrTotals.eq(index).text("$" + tempTotal);
-				arrPrices.eq(index).text("$" + tempPrice);
-
-
-			}
-
-			// render the total of cart
-			function calCartTotal() {
-				var cartTotalTemp = 0;
-				for (let i = 1; i < $("tr").length - 1; i++) {
-					cartTotalTemp += parseFloat($("tr").eq(i).children().last().text().substring(1));
-				}
-				var cartTotal = $("tr").last().children().last();
-				cartTotal.text("$" + cartTotalTemp.toFixed(2));
-			};
-			calCartTotal();
-
-			// render total with change in quantity
-			$("[name='quantity']").change(function (e) {
-				let target = $(e.currentTarget);
-				let totalPrice = target.closest("td.quantity").next();
-				let quantity = target.val();
-				let price = target.closest("td.quantity").prev().text().substring(1);
-				let newTotalPrice = price * quantity;
-				totalPrice.text("$" + parseFloat(newTotalPrice).toFixed(2));
-
-				calCartTotal();
-			});
-			
-			// pagination
-			function getData(page) {
-			    $.ajax({
-			      url: "get_data.php",
-			      type: "GET",
-			      data: { page: page },
-			      success: function(response) {
-			        $("#result").html(response.data); // Hiển thị dữ liệu lấy được
-			        $("#pagination").html(response.pagination); // Hiển thị thanh phân trang
-			      }
-			    });
-
-		});
-	</script>
-	
-	
-
 </body>
 
 </html>

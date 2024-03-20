@@ -48,8 +48,7 @@ public class UserProductServiceImpl implements UserProductService {
 	public List<UserProduct> findAllByUserIdAndBillIdIsNull(AppUser appUser) {
 		return userProductRepository.findAllByUserIdAndBillIdIsNull(appUser);
 	}
-
-	@Override
+	
 	public UserProduct findByProductIdProductIdAndUserIdAndBillIdIsNull(int productId, AppUser appUser) {
 		return userProductRepository.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId, appUser);
 	}

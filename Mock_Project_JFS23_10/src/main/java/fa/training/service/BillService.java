@@ -6,9 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fa.training.entities.AppUser;
 import fa.training.entities.Bill;
-import fa.training.entities.Category;
-import fa.training.entities.Product;
 
 @Service
 public interface BillService {
@@ -20,11 +19,13 @@ public interface BillService {
 
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
 
-	void save(Bill bill);
+	void save(Bill bill); 
+	
+	Page<Bill> findAllByUserProductsUserId(AppUser appUser, Pageable pageable);
+	
+	Bill findByBillId(int billId);
 
 	void deleteByBillId(int billId);
-
-	void updateBill(int billId);
 
 	Bill findById(int id);
 

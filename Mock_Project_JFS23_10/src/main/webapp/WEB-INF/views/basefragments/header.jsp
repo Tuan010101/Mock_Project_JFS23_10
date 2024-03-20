@@ -19,17 +19,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.timepicker.css">
 
-<!-- Vinh 18/3/2023 -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
-
-
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customeMOCK.css">
 </head>
@@ -88,7 +82,7 @@
 						</span>
 						<div class="text-dark dropdown-menu" aria-labelledby="dropdownMenu">
 							<a href="${pageContext.request.contextPath}/user/profile" class="dropdown-item" style="font-size: 11px;">Setting</a>
-							<a href="#" class="dropdown-item" style="font-size: 11px;">History purchase</a>
+							<a href="${pageContext.request.contextPath}/user/history" class="dropdown-item" style="font-size: 11px;">History purchase</a>
 						</div>
 					</div>
 					<div class="nav-link pr-1 pl-1">|</div>
