@@ -100,7 +100,7 @@
 						<form:errors class="text-danger" path="fullName"></form:errors>
 					</div>
 					<div class="form-group">
-						<form:input type="text" class="form-control" path="email"
+						<form:input type="email" class="form-control" path="email"
 							placeholder="Your Email" />
 						<form:errors class="text-danger" path="email"></form:errors>
 					</div>
