@@ -66,9 +66,9 @@
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div class="form-group">
-									<label for="image">Image</label>
-									<form:input path="image" type="file" accept="image/*" class="form-control-file"/>
-									<form:errors path="image" class="text-danger"></form:errors>
+<!-- 									<label for="image">Image</label> -->
+<%-- 									<form:input path="image" type="file" accept="image/*" class="form-control-file"/> --%>
+<%-- 									<form:errors path="image" class="text-danger"></form:errors> --%>
 								</div>
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -117,7 +117,7 @@
 						<div class="row gutters">
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="text-right">
-									<button type="submit" class="btn btn-primary">Update</button>
+									<button id="submitInfor" type="submit" class="btn btn-primary">Update</button>
 								</div>
 							</div>
 						</div>
@@ -149,7 +149,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						        <button type="submit" class="btn btn-primary">Save changes</button>
+						        <button id="submitPassword" type="submit" class="btn btn-primary">Save changes</button>
 						      </div>
 					      </form>
 					    </div>
@@ -175,7 +175,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						        <button type="submit" class="btn btn-primary">Save changes</button>
+						        <button id="submitEmail" type="submit" class="btn btn-primary">Save changes</button>
 						      </div>
 					      </form>
 					    </div>
@@ -196,7 +196,7 @@
 	
 	function submit(e) {
         e.preventDefault();
-        
+        $('#submitInfor').prop('disabled', true);
         const fullName = $(this.fullName).val();
         const fullNameElement = $(this.fullName);
         
@@ -236,14 +236,15 @@
         const isInvalid = !!$(".text-danger").length;
       
         if (isInvalid) {
-          return;
+        	$('#submitInfor').prop('disabled', false);
+        	return;
         }
         this.submit();
     }
 	
 	    function submitChangePass(e) {
 	        e.preventDefault();
-	        
+	        $('#submitPassword').prop('disabled', true);
 	        const currentPassword = $(this.currentPassword).val();
 	        const currentPasswordElement = $(this.currentPassword);
 	        
@@ -283,6 +284,7 @@
 	        const isInvalid = !!$(".text-danger").length;
 	      
 	        if (isInvalid) {
+	        	$('#submitPassword').prop('disabled', false);
 	          return;
 	        }
 	        this.submit();
@@ -290,7 +292,7 @@
 	    
 	    function submitChangeEmail(e) {
 	        e.preventDefault();
-	        
+	        $('#submitEmail').prop('disabled', true);
 	        const email = $(this.email).val();
 	        const emailElement = $(this.email);
 	        
@@ -306,6 +308,7 @@
 	        const isInvalid = !!$(".text-danger").length;
 	      
 	        if (isInvalid) {
+	        	$('#submitEmail').prop('disabled', false);
 	          return;
 	        }
 	        this.submit();

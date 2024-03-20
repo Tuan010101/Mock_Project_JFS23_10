@@ -110,8 +110,7 @@
 											class="ion-ios-close"></span></button>
 									<form> --%> <a
 										href="${pageContext.request.contextPath}/cart/delete/${userProducts.productId.productId}"
-										onclick="handleClick(event, this);"><span
-											class="ion-ios-close"></span></a>
+										id="button-delete"><span class="ion-ios-close"></span></a>
 									</td>
 
 									<td class="image-prod">
@@ -137,13 +136,11 @@
 											<div class="input-group justify-content-center">
 												<a type="button"
 													href="${pageContext.request.contextPath}/cart/minus/${userProducts.productId.productId}"
-													class="button-minus" onclick="handleClick(event, this);">
-													- </a>
+													class="button-minus" id="button-minus"> - </a>
 												<div class="quantity-field">${userProducts.quantity }</div>
 												<a type="button"
 													href="${pageContext.request.contextPath}/cart/plus/${userProducts.productId.productId}"
-													class="button-plus" onclick="handleClick(event, this);">
-													+ </a>
+													class="button-plus" id="button-plus"> + </a>
 											</div>
 
 										</div>
@@ -193,12 +190,22 @@
 
 <jsp:include page="basefragments/footer.jsp"></jsp:include>
 <script>
-	function handleClick(event, element) {
+	function handleButtonClick(event) {
 		event.preventDefault();
-
-		window.location.href = element.getAttribute("href");
-		element.setAttribute("href", "");
+		this.classList.add("disabled");
+		this.style.pointerEvents = 'none';
+		window.location.href = this.getAttribute("href");
 	}
+
+	document.querySelectorAll('#button-delete').forEach(function(link) {
+		link.addEventListener('click', handleButtonClick);
+	});
+	document.querySelectorAll('#button-minus').forEach(function(link) {
+		link.addEventListener('click', handleButtonClick);
+	});
+	document.querySelectorAll('#button-plus').forEach(function(link) {
+		link.addEventListener('click', handleButtonClick);
+	});
 </script>
 </body>
 
