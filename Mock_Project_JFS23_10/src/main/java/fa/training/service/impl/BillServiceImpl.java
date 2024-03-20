@@ -8,20 +8,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fa.training.entities.Bill;
+import fa.training.entities.Product;
 import fa.training.repository.BillRepository;
 import fa.training.service.BillService;
-
 
 @Service
 public class BillServiceImpl implements BillService {
 	@Autowired
 	private BillRepository billRepository;
-	
+
 	@Override
 	public List<Bill> findAll() {
 		return billRepository.findAll();
 	}
-	
+
 	@Override
 	public Page<Bill> findAll(Pageable pageable) {
 		return billRepository.findAll(pageable);
@@ -36,11 +36,12 @@ public class BillServiceImpl implements BillService {
 	public Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable) {
 		return billRepository.findAllByUserProductsUserIdUsername(userName, pageable);
 	}
+
 	@Override
 	public void save(Bill bill) {
 		billRepository.save(bill);
 	}
-	
+
 	/**
 	 * @author Vinh 18/3/2023
 	 */
@@ -48,7 +49,7 @@ public class BillServiceImpl implements BillService {
 	public void deleteByBillId(int billId) {
 		billRepository.deleteByBillId(billId);
 	}
-	
+
 	/**
 	 * @author Vinh
 	 * @date 18/3/2023
@@ -57,5 +58,16 @@ public class BillServiceImpl implements BillService {
 	public void updateBill(int billId) {
 		billRepository.updateBill(billId);
 	}
-	
+
+	@Override
+	public Bill findById(int id) {
+		// TODO Auto-generated method stub
+		return billRepository.findById(id).get();
+	}
+
+	@Override
+	public Page<Bill> findAllByFullNameContains(String fullName, Pageable pageable) {
+		return billRepository.findAllByFullNameContains(fullName, pageable);
+	}
+
 }

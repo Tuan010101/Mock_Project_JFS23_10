@@ -52,6 +52,7 @@
 														name="keyword" value="${keyword}">
 													<div class="input-group-appenda ml-2">
 														<button class="btn btn-outline-secondary" type="submit">Search</button>
+													</div>
 												</form>
 
 											</div>

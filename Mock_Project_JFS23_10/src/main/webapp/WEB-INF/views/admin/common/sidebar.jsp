@@ -16,9 +16,9 @@
  --%>
 <div id="sidebar">
 	<ul class="list-group">
-		<a href="#">
-			<li class="list-group-item"><i
-				class="icomoon icon-dashboard pr-2"></i>Dashboard</li>
+		<a href="${pageContext.request.contextPath}/admin/contacts">
+			<li class="list-group-item"><i class="icomoon icon-ticket pr-2"></i>Contacts
+				report</li>
 		</a>
 		<a href="${pageContext.request.contextPath}/admin/products">
 			<li class="list-group-item"><i class="icomoon icon-tags pr-1"></i>Product
@@ -32,7 +32,7 @@
 			<li class="list-group-item"><i
 				class="icomoon icon-address-card pr-2"></i>Category manager</li>
 		</a>
-		<a href="#">
+		<a href="${pageContext.request.contextPath}/admin/bill">
 			<li class="list-group-item"><i
 				class="icomoon icon-shopping-cart pr-2"></i>Order management</li>
 		</a>
@@ -40,6 +40,7 @@
 			<li class="list-group-item"><i class="icomoon icon-ticket pr-2"></i>Sales
 				report</li>
 		</a>
+
 		<a href="#">
 			<li class="list-group-item"><i class="icomoon icon-cogs pr-2"></i>System
 				installation</li>
