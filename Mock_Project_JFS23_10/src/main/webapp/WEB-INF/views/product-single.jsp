@@ -15,6 +15,19 @@
 
 <jsp:include page="basefragments/header.jsp"></jsp:include>
 
+<c:if test="${param.addtocart == 'success'}">
+	<div
+		class="alert alert-custome alert-success alert-dismissible fade show"
+		role="alert">
+		<strong>Success!</strong> Add to cart successfully.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
+
 <div class="hero-wrap hero-bread"
 	style="background-image: url(${pageContext.request.contextPath}/resources/images/bg_1.jpg);">
 	<div class="container">
@@ -70,7 +83,8 @@
 
 
 
-				<form action="${pageContext.request.contextPath}/add-to-cart"
+				<form id="addToCartForm"
+					action="${pageContext.request.contextPath}/add-to-cart"
 					method="get">
 					<div class="row mt-4">
 						<div class="col-md-6"></div>
@@ -89,12 +103,12 @@
 									<i class="ion-ios-add"></i>
 								</button>
 							</span> <input type="hidden" name="productId"
-								value="${product.productId }">
+								value="${product.productId}">
 						</div>
 						<div class="w-100"></div>
 					</div>
 					<p>
-						<input type="submit" value="Add to Cart"
+						<input id="addToCartBtn" type="submit" value="Add to Cart"
 							class="btn btn-black py-3 px-5">
 					</p>
 				</form>
@@ -183,15 +197,13 @@
 								</div>
 
 								<!-- Buttons for actions like adding to cart and favorites -->
+
 								<div class="bottom-area d-flex px-3">
 									<div class="m-auto d-flex">
-										<a
+										<a id="quickAddToCartLink"
 											href="${pageContext.request.contextPath}/quick-add-to-cart/${relatedProducts.productId}?quantity=1"
 											class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
-										</a> <a href="#"
-											class="heart d-flex justify-content-center align-items-center">
-											<span><i class="ion-ios-heart"></i></span>
 										</a>
 									</div>
 								</div>
@@ -253,20 +265,24 @@
 		});
 
 		$('.quantity-left-minus').click(function(e) {
-			// Stop acting like a button
 			e.preventDefault();
-			// Get the field name
 			var quantity = parseInt($('#quantity').val());
-
-			// If is not undefined
-
-			// Increment
 			if (quantity > 0) {
 				$('#quantity').val(quantity - 1);
 			}
 		});
 
 	});
+
+	document.getElementById("quickAddToCartLink").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("quickAddToCartLink").classList.add("disabled");
+	
+	document.getElementById("addToCartForm").addEventListener("submit",
+			function() {
+				// Disable the submit button after it's clicked
+				document.getElementById("addToCartBtn").disabled = true;
+			});
 </script>
 </body>
 </html>

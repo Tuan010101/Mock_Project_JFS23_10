@@ -15,6 +15,21 @@
 
 <jsp:include page="basefragments/header.jsp"></jsp:include>
 
+
+
+<c:if test="${param.addtocart == 'success'}">
+	<div
+		class="alert alert-custome alert-success alert-dismissible fade show"
+		role="alert">
+		<strong>Success!</strong> Add to cart successfully.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
+
 <div class="hero-wrap hero-bread"
 	style="background-image: url(${pageContext.request.contextPath}/resources/images/bg_1.jpg);">
 	<div class="container">
@@ -139,13 +154,14 @@
 										</div>
 									</div>
 									<div class="bottom-area d-flex px-3">
-										<div class="m-auto d-flex">
-											<a href="${pageContext.request.contextPath}/quick-add-to-cart/${product.productId}?quantity=1"
-												class="buy-now d-flex justify-content-center align-items-center mx-1">
-												<span><i class="ion-ios-cart"></i></span>
-											</a> 
-										</div>
+									<div class="m-auto d-flex">
+										<a id="quickAddToCart"
+											href="${pageContext.request.contextPath}/quick-add-to-cart/${product.productId}?quantity=1"
+											class="buy-now d-flex justify-content-center align-items-center mx-1">
+											<span><i class="ion-ios-cart"></i></span>
+										</a>
 									</div>
+								</div>
 								</div>
 							</div>
 						</div>
@@ -225,8 +241,10 @@
 <jsp:include page="basefragments/footer.jsp"></jsp:include>
 
 
-<script type="text/javascript">
-	
+<script>
+document.getElementById("quickAddToCart").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("quickAddToCart").classList.add("disabled");
 </script>
 </body>
 </html>

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -109,11 +111,10 @@ public class CartController {
 
 	@GetMapping("/add-to-cart")
 	public String addToCart(Model model, Principal principal, @RequestParam("productId") int productId,
-			@RequestParam("quantity") int quantity) {
+			@RequestParam("quantity") int quantity ) {
 
 		String userName = principal.getName();
 		AppUser user = appUserService.findByUsername(userName);
-
 
 		Product product = productService.findById(productId);
 		UserProduct existingUserProduct = userProductService.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId,
@@ -129,13 +130,13 @@ public class CartController {
 			newUserProduct.setQuantity(quantity);
 			userProductService.save(newUserProduct);
 		}
-		return "redirect:/products/" + productId;
+		return "redirect:/products/" + productId + "?addtocart=success"; 
 	}
-	
-	
+
 	@GetMapping("/quick-add-to-cart/{productId}")
 	public String QuickAddToCart(Model model, Principal principal, @PathVariable("productId") int productId,
-			@RequestParam("quantity") int quantity,@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+			@RequestParam("quantity") int quantity,
+			@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
 
 		String userName = principal.getName();
 		AppUser user = appUserService.findByUsername(userName);
@@ -154,9 +155,8 @@ public class CartController {
 			newUserProduct.setQuantity(quantity);
 			userProductService.save(newUserProduct);
 		}
-		
-		return "redirect:" + referrer;
+
+		return "redirect:" + referrer.split("\\?")[0] + "?addtocart=success";
 	}
-	
 
 }
