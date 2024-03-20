@@ -133,30 +133,33 @@ public class CartController {
 		return "redirect:/products/" + productId + "?addtocart=success"; 
 	}
 
+
 	@GetMapping("/quick-add-to-cart/{productId}")
-	public String QuickAddToCart(Model model, Principal principal, @PathVariable("productId") int productId,
-			@RequestParam("quantity") int quantity,
-			@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+	public String quickAddToCart(Model model, Principal principal, @PathVariable("productId") int productId,
+	                             @RequestParam("quantity") int quantity,
+	                             @RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
+	                             @RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
 
-		String userName = principal.getName();
-		AppUser user = appUserService.findByUsername(userName);
+	    String userName = principal.getName();
+	    AppUser user = appUserService.findByUsername(userName);
 
-		Product product = productService.findById(productId);
-		UserProduct existingUserProduct = userProductService.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId,
-				user);
+	    Product product = productService.findById(productId);
+	    UserProduct existingUserProduct = userProductService.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId,
+	            user);
 
-		if (existingUserProduct != null) {
-			existingUserProduct.setQuantity(existingUserProduct.getQuantity() + 1);
-			userProductService.save(existingUserProduct);
-		} else {
-			UserProduct newUserProduct = new UserProduct();
-			newUserProduct.setProductId(product);
-			newUserProduct.setUserId(user);
-			newUserProduct.setQuantity(quantity);
-			userProductService.save(newUserProduct);
-		}
+	    if (existingUserProduct != null) {
+	        existingUserProduct.setQuantity(existingUserProduct.getQuantity() + 1);
+	        userProductService.save(existingUserProduct);
+	    } else {
+	        UserProduct newUserProduct = new UserProduct();
+	        newUserProduct.setProductId(product);
+	        newUserProduct.setUserId(user);
+	        newUserProduct.setQuantity(quantity);
+	        userProductService.save(newUserProduct);
+	    }
 
-		return "redirect:" + referrer.split("\\?")[0] + "?addtocart=success";
+	    
+	    return "redirect:" + referrer.split("\\?")[0] + "?addtocart=success&pageNo=" + currentPage;
 	}
 
 }

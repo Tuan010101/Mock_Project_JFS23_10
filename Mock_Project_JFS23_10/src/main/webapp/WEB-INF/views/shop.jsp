@@ -155,8 +155,9 @@
 									</div>
 									<div class="bottom-area d-flex px-3">
 										<div class="m-auto d-flex">
-											<a 
-												href="${pageContext.request.contextPath}/quick-add-to-cart/${product.productId}?quantity=1"
+
+											<a
+												href="${pageContext.request.contextPath}/quick-add-to-cart/${product.productId}?quantity=1&page=${param.pageNo}"
 												class="buy-now quickAddToCart d-flex justify-content-center align-items-center mx-1">
 												<span><i class="ion-ios-cart"></i></span>
 											</a>
@@ -242,20 +243,18 @@
 
 
 <script>
+	document.querySelectorAll('.quickAddToCart').forEach(function(link) {
+		link.addEventListener('click', function(event) {
+			event.preventDefault();
 
-document.querySelectorAll('.quickAddToCart').forEach(function(link) {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-        
-        // Disable the clicked link
-        link.classList.add('disabled');
-        link.style.pointerEvents = 'none'; // Disable pointer events to prevent multiple clicks
-        
-        // Navigate to the URL
-        window.location.href = this.href;
-    });
-});
-	
+			// Disable the clicked link
+			link.classList.add('disabled');
+			link.style.pointerEvents = 'none'; // Disable pointer events to prevent multiple clicks
+
+			// Navigate to the URL
+			window.location.href = this.href;
+		});
+	});
 </script>
 </body>
 </html>
