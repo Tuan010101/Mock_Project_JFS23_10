@@ -28,4 +28,6 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
 	Page<Bill> findAllByUserProductsUserId(AppUser appUser, Pageable pageable);
 	
 	Bill findByBillId(int billId);
+
+	Page<Bill> findAllByFullNameContains(String fullNanme, Pageable pageable);
 }

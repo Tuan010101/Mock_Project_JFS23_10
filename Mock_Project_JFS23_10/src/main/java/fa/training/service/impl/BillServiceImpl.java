@@ -61,4 +61,15 @@ public class BillServiceImpl implements BillService {
 		return billRepository.findByBillId(billId);
 	}
 
+	@Override
+	public Bill findById(int id) {
+		// TODO Auto-generated method stub
+		return billRepository.findById(id).get();
+	}
+
+	@Override
+	public Page<Bill> findAllByFullNameContains(String fullName, Pageable pageable) {
+		return billRepository.findAllByFullNameContains(fullName, pageable);
+	}
+
 }

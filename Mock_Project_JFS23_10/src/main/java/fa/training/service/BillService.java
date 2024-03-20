@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import fa.training.entities.AppUser;
 import fa.training.entities.Bill;
-import fa.training.entities.Category;
-import fa.training.entities.Product;
 
 @Service
 public interface BillService {
@@ -21,15 +19,16 @@ public interface BillService {
 
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
 
-	void save(Bill bill);
-	
-	/**
-	 * @author Vinh
-	 * @date 18/3/2023
-	 */
-	void deleteByBillId(int billId); 
+	void save(Bill bill); 
 	
 	Page<Bill> findAllByUserProductsUserId(AppUser appUser, Pageable pageable);
 	
 	Bill findByBillId(int billId);
+
+	void deleteByBillId(int billId);
+
+	Bill findById(int id);
+
+	Page<Bill> findAllByFullNameContains(String fullName, Pageable pageable);
+
 }
