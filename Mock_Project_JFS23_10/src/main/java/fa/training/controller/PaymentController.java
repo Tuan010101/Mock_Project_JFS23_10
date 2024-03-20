@@ -87,7 +87,7 @@ public class PaymentController {
 				.count();
 
 		if (sizeBill == 0) {
-			return "redirect:/cart?pay_status=Pleasepurchasebeforepayment";
+			return "redirect:/cart";
 		}
 
 		bill.setFullName(appUser.getFullName());

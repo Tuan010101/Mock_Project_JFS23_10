@@ -1,244 +1,205 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.lang.Math"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<title>Cart - Vinh</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<jsp:include page="basefragments/header.jsp"></jsp:include>
-	
-	<div class="hero-wrap hero-bread" style="background-image: url(${pageContext.request.contextPath}/resources/images/bg_1.jpg);">
-		<div class="container">
-			<div class="row no-gutters slider-text align-items-center justify-content-center">
-				<div class="col-md-9 ftco-animate text-center">
-					<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
-					<h1 class="mb-0 bread">My Cart</h1>
-				</div>
+<title>Vegefoods - Cart</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<style>
+.input-group .button-minus, .input-group .button-plus {
+	font-weight: bold;
+	height: 38px;
+	line-height: 38px;
+	padding: 0;
+	width: 38px;
+	position: relative;
+	border: 1px solid #eeeeee;
+	-webkit-appearance: button;
+	cursor: pointer;
+	background-color: #eeeeee;
+	min-width: 38px;
+	width: auto;
+	padding: 0;
+}
+
+.input-group .quantity-field {
+	position: relative;
+	height: 38px;
+	text-align: center;
+	width: 62px;
+	display: inline-block;
+	font-size: 13px;
+	margin: 0 0 5px;
+	resize: vertical;
+	border: 1px solid #eeeeee;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>
+<jsp:include page="basefragments/header.jsp"></jsp:include>
+
+
+<c:if test="${param.pay_status == 'success'}">
+	<div
+		class="alert alert-custome alert-success alert-dismissible fade show"
+		role="alert">
+		<strong>Success!</strong> Payment successfully.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
+<div class="hero-wrap hero-bread"
+	style="background-image: url(${pageContext.request.contextPath}/resources/images/bg_1.jpg);">
+	<div class="container">
+		<div
+			class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span>
+				</p>
+				<h1 class="mb-0 bread">My Cart</h1>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<section class="ftco-section ftco-cart">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 ftco-animate">
-					<div class="cart-list">
-						<table class="table table-hover">
-							<thead class="thead-primary">
+<section class="ftco-section ftco-cart">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 ftco-animate">
+				<div class="cart-list">
+					<table class="table">
+						<thead class="thead-primary">
+							<tr class="text-center">
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>Product name</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="userProducts" items="${userProducts}">
+								<c:set var="maxDiscountPercent" value="0" />
+								<c:forEach var="productDiscount"
+									items="${userProducts.productId.productDiscounts}">
+									<c:if
+										test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
+										<c:set var="maxDiscountPercent"
+											value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
+									</c:if>
+								</c:forEach>
 								<tr class="text-center">
-									<th>&nbsp;</th>
-									<th>&nbsp;</th>
-									<th>Product name</th>
-									<th>Price</th>
-									<th>Quantity</th>
-									<th>Total</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-										<c:when test="${not empty userProducts}">
-											<c:forEach items="${userProducts}" var="userProduct">
-												
-												<tr class="text-center">
-													<td class="tick-remove">
-														<button class="cross-box btn"><i class="icon icon-close"></i></button>
-														<button class="tick-box btn"><i class="icon icon-check"></i></button>
-													</td>
-				
-													<td class="image-prod">
-														<div class="img" style="background-image:url(${userProduct.productId.image});"></div>
-													</td>
-				
-													<td class="product-name">
-														<h3>${userProduct.productId.productName}</h3>
-														<p>${userProduct.productId.description}</p>
-													</td>
-				
-													<td class="price">${userProduct.productId.price}</td>
-				
-													<td class="quantity">
-														<div class="input-group mb-3">
-															<input type="number" name="quantity"
-																class="quantity form-control input-number" value="${userProduct.quantity}" min="1" max="100">
-														</div>
-													</td>
-				
-													<td class="total">0</td>
-												</tr>
-											</c:forEach>
-										</c:when>
-										
-										<c:otherwise>
-											<td colspan="4" style="text-align: center">No record</td>
-										</c:otherwise>
-									</c:choose>
-
-								<tr class="text-center">
-									<td colspan="4" class="product-remove display-4">
-										Total of cart
+									<td class="product-remove">
+										<%-- <form action="${pageContext.request.contextPath}/cart/delete/${userProducts.productId.productId}" method="post" >
+										<button type="submit" class="btn btn-outline-danger "><span
+											class="ion-ios-close"></span></button>
+									<form> --%> <a
+										href="${pageContext.request.contextPath}/cart/delete/${userProducts.productId.productId}"
+										onclick="handleClick(event, this);"><span
+											class="ion-ios-close"></span></a>
 									</td>
 
+									<td class="image-prod">
+										<div class="img">
+											<img class="w-100 h-100"
+												src="${userProducts.productId.image}" />
+										</div>
+									</td>
 
-									<td colspan="2" class="total display-4 text-right">0</td>
+									<td class="product-name">
+										<h3>${userProducts.productId.productName}</h3>
+										<p>${userProducts.productId.description	}</p>
+									</td>
+
+									<td class="price">$<fmt:formatNumber
+											value="${userProducts.productId.price * (1 - maxDiscountPercent / 100 ) }"
+											pattern="0.00" />
+
+									</td>
+
+									<td class="quantity">
+										<div class="input-group mb-3">
+											<div class="input-group justify-content-center">
+												<a type="button"
+													href="${pageContext.request.contextPath}/cart/minus/${userProducts.productId.productId}"
+													class="button-minus" onclick="handleClick(event, this);">
+													- </a>
+												<div class="quantity-field">${userProducts.quantity }</div>
+												<a type="button"
+													href="${pageContext.request.contextPath}/cart/plus/${userProducts.productId.productId}"
+													class="button-plus" onclick="handleClick(event, this);">
+													+ </a>
+											</div>
+
+										</div>
+									</td>
+
+									<td class="total">$<fmt:formatNumber
+											value="${userProducts.productId.price * (1 - maxDiscountPercent / 100 ) * userProducts.quantity }"
+											pattern="0.00" /></td>
 								</tr>
 								<!-- END TR-->
-							
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		
-			<div class="row justify-content-end">
+							</c:forEach>
 
-				<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 
-					<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-				</div>
-			</div>
-
-		</div>
-	</section>
-
-	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-		<div class="container py-4">
-			<div class="row d-flex justify-content-center py-5">
-				<div class="col-md-6">
-					<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
-					<span>Get e-mail updates about our latest shops and special offers</span>
-				</div>
-				<div class="col-md-6 d-flex align-items-center">
-					<form action="#" class="subscribe-form">
-						<div class="form-group d-flex">
-							<input type="text" class="form-control" placeholder="Enter email address">
-							<input type="submit" value="Subscribe" class="submit px-3">
-						</div>
-					</form>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</section>
+		<div class="row justify-content-end">
 
-	<jsp:include page="basefragments/footer.jsp"></jsp:include>
+			<div class="offset-lg-8 col-lg-4 mt-5 cart-wrap ftco-animate">
+				<div class="cart-total mb-3">
+					<h3>Cart Totals</h3>
+					<p class="d-flex">
+						<span>Subtotal</span> <span>$${totalPrice}</span>
+					</p>
+					<p class="d-flex">
+						<span>Delivery</span> <span>$0.00</span>
+					</p>
 
-	
-	<script>
-
-		$(document).ready(function () {
-			var arrPrices = $("td.price");
-			var arrQuans = $("input[name='quantity']");
-			var arrTotals = $("td.total");
-
-			$('.quantity-right-plus').click(function (e) {
-
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				$('#quantity').val(quantity + 1);
-
-
-				// Increment
-
-			});
-
-			$('.quantity-left-minus').click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				// Increment
-				if (quantity > 0) {
-					$('#quantity').val(quantity - 1);
-				}
-			});
+					<hr>
+					<p class="d-flex total-price">
+						<span>Total</span> <span>$${totalPrice}</span>
+					</p>
+				</div>
+				<c:if test="${not empty userProducts}">
+					<p>
+						<a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed
+							to Checkout</a>
+					</p>
+				</c:if>
+			</div>
+		</div>
+	</div>
+</section>
 
 
+<jsp:include page="basefragments/footer.jsp"></jsp:include>
+<script>
+	function handleClick(event, element) {
+		event.preventDefault();
 
-
-
-			$(".cross-box").click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				let crossBox = $(e.currentTarget);
-				let tickBox = crossBox.next();
-				crossBox.toggleClass("cross-box-actived");
-				if (tickBox.hasClass("tick-box-actived")) {
-					tickBox.removeClass("tick-box-actived");
-				}
-
-			});
-
-			$(".tick-box").click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				let tickBox = $(e.currentTarget);
-				let crossBox = tickBox.prev();
-				tickBox.toggleClass("tick-box-actived");
-				if (crossBox.hasClass("cross-box-actived")) {
-					crossBox.removeClass("cross-box-actived");
-				}
-			});
-
-			//fix decimal part of total
-			for (let index = 0; index < arrQuans.length; index++) {
-				let tempPrice = arrPrices.eq(index).text().substring(1);
-				let tempQuan = arrQuans.eq(index).val();
-				let tempTotal = arrTotals.eq(index).text().substring(1);
-				arrTotals.eq(index).text("$" + (tempPrice * tempQuan).toFixed(2));
-			}
-			//fix decimal part of price and render the correcsponde total
-			for (let index = 0; index < arrPrices.length; index++) {
-				let tempPriceLeng = arrPrices.eq(index).text().length;
-				let tempPrice = arrPrices.eq(index).text().slice(0, tempPriceLeng - 2);
-				let tempTotal = tempPrice * arrQuans.eq(index).val();
-				// console.log(arrPrices.eq(index).text("$" + tempPrice.toFixed(2)))
-				console.log("this line: " + tempTotal);
-				arrTotals.eq(index).text("$" + tempTotal);
-				arrPrices.eq(index).text("$" + tempPrice);
-
-
-			}
-
-			// render the total of cart
-			function calCartTotal() {
-				var cartTotalTemp = 0;
-				for (let i = 1; i < $("tr").length - 1; i++) {
-					cartTotalTemp += parseFloat($("tr").eq(i).children().last().text().substring(1));
-				}
-				var cartTotal = $("tr").last().children().last();
-				cartTotal.text("$" + cartTotalTemp.toFixed(2));
-			};
-			calCartTotal();
-
-			// render total with change in quantity
-			$("[name='quantity']").change(function (e) {
-				let target = $(e.currentTarget);
-				let totalPrice = target.closest("td.quantity").next();
-				let quantity = target.val();
-				let price = target.closest("td.quantity").prev().text().substring(1);
-				let newTotalPrice = price * quantity;
-				totalPrice.text("$" + parseFloat(newTotalPrice).toFixed(2));
-
-				calCartTotal();
-			});
-
-		});
-	</script>
-	
-	
-
+		window.location.href = element.getAttribute("href");
+		element.setAttribute("href", "");
+	}
+</script>
 </body>
 
 </html>
