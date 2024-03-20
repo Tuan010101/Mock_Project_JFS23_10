@@ -140,13 +140,10 @@
 									</div>
 									<div class="bottom-area d-flex px-3">
 										<div class="m-auto d-flex">
-											<a href="#"
+											<a href="${pageContext.request.contextPath}/quick-add-to-cart/${product.productId}?quantity=1"
 												class="buy-now d-flex justify-content-center align-items-center mx-1">
 												<span><i class="ion-ios-cart"></i></span>
-											</a> <a href="#"
-												class="heart d-flex justify-content-center align-items-center">
-												<span><i class="ion-ios-heart"></i></span>
-											</a>
+											</a> 
 										</div>
 									</div>
 								</div>
