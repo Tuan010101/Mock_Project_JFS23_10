@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import fa.training.entities.AppUser;
 import fa.training.entities.UserProduct;
 
 @Repository
@@ -23,4 +24,7 @@ public interface UserProductRepository extends JpaRepository<UserProduct, Intege
 	
 	@Query(nativeQuery = true, value = "SELECT * FROM UserProduct WHERE user_id = ?1 AND bill_id is null")
 	List<UserProduct> findAllByUserIdAndBillId(int id);	
+	
+	UserProduct findByProductIdProductIdAndUserIdAndBillIdIsNull(int productId, AppUser user);
+
 }

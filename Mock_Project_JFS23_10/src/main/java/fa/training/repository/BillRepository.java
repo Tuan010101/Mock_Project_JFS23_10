@@ -13,15 +13,21 @@ import fa.training.entities.Bill;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 	List<Bill> findAll();
+
 	Page<Bill> findAll(Pageable pageable);
+
 	Bill findAllByBillId(int billId);
+
 	Page<Bill> findAllByUserProductsUserIdUsername(String userName, Pageable pageable);
+
 	void deleteByBillId(int billId);
 
 	/**
 	 * @author Vinh
 	 * @date 18/3/2023
 	 */
-	@Query(value="UPDATE Bill B SET B.status = 1 WHERE B.bill_id = ?1", nativeQuery = true)
+	@Query(value = "UPDATE Bill B SET B.status = 1 WHERE B.bill_id = ?1", nativeQuery = true)
 	void updateBill(int billId);
+
+	Page<Bill> findAllByFullNameContains(String fullNanme, Pageable pageable);
 }
