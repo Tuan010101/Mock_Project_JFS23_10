@@ -12,6 +12,11 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+.product:hover .pricing {
+     opacity: 1 !important; 
+}
+</style>
 
 <jsp:include page="basefragments/header.jsp"></jsp:include>
 
@@ -247,17 +252,6 @@
 											</c:otherwise>
 										</c:choose>
 									</p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="#"
-										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="#"
-										class="heart d-flex justify-content-center align-items-center">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
 								</div>
 							</div>
 						</div>

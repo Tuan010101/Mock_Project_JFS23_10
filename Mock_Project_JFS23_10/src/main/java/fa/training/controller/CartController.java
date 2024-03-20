@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fa.training.entities.AppUser;
@@ -110,9 +112,8 @@ public class CartController {
 			@RequestParam("quantity") int quantity) {
 
 		String userName = principal.getName();
-		AppUser user = appUserService.findByUsername(userName);
-		System.out.println(productId);
-		System.out.println(quantity);
+		AppUser user = appuserService.findByUsername(userName);
+
 
 		Product product = productService.findById(productId);
 		UserProduct existingUserProduct = userProductService.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId,
@@ -130,5 +131,32 @@ public class CartController {
 		}
 		return "redirect:/products/" + productId;
 	}
+	
+	
+	@GetMapping("/quick-add-to-cart/{productId}")
+	public String QuickAddToCart(Model model, Principal principal, @PathVariable("productId") int productId,
+			@RequestParam("quantity") int quantity,@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+
+		String userName = principal.getName();
+		AppUser user = appuserService.findByUsername(userName);
+
+		Product product = productService.findById(productId);
+		UserProduct existingUserProduct = userProductService.findByProductIdProductIdAndUserIdAndBillIdIsNull(productId,
+				user);
+
+		if (existingUserProduct != null) {
+			existingUserProduct.setQuantity(existingUserProduct.getQuantity() + 1);
+			userProductService.save(existingUserProduct);
+		} else {
+			UserProduct newUserProduct = new UserProduct();
+			newUserProduct.setProductId(product);
+			newUserProduct.setUserId(user);
+			newUserProduct.setQuantity(quantity);
+			userProductService.save(newUserProduct);
+		}
+		
+		return "redirect:" + referrer;
+	}
+	
 
 }

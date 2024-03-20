@@ -167,9 +167,9 @@
 											<c:choose>
 												<c:when test="${maxDiscountPercent gt 0}">
 													<span class="mr-2 price-dc">$<c:out
-															value="${product.price}" /></span>
+															value="${relatedProducts.price}" /></span>
 													<span class="price"> $<fmt:formatNumber
-															value="${product.price - (product.price * maxDiscountPercent / 100)}"
+															value="${relatedProducts.price - (relatedProducts.price * maxDiscountPercent / 100)}"
 															pattern="0.00" />
 													</span>
 												</c:when>
@@ -185,7 +185,8 @@
 								<!-- Buttons for actions like adding to cart and favorites -->
 								<div class="bottom-area d-flex px-3">
 									<div class="m-auto d-flex">
-										<a href="#"
+										<a
+											href="${pageContext.request.contextPath}/quick-add-to-cart/${relatedProducts.productId}?quantity=1"
 											class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
 										</a> <a href="#"
@@ -194,6 +195,7 @@
 										</a>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
