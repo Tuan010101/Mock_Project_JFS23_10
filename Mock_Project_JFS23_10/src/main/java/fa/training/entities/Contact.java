@@ -31,7 +31,7 @@ public class Contact {
 
 	@Column(name = "full_name")
 	@NotBlank(message = "Must not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]*$", message = "Only alphanumeric characters and spaces are allowed")
+	@Pattern(regexp = "^[a-z A-Z]*$", message = "Only aphabet characters and spaces are allowed")
 	@Length(min = 1, max = 50, message = "Must be between 1 and 50 characters")
 	private String fullName;
 
@@ -40,6 +40,7 @@ public class Contact {
 	private String email;
 
 	@NotBlank(message = "Must not be blank")
+	@Pattern(regexp = "^[a-z A-Z0-9]*$", message = "Only aphanumberic characters and spaces are allowed")
 	@Length(min = 1, max = 50, message = "Must be between 1 and 50 characters")
 	private String subject;
 
