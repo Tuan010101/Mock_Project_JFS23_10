@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,14 +37,18 @@ public class Bill {
 	private int billId;
 
 	@Column(name = "full_name")
-	@NotBlank(message = "Must not be blank")
+	@Pattern(regexp = "^[a-z A-Z]*$", message = "Only aphabet characters and spaces are allowed")
+	@Length(min = 1, max = 50, message = "Must be between 1 and 50 characters")
 	private String fullName;
 
 	@NotBlank(message = "Must not be blank")
+	@Pattern(regexp = "^[a-z A-Z0-9]*$", message = "Only aphanumberic characters and spaces are allowed")
+	@Length(min = 1, max = 50, message = "Must be between 1 and 50 characters")
 	private String address;
 
 	@Column(name = "phone_number")
 	@NotBlank(message = "Must not be blank")
+	@Pattern(regexp = "^(0|84|\\+84)\\d{9}$", message = "Invalid phone number")
 	private String phoneNumber;
 
 	@NotBlank(message = "Must not be blank")

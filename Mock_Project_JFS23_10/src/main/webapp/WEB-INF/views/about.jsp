@@ -50,6 +50,7 @@
 						promoting healthy lifestyles and supporting local farmers by
 						connecting you with the finest selection of farm-fresh produce.</p>
 					<p>Our mission at VEGEFOODS Direct is simple: to provide
+					
 						convenient access to high-quality vegetables while supporting
 						local communities and promoting environmental sustainability. We
 						strive to revolutionize the way you shop for vegetables by
