@@ -58,7 +58,6 @@ public class AppUser {
 	private String address;
 
 	@Column(name = "phone_number")
-	@Length(max = 10, message = "Maximum account length is 10 characters")
 	private String phoneNumber;
 
 	private int status;
