@@ -14,7 +14,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 .product:hover .pricing {
-     opacity: 1 !important; 
+	opacity: 1 !important;
 }
 </style>
 
@@ -66,64 +66,56 @@
 	</div>
 </section>
 
-<section class="ftco-section">
-	<div class="container">
-		<div class="row no-gutters ftco-services">
-			<div
-				class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-				<div class="media block-6 services mb-md-0 mb-4">
-					<div
-						class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-						<span class="flaticon-shipped"></span>
-					</div>
-					<div class="media-body">
-						<h3 class="heading">Free Shipping</h3>
-						<span>On order over $100</span>
-					</div>
-				</div>
+    <section class="ftco-section bg-light">
+			<div class="container">
+				<div class="row no-gutters ftco-services">
+          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services mb-md-0 mb-4">
+              <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
+            		<span class="flaticon-shipped"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Free Shipping</h3>
+                <span>On order over $100</span>
+              </div>
+            </div>      
+          </div>
+          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services mb-md-0 mb-4">
+              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+            		<span class="flaticon-diet"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Always Fresh</h3>
+                <span>Product well package</span>
+              </div>
+            </div>    
+          </div>
+          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services mb-md-0 mb-4">
+              <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
+            		<span class="flaticon-award"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Superior Quality</h3>
+                <span>Quality Products</span>
+              </div>
+            </div>      
+          </div>
+          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services mb-md-0 mb-4">
+              <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
+            		<span class="flaticon-customer-service"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Support</h3>
+                <span>24/7 Support</span>
+              </div>
+            </div>      
+          </div>
+        </div>
 			</div>
-			<div
-				class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-				<div class="media block-6 services mb-md-0 mb-4">
-					<div
-						class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-						<span class="flaticon-diet"></span>
-					</div>
-					<div class="media-body">
-						<h3 class="heading">Always Fresh</h3>
-						<span>Product well package</span>
-					</div>
-				</div>
-			</div>
-			<div
-				class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-				<div class="media block-6 services mb-md-0 mb-4">
-					<div
-						class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-						<span class="flaticon-award"></span>
-					</div>
-					<div class="media-body">
-						<h3 class="heading">Superior Quality</h3>
-						<span>Quality Products</span>
-					</div>
-				</div>
-			</div>
-			<div
-				class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-				<div class="media block-6 services mb-md-0 mb-4">
-					<div
-						class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-						<span class="flaticon-customer-service"></span>
-					</div>
-					<div class="media-body">
-						<h3 class="heading">Support</h3>
-						<span>24/7 Support</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+		</section>
 
 <section class="ftco-section ftco-category ftco-no-pt">
 	<div class="container">
@@ -207,56 +199,59 @@
 		<div class="row">
 
 
-			<c:forEach var="mixedProducts" items="${mixedProducts}" varStatus="loopStatus">
-			<c:set var="maxDiscountPercent" value="0" />
-				<c:forEach var="productDiscount" items="${mixedProducts.productDiscounts}">
+			<c:forEach var="mixedProducts" items="${mixedProducts}"
+				varStatus="loopStatus">
+				<c:set var="maxDiscountPercent" value="0" />
+				<c:forEach var="productDiscount"
+					items="${mixedProducts.productDiscounts}">
 					<c:if
 						test="${!LocalDate.now().isBefore(productDiscount.discount.startDiscountDate) && !LocalDate.now().isAfter(productDiscount.discount.endDiscountDate)}">
 						<c:set var="maxDiscountPercent"
 							value="${Math.max(maxDiscountPercent, productDiscount.discount.discountPercent)}" />
 					</c:if>
 				</c:forEach>
-			
-			
-			<c:if test="${loopStatus.index < 8}">
-				<div class="col-md-6 col-lg-3 ftco-animate abc">
-					<div class="product">
-						<a
-							href="${pageContext.request.contextPath}/products/${mixedProducts.productId}"
-							class="img-prod"> <img class="img-fluid"
-							src="<c:out value="${mixedProducts.image}" />" alt="Product Image">
-							<c:if test="${maxDiscountPercent gt 0}">
-								<span class="status">${maxDiscountPercent}%</span>
-							</c:if>
-							<div class="overlay"></div>
-						</a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3>
-								<a href="#"><c:out value="${mixedProducts.productName}" /></a>
-							</h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price">
-										<c:choose>
-											<c:when test="${maxDiscountPercent gt 0}">
-												<span class="mr-2 price-dc">$<c:out
-														value="${mixedProducts.price}" /></span>
-												<span class="price"> $<fmt:formatNumber
-														value="${mixedProducts.price - (mixedProducts.price * maxDiscountPercent / 100)}"
-														pattern="0.00" />
-												</span>
-											</c:when>
-											<c:otherwise>
-												<span class="price">$<fmt:formatNumber
-														value="${mixedProducts.price}" pattern="0.00" /></span>
-											</c:otherwise>
-										</c:choose>
-									</p>
+
+
+				<c:if test="${loopStatus.index < 8}">
+					<div class="col-md-6 col-lg-3 ftco-animate abc">
+						<div class="product">
+							<a
+								href="${pageContext.request.contextPath}/products/${mixedProducts.productId}"
+								class="img-prod"> <img class="img-fluid"
+								src="<c:out value="${mixedProducts.image}" />"
+								alt="Product Image"> <c:if
+									test="${maxDiscountPercent gt 0}">
+									<span class="status">${maxDiscountPercent}%</span>
+								</c:if>
+								<div class="overlay"></div>
+							</a>
+							<div class="text py-3 pb-4 px-3 text-center">
+								<h3>
+									<a href="#"><c:out value="${mixedProducts.productName}" /></a>
+								</h3>
+								<div class="d-flex">
+									<div class="pricing">
+										<p class="price">
+											<c:choose>
+												<c:when test="${maxDiscountPercent gt 0}">
+													<span class="mr-2 price-dc">$<c:out
+															value="${mixedProducts.price}" /></span>
+													<span class="price"> $<fmt:formatNumber
+															value="${mixedProducts.price - (mixedProducts.price * maxDiscountPercent / 100)}"
+															pattern="0.00" />
+													</span>
+												</c:when>
+												<c:otherwise>
+													<span class="price">$<fmt:formatNumber
+															value="${mixedProducts.price}" pattern="0.00" /></span>
+												</c:otherwise>
+											</c:choose>
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				</c:if>
 			</c:forEach>
 
@@ -282,9 +277,7 @@
 				<h2 class="mb-4">Join us and see new products every day</h2>
 				<p>Far far away, behind the word mountains, far from the
 					countries Vokalia and Consonantia</p>
-				<h3>
-					See your surprise deal of the day
-				</h3>
+				<h3>See your surprise deal of the day</h3>
 				<span class="price"> $ ??? now $ ??? only</span>
 			</div>
 		</div>
@@ -297,9 +290,9 @@
 			<div class="col-md-7 heading-section ftco-animate text-center">
 				<span class="subheading">Testimony</span>
 				<h2 class="mb-4">Our satisfied customer says</h2>
-				<p>Far far away, behind the word mountains, far from the
-					countries Vokalia and Consonantia, there live the blind texts.
-					Separated they live in</p>
+				<p>Buổi tối bụng đói cồn cào. Ăn thì sợ mập nhịn thì sợ đau. Chi
+					bằng bỏ chút hầu bao. Uống ly sinh tố cho qua cơn thèm. Còn là hoa
+					quả tươi ngon. Uống vừa không mập lại còn thêm xinh! <3</p>
 			</div>
 		</div>
 		<div class="row ftco-animate">
@@ -315,11 +308,10 @@
 								</span>
 							</div>
 							<div class="text text-center">
-								<p class="mb-5 pl-4 line">Far far away, behind the word
-									mountains, far from the countries Vokalia and Consonantia,
-									there live the blind texts.</p>
-								<p class="name">Garreth Smith</p>
-								<span class="position">Marketing Manager</span>
+								<p class="mb-5 pl-4 line">Tại đây có bán hoa quả TƯƠI hơn
+									người yêu cũ của bạn.</p>
+								<p class="name">Le Viet Nam</p>
+								<span class="position">Sieu Nhan Dien Quang</span>
 							</div>
 						</div>
 					</div>
@@ -333,10 +325,8 @@
 								</span>
 							</div>
 							<div class="text text-center">
-								<p class="mb-5 pl-4 line">Far far away, behind the word
-									mountains, far from the countries Vokalia and Consonantia,
-									there live the blind texts.</p>
-								<p class="name">Garreth Smith</p>
+								<p class="mb-5 pl-4 line">Trái cây ngon, giá rẻ, bao ăn</p>
+								<p class="name">Phung Hoang Phu Loc</p>
 								<span class="position">Interface Designer</span>
 							</div>
 						</div>
@@ -351,10 +341,9 @@
 								</span>
 							</div>
 							<div class="text text-center">
-								<p class="mb-5 pl-4 line">Far far away, behind the word
-									mountains, far from the countries Vokalia and Consonantia,
-									there live the blind texts.</p>
-								<p class="name">Garreth Smith</p>
+								<p class="mb-5 pl-4 line">Trái cây tươi ngon, mọng nước phù
+									hợp cho ngày hè.</p>
+								<p class="name">Nguyen Canh Thanh</p>
 								<span class="position">UI Designer</span>
 							</div>
 						</div>
@@ -369,10 +358,9 @@
 								</span>
 							</div>
 							<div class="text text-center">
-								<p class="mb-5 pl-4 line">Far far away, behind the word
-									mountains, far from the countries Vokalia and Consonantia,
-									there live the blind texts.</p>
-								<p class="name">Garreth Smith</p>
+								<p class="mb-5 pl-4 line">Người ta thích rượu, thích trà. Em
+									đây chỉ thích mua trái cây miền Tây thơm ngon, chất lượng ạ!</p>
+								<p class="name">Nguyen Ngoc Tuan</p>
 								<span class="position">Web Developer</span>
 							</div>
 						</div>
@@ -387,11 +375,10 @@
 								</span>
 							</div>
 							<div class="text text-center">
-								<p class="mb-5 pl-4 line">Far far away, behind the word
-									mountains, far from the countries Vokalia and Consonantia,
-									there live the blind texts.</p>
-								<p class="name">Garreth Smith</p>
-								<span class="position">System Analyst</span>
+								<p class="mb-5 pl-4 line">Sầu riêng quá phê, ngon tê đầu
+									lưỡi.</p>
+								<p class="name">Nguyen Thi Hoa</p>
+								<span class="position">Tester</span>
 							</div>
 						</div>
 					</div>
