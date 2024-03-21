@@ -107,6 +107,7 @@ public class PaymentController {
 		AppUser appUser = appUserService.findByUsername(username);
 
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("success", "false");
 			model.addAttribute("totalPrice", getTotalPrice(appUser));
 			return "checkout";
 		}
