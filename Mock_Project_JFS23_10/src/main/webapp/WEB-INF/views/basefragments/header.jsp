@@ -38,15 +38,15 @@
 						<div class="col-md pr-4 d-flex topper align-items-center">
 							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
 									class="icon-phone2"></span></div>
-							<span class="text">+84 912 698 173</span>
+							<span class="text">+84123456789</span>
 						</div>
 						<div class="col-md pr-4 d-flex topper align-items-center">
 							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
 									class="icon-paper-plane"></span></div>
-							<span class="text">youremail@email.com</span>
+							<span class="text">vegefoods@vegefoods.com</span>
 						</div>
 						<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-							<span class="text">3-5 Business days delivery &amp; Free Returns</span>
+							<span class="text">3-5 Business days delivery &amp; Please No Returns</span>
 						</div>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
               <li class="nav-item ${fn:contains(pageContext.request.requestURI, 'shop') ? 'active':'' } ${fn:contains(pageContext.request.requestURI, 'product-single') ? 'active':'' }"><a href="${pageContext.request.contextPath}/products" class="nav-link">Shop</a></li>
 	          <li class="nav-item ${fn:contains(pageContext.request.requestURI, 'about') ? 'active':'' }"><a href="${pageContext.request.contextPath}/about" class="nav-link">About</a></li>
 	          <li class="nav-item ${fn:contains(pageContext.request.requestURI, 'contact') ? 'active':'' }"><a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 			  <c:if test="${pageContext.request.userPrincipal.name == null}">
 				  <li class="nav-item d-flex">
 					<a href="${pageContext.request.contextPath}/login" class="nav-link pr-0">Login</a>
