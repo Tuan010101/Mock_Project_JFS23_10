@@ -13,6 +13,18 @@
 
 <jsp:include page="basefragments/header.jsp"></jsp:include>
 
+<c:if test="${success == 'false'}">
+	<div
+		class="alert alert-custome alert-danger alert-dismissible fade show"
+		role="alert">
+		<strong>Failure!</strong> There was an error while paying Bill.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
 <div class="hero-wrap hero-bread"
 	style="background-image: url(${pageContext.request.contextPath}/resources/images/bg_1.jpg);">
 	<div class="container">
@@ -38,7 +50,7 @@
 				<div class="row align-items-end">
 					<div class="col-12" style="height: 120px">
 						<div class="form-group">
-							<label for="fullName">Full Name</label>
+							<label for="fullName">Your Name</label>
 							<form:input type="text" class="form-control" path="fullName"
 								placeholder="Input your name" />
 							<form:errors class="text-danger" path="fullName"></form:errors>
@@ -62,7 +74,7 @@
 					</div>
 					<div class="col-md-6" style="height: 120px">
 						<div class="form-group">
-							<label for="email">Email Address</label>
+							<label for="email">Your Email</label>
 							<form:input type="text" class="form-control" path="email"
 								placeholder="Input your email" />
 							<form:errors class="text-danger" path="email"></form:errors>

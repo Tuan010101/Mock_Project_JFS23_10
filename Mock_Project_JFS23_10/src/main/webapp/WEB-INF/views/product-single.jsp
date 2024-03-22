@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+<title>Vegefoods - Single</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -97,7 +97,7 @@
 								</button>
 							</span> <input type="number" id="quantity" name="quantity"
 								class="form-control input-number" value="1" min="1" max="100"
-								step="1"> <span class="input-group-btn ml-2">
+								step="1" required> <span class="input-group-btn ml-2">
 								<button type="button" class="quantity-right-plus btn"
 									data-type="plus" data-field="">
 									<i class="ion-ios-add"></i>

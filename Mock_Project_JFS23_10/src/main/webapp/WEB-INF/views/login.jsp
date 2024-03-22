@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>Vegefoods - Login</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
@@ -201,7 +201,7 @@
 										<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button type="submit" class="btn btn-success">Login</button>
+										<button id="submitInfor" type="submit" class="btn btn-success">Login</button>
 									</div>
 								</form>
 							</div>
@@ -223,7 +223,7 @@
 	
 	    function submitForm(e) {
 	        e.preventDefault();
-	        
+	        $('#submitInfor').prop('disabled', true);
 	        const username = $(this.username).val();
 	        const usernameElement = $(this.username);
 	        
@@ -254,6 +254,7 @@
 	        const isInvalid = !!$(".text-danger").length;
 	      
 	        if (isInvalid) {
+	        	$('#submitInfor').prop('disabled', false);
 	          return;
 	        }
 	        this.submit();

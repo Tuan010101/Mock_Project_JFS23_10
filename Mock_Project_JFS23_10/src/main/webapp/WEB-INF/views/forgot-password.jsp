@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>Vegefoods - Forgot Password</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
@@ -188,7 +188,7 @@
 											<div class="input-group mb-2">
 												<form:input path="email" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Email"/>
 												<div class="input-group-prepend">
-													<button type="submit" class="btn btn-secondary input-group-text">Send</button>
+													<button id="submitEmail" type="submit" class="btn btn-secondary input-group-text">Send</button>
 												</div>
 											</div>
 											<form:errors path="email" class="text-danger"></form:errors>
@@ -228,7 +228,7 @@
 												<a class="text-muted" href="${pageContext.request.contextPath}/register"><small>Register</small></a>
 											</div>
 											<div class="d-flex justify-content-center">
-												<button type="submit" class="btn btn-success">Submit</button>
+												<button id="submitCode" type="submit" class="btn btn-success">Submit</button>
 											</div>
 										</form:form>
 									</div>
@@ -275,7 +275,7 @@
 	
 	    function submit(e) {
 	        e.preventDefault();
-
+	        $('#submitEmail').prop('disabled', true);
 	        const email = $(this.email).val();
 	        const emailElement = $(this.email);
 
@@ -291,7 +291,8 @@
 	        const isInvalid = !!$(".text-danger").length;
 	      
 	        if (isInvalid) {
-	          return;
+	        	$('#submitEmail').prop('disabled', false);
+	        	return;
 	        }
 	        console.log(this);
 			this.submit();
@@ -299,7 +300,7 @@
 	    
 	    function submitForm(e) {
 	        e.preventDefault();
-
+	        $('#submitCode').prop('disabled', true);
 	        const email = $(this.email).val();
 	        const emailElement = $(this.email);
 	        
@@ -327,7 +328,8 @@
 	        const isInvalid = !!$(".text-danger").length;
 	      
 	        if (isInvalid) {
-	          return;
+	        	$('#submitCode').prop('disabled', false);
+	        	return;
 	        }
 	        console.log(this);
 	        this.submit();

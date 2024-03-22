@@ -70,22 +70,21 @@
 			<div class="col-md-3 d-flex">
 				<div class="info bg-white p-4 text-center">
 					<p>
-						<span>Phone:</span> </br> <a href="tel:+84912698173">(+84) 912 698
-							173</a>
+						<span>Phone:</span> </br> <a href="tel: +84123456789">+84123456789</a>
 					</p>
 				</div>
 			</div>
 			<div class="col-md-3 d-flex">
 				<div class="info bg-white p-4 text-center">
 					<p>
-						<span>Email:</span> </br> <a href="mailto:info@yoursite.com">info@yoursite.com</a>
+						<span>Email:</span> </br> <a href="mailto:vegefoods@vegefoods.com">vegefoods@vegefoods.com</a>
 					</p>
 				</div>
 			</div>
 			<div class="col-md-3 d-flex">
 				<div class="info bg-white p-4 text-center">
 					<p>
-						<span>Website</span> </br> <a href="">yoursite.com</a>
+						<span>Website</span> </br> <a href="">vegefoods.com</a>
 					</p>
 				</div>
 			</div>

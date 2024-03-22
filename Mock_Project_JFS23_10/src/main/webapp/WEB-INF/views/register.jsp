@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>Vegefoods - Register</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
@@ -232,13 +232,15 @@
 	    function submit(e) {
 	        e.preventDefault();
 	        $('#submitInfor').prop('disabled', true);
-	        const username = $(this.username).val();
+	        const username = $(this.username).val().trim();
+	        $(this.username).val(username);
 	        const usernameElement = $(this.username);
 	        
 	        const password = $(this.password).val();
 	        const passwordElement = $(this.password);
 	        
-	        const email = $(this.email).val();
+	        const email = $(this.email).val().trim();
+	        $(this.email).val(email);
 	        const emailElement = $(this.email);
 	        
 	        const rePassword = $(this.rePassword).val();

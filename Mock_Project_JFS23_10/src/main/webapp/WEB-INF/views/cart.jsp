@@ -178,7 +178,7 @@
 				</div>
 				<c:if test="${not empty userProducts}">
 					<p>
-						<a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed
+						<a href="${pageContext.request.contextPath}/checkout" class="btn btn-primary py-3 px-4">Proceed
 							to Checkout</a>
 					</p>
 				</c:if>
