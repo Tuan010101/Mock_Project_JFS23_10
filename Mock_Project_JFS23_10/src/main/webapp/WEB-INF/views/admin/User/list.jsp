@@ -98,18 +98,16 @@
 																					method="post">
 																					<div class="modal-header">
 																						<h4 class="modal-title"
-																							style="color: #0b0b0b !important;">Xóa sản
-																							phẩm</h4>
+																							style="color: #0b0b0b !important;">Xóa User</h4>
 																						<button type="button" class="close"
 																							data-dismiss="modal" aria-hidden="true">&times;
 																						</button>
 																					</div>
 																					<div class="modal-body">
-																						<p class="text-dark">Bạn có chắc là xóa sản
-																							phẩm có tên ${appUserPage.username} và id là
+																						<p class="text-dark">Bạn có chắc là xóa User có tên ${appUserPage.username} và id là
 																							${appUserPage.userId} ?</p>
 																						<p class="text-danger">
-																							<small>Sản phẩm này sẽ không thể phục hồi
+																							<small>User này sẽ không thể phục hồi
 																								lại</small>
 																						</p>
 																					</div>

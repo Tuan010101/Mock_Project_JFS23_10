@@ -33,15 +33,9 @@
 									<div class="tile">
 										<div class="tile-body">
 											<div class="row element-button justify-content-between p-3">
-												<div class="col-sm-2 d-flex align-items-center p-0">
-													<a class="btn btn-add btn-sm p-2"
-														href="${pageContext.request.contextPath}/admin/bill/create"
-														title="Thêm"><i class="fas fa-plus"></i> Create new
-														Bill</a>
-												</div>
 												<form class="mb-2 d-flex seach align-items-center">
 													<input type="text" class="form-control"
-														placeholder="Full Name" name="percent" value="${keyword}">
+														placeholder="Full Name" name="keyword" value="${keyword}">
 													<div class="input-group-appenda ml-2">
 														<button class="btn btn-outline-secondary" type="submit">Search</button>
 													</div>
@@ -75,7 +69,19 @@
 															<td>${bill.address}</td>
 															<td>${bill.phoneNumber}</td>
 															<td>${bill.email}</td>
-															<td>${bill.status}</td>
+															<td><c:if test="${bill.status == 1}">
+																	<p>Chờ xác nhận</p>
+																</c:if> <c:if test="${bill.status == 2}">
+																	<p>Chờ lấy hàng</p>
+																</c:if> <c:if test="${bill.status == 3}">
+																	<p>Đang giao</p>
+																</c:if> <c:if test="${bill.status == 4}">
+																	<p>Giao thành công</p>
+																</c:if> <c:if test="${bill.status == 5}">
+																	<p>Giao thất bại</p>
+																</c:if> <c:if test="${bill.status == 6}">
+																	<p>Hủy đơn</p>
+																</c:if></td>
 															<td>${bill.paymentMethod}</td>
 															<td>${bill.buyDate}</td>
 															<td>${bill.buyTime}</td>
@@ -88,36 +94,6 @@
 																<!-- Các nút chỉnh sửa và xóa --> <a
 																href="${pageContext.request.contextPath}/admin/bill/edit/${bill.billId}"
 																class="btn btn-primary btn-sm trash">Edit</a>
-																<button class="btn btn-primary btn-sm delete-btn"
-																	data-toggle="modal"
-																	data-target="#deleteModal${status.count}"
-																	data-bill-id="${bill.billId}">Delete</button>
-																<div id="deleteModal${status.count}" class="modal fade">
-																	<div class="modal-dialog">
-																		<div class="modal-content">
-																			<div class="modal-header">
-																				<h4 class="modal-title"
-																					style="color: #0b0b0b !important;">Xóa sản
-																					phẩm</h4>
-																				<button type="button" class="close"
-																					data-dismiss="modal" aria-hidden="true">&times;</button>
-																			</div>
-																			<div class="modal-body">
-																				<p class="text-dark">Bạn có chắc là xóa bill có
-																					id là ${bill.billId} ?</p>
-																				<p class="text-danger">
-																					<small>Bill này sẽ không thể phục hồi lại</small>
-																				</p>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="button" class="btn btn-default"
-																					data-dismiss="modal">Trở về</button>
-																				<button type="button"
-																					class="btn btn-danger confirm-delete-btn">Xóa</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
 															</td>
 														</tr>
 													</c:forEach>

@@ -37,23 +37,22 @@
 												<div class="form-group col-6">
 													<label for="product" class="form-label font-weight-bold">Product
 														Name</label>
-													<form:select class="form-control" path="product.productId">
+													<form:select class="form-control" path="productId">
 														<%-- 														<form:option value="" selected="selected">Select Product</form:option>
  --%>
 														<form:options items="${productMap}" />
 													</form:select>
-													<form:errors path="product.productId" class="text-danger"></form:errors>
+													<form:errors path="productId" class="text-danger"></form:errors>
 												</div>
 												<div class="form-group col-6">
 													<label for="discount" class="form-label font-weight-bold">Discount
 														ID</label>
-													<form:select class="form-control p-1"
-														path="discount.discountId">
+													<form:select class="form-control p-1" path="discountId">
 														<%-- 														<form:option value="" selected="selected">Select Discount</form:option>
  --%>
 														<form:options items="${discountMap}" />
 													</form:select>
-													<form:errors path="discount.discountId" class="text-danger"></form:errors>
+													<form:errors path="discountId" class="text-danger"></form:errors>
 												</div>
 
 												<div class="input-group-appenda col-12 ">

@@ -163,11 +163,4 @@ li a b {
 .btn-cancel:hover {
 	background-color: gray;
 }
-
-.label-no-margin label {
-	margin: 0;
-	display: flex;
-	/* text-align: center; */
-	align-items: center;
-}
 </style>

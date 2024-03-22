@@ -29,8 +29,8 @@ public class AddDiscountForm {
 	@NotNull(message = "Ngày kết thúc không được để trống")
 	private LocalDate endDiscountDate;
 
-	private Discount discount;
-	private Product product;
+	private int discountId;
+	private int productId;
 
 	public AddDiscountForm(Discount discount) {
 		this.discountPercent = discount.getDiscountPercent();
@@ -39,7 +39,7 @@ public class AddDiscountForm {
 	}
 
 	public AddDiscountForm(ProductDiscount productDiscount) {
-		this.discount = productDiscount.getDiscount();
-		this.product = productDiscount.getProduct();
+		this.discountId = productDiscount.getDiscount().getDiscountId();
+		this.productId = productDiscount.getProduct().getProductId();
 	}
 }

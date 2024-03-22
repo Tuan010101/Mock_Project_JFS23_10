@@ -17,8 +17,8 @@
 <div id="sidebar">
 	<ul class="list-group">
 		<a href="${pageContext.request.contextPath}/admin/contacts">
-			<li class="list-group-item"><i class="icomoon icon-ticket pr-2"></i>Contacts
-				report</li>
+			<li class="list-group-item"><i
+				class="icomoon icon-address-book pr-2"></i>Contacts report</li>
 		</a>
 		<a href="${pageContext.request.contextPath}/admin/products">
 			<li class="list-group-item"><i class="icomoon icon-tags pr-1"></i>Product

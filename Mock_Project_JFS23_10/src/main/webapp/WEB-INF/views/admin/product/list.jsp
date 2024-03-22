@@ -99,12 +99,12 @@
 															<td>${maxDiscountPercent}%</td>
 
 
-															<td class="text-center" style="font-size: 20px">${product.deleted == false ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-close text-danger"></i>'}</td>
+															<td class="text-center" style="font-size: 20px">${product.deleted == false ? '<p class=" text-success m">Enable</P>' : '<p class="text-danger"Disable</p>'}</td>
 															<td class="table-td-center">
 																<!-- Edit button --> <a
 																href="${pageContext.request.contextPath}/admin/products/edit/${product.productId}"
 																class="btn btn-primary btn-sm trash">Edit</a> <!-- Delete button -->
-																<c:if test="${product.deleted= false}">
+																<c:if test="${product.deleted= true}">
 																	<a class="btn btn-primary btn-sm">
 																		<p class="m-0" data-toggle="modal"
 																			data-target="#deleteModal${status.count}"
@@ -118,19 +118,16 @@
 																						method="post">
 																						<div class="modal-header">
 																							<h4 class="modal-title"
-																								style="color: #0b0b0b !important;">Xóa sản
-																								phẩm</h4>
+																								style="color: #0b0b0b !important;">Delete
+																								sản phẩm</h4>
 																							<button type="button" class="close"
 																								data-dismiss="modal" aria-hidden="true">&times;</button>
 																						</div>
 																						<div class="modal-body">
-																							<p class="text-dark">Bạn có chắc là xóa sản
-																								phẩm có tên ${product.productName} và id là
+																							<p class="text-dark">Bạn có chắc là Delete
+																								sản phẩm có tên ${product.productName} và id là
 																								${product.productId} ?</p>
-																							<p class="text-danger">
-																								<small>Sản phẩm này sẽ không thể phục
-																									hồi lại</small>
-																							</p>
+
 																						</div>
 																						<div class="modal-footer">
 																							<input type="button" class="btn btn-default"
@@ -142,9 +139,7 @@
 																			</div>
 																		</div>
 																	</a>
-																</c:if> <c:if test="${product.deleted= true}">
-
-
+																</c:if> <c:if test="${product.deleted= false}">
 																	<a class="btn btn-primary btn-sm">
 																		<p class="m-0" data-toggle="modal"
 																			data-target="#deleteModal${status.count}"
@@ -158,19 +153,16 @@
 																						method="post">
 																						<div class="modal-header">
 																							<h4 class="modal-title"
-																								style="color: #0b0b0b !important;">Xóa sản
-																								phẩm</h4>
+																								style="color: #0b0b0b !important;">Un
+																								Delete sản phẩm</h4>
 																							<button type="button" class="close"
 																								data-dismiss="modal" aria-hidden="true">&times;</button>
 																						</div>
 																						<div class="modal-body">
-																							<p class="text-dark">Bạn có chắc là xóa sản
-																								phẩm có tên ${product.productName} và id là
+																							<p class="text-dark">Bạn có chắc là Un Delete
+																								sản phẩm có tên ${product.productName} và id là
 																								${product.productId} ?</p>
-																							<p class="text-danger">
-																								<small>Sản phẩm này sẽ không thể phục
-																									hồi lại</small>
-																							</p>
+
 																						</div>
 																						<div class="modal-footer">
 																							<input type="button" class="btn btn-default"

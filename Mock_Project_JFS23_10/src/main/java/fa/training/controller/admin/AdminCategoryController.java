@@ -90,8 +90,9 @@ public class AdminCategoryController {
 
 	}
 
-	@RequestMapping("/categories/delete/{id}")
+	@PostMapping("/categories/delete/{id}")
 	public String doDeleteCategories(@PathVariable int id) {
+
 		Category category = categoryService.findById(id);
 
 		Set<Product> products = category.getProducts();
@@ -100,8 +101,24 @@ public class AdminCategoryController {
 		}
 		productService.saveAll(products);
 
-
 		category.setDeleted(true);
+		categoryService.save(category);
+
+		return "redirect:/admin/categories";
+	}
+
+	@PostMapping("/categories/Undelete/{id}")
+	public String doUnDeleteCategories(@PathVariable int id) {
+
+		Category category = categoryService.findById(id);
+
+		Set<Product> products = category.getProducts();
+		for (Product product : products) {
+			product.setDeleted(false);
+		}
+		productService.saveAll(products);
+
+		category.setDeleted(false);
 		categoryService.save(category);
 
 		return "redirect:/admin/categories";

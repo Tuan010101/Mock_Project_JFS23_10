@@ -24,7 +24,6 @@ import fa.training.entities.Discount;
 import fa.training.entities.Product;
 import fa.training.entities.ProductDiscount;
 import fa.training.form.AddDiscountForm;
-import fa.training.form.AddProductDiscountForm;
 import fa.training.repository.DiscountRepository;
 import fa.training.repository.ProductDiscountRepository;
 import fa.training.repository.ProductRepository;
@@ -83,45 +82,19 @@ public class AdminDiscountController {
 	}
 
 	@PostMapping("/discount")
-	public String createProductDiscount(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-			@RequestParam(value = "percent", defaultValue = "0") int percent, Model model) {
-		int pageSize = 5;
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-
-		AddDiscountForm addDiscountForm = new AddDiscountForm();
-
-		Map<Integer, String> productMap = productRepository.findAll().stream()
-				.collect(Collectors.toMap(Product::getProductId, Product::getProductName));
-
-		Map<Integer, Integer> discountMap = discountService.findAll().stream()
-				.collect(Collectors.toMap(Discount::getDiscountId, Discount::getDiscountId));
-
-		model.addAttribute("addDiscountForm", addDiscountForm);
-		model.addAttribute("productId", new Product());
-		model.addAttribute("discountId", new Discount());
-		model.addAttribute("productMap", productMap);
-		model.addAttribute("discountMap", discountMap);
-
-		// Trả về trang thực hiện việc hiển thị danh sách discount
-		Page<Discount> appDiscountPage;
-		if (percent > 0) {
-			appDiscountPage = discountService.findByPercent(pageable, percent);
-		} else {
-			appDiscountPage = discountService.findAll(pageable);
-		}
-		model.addAttribute("appDiscountPage", appDiscountPage);
-		System.out.println(appDiscountPage.getNumber());
-		System.out.println(appDiscountPage.getTotalPages());
-
-		// Tạo mới ProductDiscount
+	public String createProductDiscount(@ModelAttribute("addDiscountForm") @Valid AddDiscountForm addDiscountForm,
+			BindingResult bindingResult, Model model) {
 		ProductDiscount productDiscount = new ProductDiscount();
-		productDiscount.setProduct(addDiscountForm.getProduct());
-		productDiscount.setDiscount(addDiscountForm.getDiscount());
+		Discount discount = new Discount();
+		Product product = new Product();
+		discount.setDiscountId(addDiscountForm.getDiscountId());
+		product.setProductId(addDiscountForm.getProductId());
 
-		// Lưu ProductDiscount vào cơ sở dữ liệu
+		productDiscount.setProduct(product);
+		productDiscount.setDiscount(discount);
 		productDiscountService.save(productDiscount);
 
-		return "admin/discount/list";
+		return "redirect:/admin/discount?status=save_success";
 	}
 
 	@GetMapping("/discount/create")

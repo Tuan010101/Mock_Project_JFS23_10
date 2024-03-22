@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category findById(int categoryId) {
-		return categoryRepository.findById(categoryId).get();
+		return categoryRepository.findByIdWithProducts(categoryId);
 	}
 
 	@Override
@@ -46,6 +46,5 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> findAllByDeletedFalse() {
 		return categoryRepository.findAllByDeletedFalse();
 	}
-
 
 }

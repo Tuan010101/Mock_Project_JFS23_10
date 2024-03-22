@@ -55,7 +55,7 @@
 													<tr>
 														<th>#</th>
 														<th>Full Name</th>
-														<th>Status</th>
+														<th>Deleted</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -65,52 +65,85 @@
 														<tr>
 															<td>${categories.number * categories.size + status.index + 1}</td>
 															<td>${category.categoryName}</td>
-															<td class="text-center" style="font-size: 20px">${contact.replied == true ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-close text-danger"></i>'}</td>
-
-
+															<td class="text-center" style="font-size: 20px">${category.deleted == false ? '<p class=" text-success m-0">Enable</P>' : '<p class="text-danger m-0"Disable</p>'}</td>
 															<td class="table-td-center">
 																<!-- Edit button --> <a
 																href="${pageContext.request.contextPath}/admin/categories/edit/${category.categoryId}"
 																class="btn btn-primary btn-sm trash ">Edit</a> <!-- Delete button -->
 																<%-- <a
 																href="${pageContext.request.contextPath}/admin/categories/delete/${category.categoryId}"
-																class="btn btn-primary btn-sm edit">Delete</a> --%> 
-																<a class="btn btn-primary btn-sm">
-																	<p class="m-0" data-toggle="modal"
-																		data-target="#deleteModal${status.count}"
-																		title="Delete">Delete</p>
-																	<div id="deleteModal${status.count}" class="modal fade">
-																		<div class="modal-dialog">
-																			<div class="modal-content">
-																				<form action="/products/delete/${product.productId}"
-																					method="post">
-																					<div class="modal-header">
-																						<h4 class="modal-title"
-																							style="color: #0b0b0b !important;">Xóa sản
-																							phẩm</h4>
-																						<button type="button" class="close"
-																							data-dismiss="modal" aria-hidden="true">&times;
-																						</button>
-																					</div>
-																					<div class="modal-body">
-																						<p class="text-dark">Bạn có chắc là xóa sản
-																							phẩm có tên ${category.categoryName} và id là
-																							${category.categoryId} ?</p>
-																						<p class="text-danger">
-																							<small>Sản phẩm này sẽ không thể phục hồi
-																								lại</small>
-																						</p>
-																					</div>
-																					<div class="modal-footer">
-																						<input type="button" class="btn btn-default"
-																							data-dismiss="modal" value="Trở về"> <input
-																							type="submit" class="btn btn-danger" value="Xóa">
-																					</div>
-																				</form>
+																class="btn btn-primary btn-sm edit">Delete</a> --%> <c:if
+																	test="${category.deleted= true}">
+																	<a class="btn btn-primary btn-sm">
+																		<p class="m-0" data-toggle="modal"
+																			data-target="#deleteModal${status.count}"
+																			title="Delete">Delete</p>
+																		<div id="deleteModal${status.count}"
+																			class="modal fade">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<form id="deleteForm"
+																						action="${pageContext.request.contextPath}/admin/categories/delete/${category.categoryId}"
+																						method="post">
+																						<div class="modal-header">
+																							<h4 class="modal-title"
+																								style="color: #0b0b0b !important;">Delete
+																								Category</h4>
+																							<button type="button" class="close"
+																								data-dismiss="modal" aria-hidden="true">&times;</button>
+																						</div>
+																						<div class="modal-body">
+																							<p class="text-dark">Bạn có chắc là Delete
+																								Category có tên ${category.categoryName} và id
+																								là ${category.categoryId} ?</p>
+
+																						</div>
+																						<div class="modal-footer">
+																							<input type="button" class="btn btn-default"
+																								data-dismiss="modal" value="Trở về"> <input
+																								type="submit" class="btn btn-danger" value="Xóa">
+																						</div>
+																					</form>
+																				</div>
 																			</div>
 																		</div>
-																	</div>
-															</a>
+																	</a>
+																</c:if> <c:if test="${category.deleted= false}">
+																	<a class="btn btn-primary btn-sm">
+																		<p class="m-0" data-toggle="modal"
+																			data-target="#deleteModal${status.count}"
+																			title="Delete">Un Delete</p>
+																		<div id="deleteModal${status.count}"
+																			class="modal fade">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<form
+																						action="/category/Undelete/${category.categoryId}"
+																						method="post">
+																						<div class="modal-header">
+																							<h4 class="modal-title"
+																								style="color: #0b0b0b !important;">Un
+																								Delete sản Category</h4>
+																							<button type="button" class="close"
+																								data-dismiss="modal" aria-hidden="true">&times;</button>
+																						</div>
+																						<div class="modal-body">
+																							<p class="text-dark">Bạn có chắc là Un Delete
+																								Category có tên ${category.categoryName} và id
+																								là ${category.categoryId} ?</p>
+
+																						</div>
+																						<div class="modal-footer">
+																							<input type="button" class="btn btn-default"
+																								data-dismiss="modal" value="Trở về"> <input
+																								type="submit" class="btn btn-danger" value="Xóa">
+																						</div>
+																					</form>
+																				</div>
+																			</div>
+																		</div>
+																	</a>
+																</c:if>
 															</td>
 														</tr>
 													</c:forEach>
@@ -121,24 +154,24 @@
 											<div>
 												<ul class="pagination">
 													<li
-														class="page-item ${products.number == 0 ? 'disabled' : ''}">
+														class="page-item ${category.number == 0 ? 'disabled' : ''}">
 														<a class="page-link" href="?pageNo=1&keyword=${keyword}">First</a>
 													</li>
 													<c:forEach var="i"
-														begin="${(products.number - 1) ge 0 ? products.number - 1 : 0}"
-														end="${(products.number + 1) le products.totalPages - 2 ? (products.number + 1) : Math.max(0, products.totalPages - 1)}"
+														begin="${(category.number - 1) ge 0 ? category.number - 1 : 0}"
+														end="${(category.number + 1) le category.totalPages - 2 ? (category.number + 1) : Math.max(0, category.totalPages - 1)}"
 														varStatus="loop">
 														<li
-															class="page-item ${i == products.number ? 'active' : ''}">
+															class="page-item ${i == category.number ? 'active' : ''}">
 															<a class="page-link"
 															href="?pageNo=${i + 1}&keyword=${keyword}"> ${i + 1}
 														</a>
 														</li>
 													</c:forEach>
 													<li
-														class="page-item ${products.number == Math.max(0, products.totalPages - 1 ) ? 'disabled' : ''}">
+														class="page-item ${category.number == Math.max(0, category.totalPages - 1 ) ? 'disabled' : ''}">
 														<a class="page-link"
-														href="?pageNo=${products.totalPages}&keyword=${keyword}">Last</a>
+														href="?pageNo=${category.totalPages}&keyword=${keyword}">Last</a>
 													</li>
 												</ul>
 											</div>

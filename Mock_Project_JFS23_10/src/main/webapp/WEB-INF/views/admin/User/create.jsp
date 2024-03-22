@@ -55,8 +55,7 @@
 										<div class="form-group col-3">
 											<label for="fullName" class="form-label font-weight-bold">Full
 												Name</label>
-											<form:input type="text" class="form-control"
-												path="fullName" />
+											<form:input type="text" class="form-control" path="fullName" />
 											<form:errors path="fullName" class="text-danger"></form:errors>
 										</div>
 										<div class="form-group col-3">
@@ -71,21 +70,17 @@
 												path="phoneNumber" />
 											<form:errors path="phoneNumber" class="text-danger"></form:errors>
 										</div>
-										<div class="form-group col-3">
-											<label for="verifyCode" class="form-label font-weight-bold">Verify
-												Code</label>
-											<form:input type="number" class="form-control"
-												path="verifyCode" />
-											<form:errors path="verifyCode" class="text-danger"></form:errors>
-										</div>
 
-										<div class="form-group col-3">
-											<label for="roleId" class="form-label font-weight-bold">Role</label>
-											<form:select class="form-control" path="roleId">
-												<form:options items="${rolesMap}" />
-											</form:select>
-
-
+										<div class="form-group col-6 ">
+											<label for="roleId" class="form-label font-weight-bold">Roles</label>
+											<div class="d-flex h-50 ">
+												<c:forEach var="role" items="${rolesMap}">
+													<div class="d-flex label-no-margin ">
+														<form:checkbox path="roleId" class="mr-1 ml-2"
+															value="${role.key}" label="${role.value}" />
+													</div>
+												</c:forEach>
+											</div>
 											<form:errors path="roleId" class="text-danger"></form:errors>
 										</div>
 										<div class="col-12">

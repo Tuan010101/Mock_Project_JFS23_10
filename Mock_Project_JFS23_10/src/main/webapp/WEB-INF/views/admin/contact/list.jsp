@@ -33,12 +33,6 @@
 									<div class="tile">
 										<div class="tile-body">
 											<div class="row element-button justify-content-between p-3">
-												<div class="col-sm-2 d-flex align-items-center p-0">
-													<a class="btn btn-add btn-sm p-2"
-														href="${pageContext.request.contextPath}/admin/products/create"
-														title="Thêm"><i class="fas fa-plus"></i> Create new
-														Product</a>
-												</div>
 												<form class="mb-2 d-flex seach align-items-center">
 													<input type="text" class="form-control"
 														placeholder="Search by Full Name, Email, or Subject"
@@ -72,11 +66,12 @@
 															<td>${contact.subject}</td>
 															<td>${contact.message}</td>
 															<td>${contact.createdDate}</td>
-															<td class="text-center" style="font-size: 20px">${contact.replied == true ? '<i class="icomoon icon-thumbs-up text-success"></i>' : '<i class="icomoon icon-thumbs-down text-danger"></i>'}</td>
+															<td class="text-center" style="font-size: 20px">${contact.replied == false ? '<p class=" text-success m-0">Enable</P>' : '<p class="text-danger m-0"Disable</p>'}</td>
 															<td>
 																<!-- Edit button --> <a
 																href="${pageContext.request.contextPath}/admin/contacts/${contact.contactId}"
-																class="btn btn-primary btn-sm trash ">View</a> <!-- Reply button --> <a
+																class="btn btn-primary btn-sm trash ">View</a> <!-- Reply button -->
+																<a
 																href="${pageContext.request.contextPath}/admin/contacts/reply/${contact.contactId}"
 																class="btn btn-primary btn-sm edit">Reply</a>
 															</td>
